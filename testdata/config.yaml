@@ -1,0 +1,25 @@
+logger:
+  is_json: true
+  add_source: false
+  level: debug
+  set_file: false
+  file_name: logs/app.log
+  max_size: 10
+  max_backups: 3
+  max_age: 7
+
+postgres:
+  host: localhost
+  user: admin
+  password: test
+  dbname: app_db
+  port: 54321
+  sslmode: disable
+  pool_max_conns: 10
+  migrations_dir: file://migrations
+  query_timeout: 2000000000 # 2 second
+
+httpserver:
+  host: 127.0.0.1
+  port: 50050
+  gin_mode: debug # debug, test, release

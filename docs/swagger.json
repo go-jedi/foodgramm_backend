@@ -1,0 +1,12 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a application for telegram web apps application.",
+        "title": "API application for telegram web apps application foodgrammm",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:50050",
+    "basePath": "/v1",
+    "paths": {}
+}
