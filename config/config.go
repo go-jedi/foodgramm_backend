@@ -31,6 +31,22 @@ type PostgresConfig struct {
 	QueryTimeout  int64  `yaml:"query_timeout"`
 }
 
+type RedisConfig struct {
+	Addr            string `yaml:"addr"`
+	Password        string `yaml:"password"`
+	DB              int    `yaml:"db"`
+	DialTimeout     int    `yaml:"dial_timeout"`
+	ReadTimeout     int    `yaml:"read_timeout"`
+	WriteTimeout    int    `yaml:"write_timeout"`
+	PoolSize        int    `yaml:"pool_size"`
+	MinIdleConns    int    `yaml:"min_idle_conns"`
+	PoolTimeout     int    `yaml:"pool_timeout"`
+	MaxRetries      int    `yaml:"max_retries"`
+	MinRetryBackoff int    `yaml:"min_retry_backoff"`
+	MaxRetryBackoff int    `yaml:"max_retry_backoff"`
+	DurCacheUpdate  int    `yaml:"dur_cache_update"`
+}
+
 type HTTPServerConfig struct {
 	Host    string `yaml:"host"`
 	Port    int    `yaml:"port"`
@@ -40,6 +56,7 @@ type HTTPServerConfig struct {
 type Config struct {
 	Logger     LoggerConfig     `yaml:"logger"`
 	Postgres   PostgresConfig   `yaml:"postgres"`
+	Redis      RedisConfig      `yaml:"redis"`
 	HTTPServer HTTPServerConfig `yaml:"httpserver"`
 }
 

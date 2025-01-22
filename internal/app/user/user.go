@@ -11,6 +11,7 @@ import (
 	userService "github.com/go-jedi/foodgrammm-backend/internal/service/user"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
 	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
+	"github.com/go-jedi/foodgrammm-backend/pkg/redis"
 	"github.com/go-jedi/foodgrammm-backend/pkg/validator"
 )
 
@@ -19,6 +20,7 @@ type User struct {
 	logger    *logger.Logger
 	validator *validator.Validator
 	db        *postgres.Postgres
+	cache     *redis.Redis
 
 	// user
 	userRepository repository.UserRepository
@@ -31,12 +33,14 @@ func NewUser(
 	logger *logger.Logger,
 	validator *validator.Validator,
 	db *postgres.Postgres,
+	cache *redis.Redis,
 ) *User {
 	return &User{
 		engine:    engine,
 		logger:    logger,
 		validator: validator,
 		db:        db,
+		cache:     cache,
 	}
 }
 
@@ -60,6 +64,7 @@ func (u *User) UserService(ctx context.Context) service.UserService {
 		u.userService = userService.NewService(
 			u.UserRepository(ctx),
 			u.logger,
+			u.cache,
 		)
 	}
 

@@ -88,7 +88,7 @@ func (hs *HTTPServer) Start() error {
 	}
 
 	if err := hs.gracefulStop(s); err != nil {
-		return err
+		return fmt.Errorf("httpserver graceful stop error: %w", err)
 	}
 
 	return nil
