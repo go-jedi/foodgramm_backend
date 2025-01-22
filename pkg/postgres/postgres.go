@@ -55,17 +55,17 @@ func NewPostgres(ctx context.Context, cfg config.PostgresConfig) (*Postgres, err
 
 	pool, err := pgxpool.New(ctx, p.generateDsn())
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to connect to postgres: %w", err)
 	}
 
 	if err := pool.Ping(ctx); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to ping postgres: %w", err)
 	}
 
 	p.Pool = pool
 
 	if err := p.migrationsUp(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to apply migrations: %w", err)
 	}
 
 	return p, nil

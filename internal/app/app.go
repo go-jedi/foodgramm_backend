@@ -8,6 +8,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/httpserver"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
 	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
+	"github.com/go-jedi/foodgrammm-backend/pkg/redis"
 	"github.com/go-jedi/foodgrammm-backend/pkg/validator"
 )
 
@@ -17,6 +18,7 @@ type App struct {
 	validator *validator.Validator
 	hs        *httpserver.HTTPServer
 	db        *postgres.Postgres
+	cache     *redis.Redis
 }
 
 func NewApp(ctx context.Context) (*App, error) {
@@ -41,6 +43,7 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initLogger,
 		a.initValidator,
 		a.initPostgres,
+		a.initRedis,
 		a.initHTTPServer,
 		a.initModules,
 	}
@@ -86,6 +89,16 @@ func (a *App) initPostgres(ctx context.Context) (err error) {
 	return nil
 }
 
+// initRedis initialize redis.
+func (a *App) initRedis(ctx context.Context) (err error) {
+	a.cache, err = redis.NewRedis(ctx, a.cfg.Redis, a.db)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // initHTTPServer initialize http server.
 func (a *App) initHTTPServer(_ context.Context) (err error) {
 	a.hs, err = httpserver.NewHTTPServer(a.cfg.HTTPServer)
@@ -98,7 +111,7 @@ func (a *App) initHTTPServer(_ context.Context) (err error) {
 
 // initModules initialize modules.
 func (a *App) initModules(ctx context.Context) error {
-	user.NewUser(a.hs.Engine, a.logger, a.validator, a.db).Init(ctx)
+	user.NewUser(a.hs.Engine, a.logger, a.validator, a.db, a.cache).Init(ctx)
 
 	return nil
 }
