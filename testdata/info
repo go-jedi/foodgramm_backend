@@ -5,7 +5,11 @@ migrations:
 
 create:
     migrate create -ext sql -dir migrations -seq create_users_table
+    migrate create -ext sql -dir migrations -seq create_categories_table
+    migrate create -ext sql -dir migrations -seq create_products_table
+    migrate create -ext sql -dir migrations -seq create_recipes_table
+    migrate create -ext sql -dir migrations -seq create_recipe_ingredients_table
 
 execute:
-    migrate -database postgresql://escort:escort@localhost:54321/escort_db?sslmode=disable -path migrations up
-    migrate -database postgresql://escort:escort@localhost:54321/escort_db?sslmode=disable -path migrations down
+    migrate -database postgresql://admin:test@localhost:54321/app_db?sslmode=disable -path migrations up
+    migrate -database postgresql://admin:test@localhost:54321/app_db?sslmode=disable -path migrations down
