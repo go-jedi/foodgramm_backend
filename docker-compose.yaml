@@ -1,6 +1,20 @@
+volumes:
+  postgres_volume:
+
 services:
-  app:
-    build: .
-    restart: always
+#  app:
+#    build: .
+#    restart: always
+#    ports:
+#      - '50050:50050'
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
-      - '50050:50050'
+      - "54321:5432"
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
