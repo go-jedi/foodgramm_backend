@@ -3,13 +3,13 @@ package user
 import "time"
 
 type User struct {
-	ID         int64
-	TelegramID int64
-	Username   string
-	FirstName  string
-	LastName   string
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
+	ID         int64     `json:"id"`
+	TelegramID int64     `json:"telegram_id"`
+	Username   string    `json:"username"`
+	FirstName  string    `json:"first_name"`
+	LastName   string    `json:"last_name"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 //

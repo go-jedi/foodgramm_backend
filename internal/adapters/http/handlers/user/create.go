@@ -7,12 +7,12 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
 
-func (h *Handler) Create(c *gin.Context) {
+func (h *Handler) create(c *gin.Context) {
 	var dto user.CreateDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":  "invalid request",
+			"error":  "failed to bind body",
 			"detail": err.Error(),
 		})
 		return
@@ -21,7 +21,7 @@ func (h *Handler) Create(c *gin.Context) {
 	if err := h.validator.Struct(dto); err != nil {
 		h.logger.Error("failed to validate struct", "error", err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":  "invalid request",
+			"error":  "failed to validate struct",
 			"detail": err.Error(),
 		})
 		return
