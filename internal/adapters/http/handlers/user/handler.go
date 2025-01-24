@@ -33,6 +33,7 @@ func NewHandler(
 func (h *Handler) initRoutes(engine *gin.Engine) {
 	api := engine.Group("/v1/user")
 	{
-		api.POST("", h.Create)
+		api.POST("", h.create)
+		api.GET("/:userID", h.getByID)
 	}
 }
