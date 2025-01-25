@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY, -- Уникальный идентификатор.
-    telegram_id BIGINT NOT NULL UNIQUE, -- Telegram id пользователя.
+    telegram_id TEXT NOT NULL UNIQUE, -- Telegram id пользователя.
     username VARCHAR(255) NOT NULL UNIQUE, -- Username пользователя.
     first_name VARCHAR(255) NOT NULL, -- Имя пользователя.
     last_name VARCHAR(255) NOT NULL, -- Фамилия пользователя.

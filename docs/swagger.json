@@ -8,5 +8,29 @@
     },
     "host": "localhost:50050",
     "basePath": "/v1",
-    "paths": {}
+    "paths": {
+        "/ping": {
+            "get": {
+                "description": "Check server status",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health"
+                ],
+                "summary": "Ping",
+                "responses": {
+                    "200": {
+                        "description": "message: pong",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
