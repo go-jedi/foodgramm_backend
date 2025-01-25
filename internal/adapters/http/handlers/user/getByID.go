@@ -19,7 +19,12 @@ func (h *Handler) getByID(c *gin.Context) {
 		return
 	}
 
-	userIDInt, err := strconv.ParseInt(userID, 10, 64)
+	const (
+		base    = 10
+		bitSize = 64
+	)
+
+	userIDInt, err := strconv.ParseInt(userID, base, bitSize)
 	if err != nil {
 		h.logger.Error("failed parse string to int64", "error", err)
 		c.JSON(http.StatusBadRequest, gin.H{

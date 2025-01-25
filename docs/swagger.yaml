@@ -5,5 +5,20 @@ info:
   description: This is a application for telegram web apps application.
   title: API application for telegram web apps application foodgrammm
   version: "1.0"
-paths: {}
+paths:
+  /ping:
+    get:
+      description: Check server status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message: pong'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Ping
+      tags:
+      - Health
 swagger: "2.0"

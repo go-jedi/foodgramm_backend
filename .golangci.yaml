@@ -57,8 +57,8 @@ issues:
     - is not allowed from list 'Main'
     - a blank import should be only in a main or test package
     - Comment should end in a period
+    - lines are duplicate
 #    - Magic number
 #    - G306
 #    - File is not `gofumpt`-ed
-#    - lines are duplicate
 #    - fiber (typecheck)
