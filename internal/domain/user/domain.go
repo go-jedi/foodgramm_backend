@@ -1,6 +1,9 @@
 package user
 
-import "time"
+import (
+	"encoding/json"
+	"time"
+)
 
 type User struct {
 	ID         int64     `json:"id"`
@@ -21,6 +24,23 @@ type CreateDTO struct {
 	Username   string `json:"username" validate:"required"`
 	FirstName  string `json:"first_name" validate:"required"`
 	LastName   string `json:"last_name" validate:"required"`
+}
+
+//
+// LIST
+//
+
+type ListDTO struct {
+	Page int `json:"page" validate:"required,min=1"`
+	Size int `json:"size" validate:"required,min=1"`
+}
+
+type ListResponse struct {
+	TotalCount  int             `json:"total_count"`
+	TotalPages  int             `json:"total_pages"`
+	CurrentPage int             `json:"current_page"`
+	Size        int             `json:"size"`
+	Data        json.RawMessage `json:"data"`
 }
 
 //
