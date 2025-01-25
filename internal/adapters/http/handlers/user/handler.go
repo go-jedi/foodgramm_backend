@@ -39,5 +39,6 @@ func (h *Handler) initRoutes(engine *gin.Engine) {
 		api.GET("/all", h.all)
 		api.GET("/id/:userID", h.getByID)
 		api.GET("/telegram/:telegramID", h.getByTelegramID)
+		api.PUT("", h.update)
 	}
 }
