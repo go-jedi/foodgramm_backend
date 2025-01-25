@@ -22,3 +22,12 @@ type CreateDTO struct {
 	FirstName  string `json:"first_name" validate:"required"`
 	LastName   string `json:"last_name" validate:"required"`
 }
+
+//
+// EXISTS
+//
+
+type ExistsDTO struct {
+	TelegramID string `json:"telegram_id" validate:"required,min=1"`
+	Username   string `json:"username" validate:"required"`
+}

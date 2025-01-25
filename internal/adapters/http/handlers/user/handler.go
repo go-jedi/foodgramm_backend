@@ -34,6 +34,7 @@ func (h *Handler) initRoutes(engine *gin.Engine) {
 	api := engine.Group("/v1/user")
 	{
 		api.POST("", h.create)
+		api.POST("/exists", h.exists)
 		api.GET("/id/:userID", h.getByID)
 		api.GET("/telegram/:telegramID", h.getByTelegramID)
 	}
