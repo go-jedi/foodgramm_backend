@@ -8,6 +8,7 @@ import (
 
 type UserService interface {
 	Create(ctx context.Context, dto user.CreateDTO) (user.User, error)
+	All(ctx context.Context) ([]user.User, error)
 	List(ctx context.Context, dto user.ListDTO) (user.ListResponse, error)
 	GetByID(ctx context.Context, userID int64) (user.User, error)
 	GetByTelegramID(ctx context.Context, telegramID string) (user.User, error)
