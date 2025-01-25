@@ -7,8 +7,8 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
-func (s *serv) Create(ctx context.Context, dto user.CreateDTO) (user.User, error) {
-	ie, err := s.userRepository.Exists(ctx, dto.TelegramID, dto.Username)
+func (s *serv) Update(ctx context.Context, dto user.UpdateDTO) (user.User, error) {
+	ie, err := s.userRepository.ExistsExceptCurrent(ctx, dto.ID, dto.TelegramID, dto.Username)
 	if err != nil {
 		return user.User{}, err
 	}
@@ -17,5 +17,5 @@ func (s *serv) Create(ctx context.Context, dto user.CreateDTO) (user.User, error
 		return user.User{}, apperrors.ErrUserAlreadyExists
 	}
 
-	return s.userRepository.Create(ctx, dto)
+	return s.userRepository.Update(ctx, dto)
 }

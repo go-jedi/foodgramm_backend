@@ -51,3 +51,15 @@ type ExistsDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 	Username   string `json:"username" validate:"required"`
 }
+
+//
+// UPDATE
+//
+
+type UpdateDTO struct {
+	ID         int64  `json:"id"`
+	TelegramID string `json:"telegram_id"`
+	Username   string `json:"username"`
+	FirstName  string `json:"first_name"`
+	LastName   string `json:"last_name"`
+}

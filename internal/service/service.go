@@ -13,7 +13,7 @@ type UserService interface {
 	GetByID(ctx context.Context, userID int64) (user.User, error)
 	GetByTelegramID(ctx context.Context, telegramID string) (user.User, error)
 	Exists(ctx context.Context, telegramID string, username string) (bool, error)
-	// Update(ctx context.Context) (user.User, error)
+	Update(ctx context.Context, dto user.UpdateDTO) (user.User, error)
 	// Delete(ctx context.Context) (user.User, error)
 }
 

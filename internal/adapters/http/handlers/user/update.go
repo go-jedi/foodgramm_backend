@@ -1,16 +1,14 @@
 package user
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
-func (h *Handler) create(c *gin.Context) {
-	var dto user.CreateDTO
+func (h *Handler) update(c *gin.Context) {
+	var dto user.UpdateDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -29,24 +27,15 @@ func (h *Handler) create(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.Create(c, dto)
+	result, err := h.userService.Update(c, dto)
 	if err != nil {
-		if errors.Is(err, apperrors.ErrUserAlreadyExists) {
-			h.logger.Error("user already exists", "error", err)
-			c.JSON(http.StatusConflict, gin.H{
-				"error":  "user already exists",
-				"detail": err.Error(),
-			})
-			return
-		}
-
-		h.logger.Error("failed to create user", "error", err)
+		h.logger.Error("failed to update user", "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error":  "failed to create user",
+			"error":  "failed to update user",
 			"detail": err.Error(),
 		})
 		return
 	}
 
-	c.JSON(http.StatusCreated, result)
+	c.JSON(http.StatusOK, result)
 }
