@@ -63,3 +63,17 @@ type UpdateDTO struct {
 	FirstName  string `json:"first_name"`
 	LastName   string `json:"last_name"`
 }
+
+//
+// DELETE
+//
+
+type DeleteDTO struct {
+	ID         int64  `json:"id"`
+	TelegramID string `json:"telegram_id"`
+}
+
+type DeleteResponse struct {
+	ID         int64  `json:"id"`
+	TelegramID string `json:"telegram_id"`
+}

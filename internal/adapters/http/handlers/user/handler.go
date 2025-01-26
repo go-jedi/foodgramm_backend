@@ -40,5 +40,7 @@ func (h *Handler) initRoutes(engine *gin.Engine) {
 		api.GET("/id/:userID", h.getByID)
 		api.GET("/telegram/:telegramID", h.getByTelegramID)
 		api.PUT("", h.update)
+		api.DELETE("/id/:userID", h.deleteByID)
+		api.DELETE("/telegram/:telegramID", h.deleteByTelegramID)
 	}
 }
