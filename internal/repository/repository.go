@@ -15,7 +15,8 @@ type UserRepository interface {
 	Exists(ctx context.Context, telegramID string, username string) (bool, error)
 	ExistsExceptCurrent(ctx context.Context, id int64, telegramID string, username string) (bool, error)
 	Update(ctx context.Context, dto user.UpdateDTO) (user.User, error)
-	// Delete(ctx context.Context) (user.User, error)
+	DeleteByID(ctx context.Context, id int64) (int64, error)
+	DeleteByTelegramID(ctx context.Context, telegramID string) (string, error)
 }
 
 type ProductRepository interface{}
