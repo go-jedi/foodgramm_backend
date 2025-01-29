@@ -5,7 +5,7 @@ package payment
 //
 
 type CreateDTO struct {
-	TelegramID string `json:"telegram_id"`
+	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 }
 
 //
@@ -13,5 +13,5 @@ type CreateDTO struct {
 //
 
 type CheckStatusDTO struct {
-	TelegramID string `json:"telegram_id"`
+	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 }
