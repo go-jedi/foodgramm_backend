@@ -1,4 +1,4 @@
-package user
+package product
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
-func (h *Handler) getByID(c *gin.Context) {
+func (h *Handler) getExcludeProductsByUserID(c *gin.Context) {
 	userID := c.Param("userID")
 	if userID == "" {
 		h.logger.Error("failed to get param userID", "error", apperrors.ErrParamIsRequired)
@@ -43,11 +43,11 @@ func (h *Handler) getByID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.GetByID(c, userIDInt)
+	result, err := h.productService.GetExcludeProductsByUserID(c, userIDInt)
 	if err != nil {
-		h.logger.Error("failed to get user by id", "error", err)
+		h.logger.Error("failed to get exclude products by user id", "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error":  "failed to get user by id",
+			"error":  "failed to get exclude products by user id",
 			"detail": err.Error(),
 		})
 		return

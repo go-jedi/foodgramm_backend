@@ -7,8 +7,8 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 )
 
-func (h *Handler) addExcludeProductsByID(c *gin.Context) {
-	var dto product.AddExcludeProductsByIDDTO
+func (h *Handler) addExcludeProductsByUserID(c *gin.Context) {
+	var dto product.AddExcludeProductsByUserIDDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -27,7 +27,7 @@ func (h *Handler) addExcludeProductsByID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.productService.AddExcludeProductsByID(c, dto)
+	result, err := h.productService.AddExcludeProductsByUserID(c, dto)
 	if err != nil {
 		h.logger.Error("failed to add exclude products by user id", "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{

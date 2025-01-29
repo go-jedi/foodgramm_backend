@@ -9,7 +9,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 )
 
-func (r *repo) AddExcludeProductsByID(ctx context.Context, dto product.AddExcludeProductsByIDDTO) (product.AddExcludeProductsByIDResponse, error) {
+func (r *repo) AddExcludeProductsByUserID(ctx context.Context, dto product.AddExcludeProductsByUserIDDTO) (product.UserExcludedProducts, error) {
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 
@@ -22,24 +22,25 @@ func (r *repo) AddExcludeProductsByID(ctx context.Context, dto product.AddExclud
         	)
 		)
         WHERE user_id = $2
-		RETURNING user_id, products;
+		RETURNING *;
 	`
 
-	var ep product.AddExcludeProductsByIDResponse
+	var uep product.UserExcludedProducts
 
 	if err := r.db.Pool.QueryRow(
 		ctxTimeout, q,
 		dto.Products, dto.UserID,
 	).Scan(
-		&ep.UserID, &ep.Products,
+		&uep.ID, &uep.UserID, &uep.TelegramID,
+		&uep.Products, &uep.CreatedAt, &uep.UpdatedAt,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
-			r.logger.Error("request timed out while add exclude products by id", "err", err)
-			return product.AddExcludeProductsByIDResponse{}, fmt.Errorf("the request timed out: %w", err)
+			r.logger.Error("request timed out while add exclude products by user id", "err", err)
+			return product.UserExcludedProducts{}, fmt.Errorf("the request timed out: %w", err)
 		}
-		r.logger.Error("failed to add exclude products by id", "err", err)
-		return product.AddExcludeProductsByIDResponse{}, fmt.Errorf("could not add exclude products by id: %w", err)
+		r.logger.Error("failed to add exclude products by user id", "err", err)
+		return product.UserExcludedProducts{}, fmt.Errorf("could not add exclude products by user id: %w", err)
 	}
 
-	return ep, nil
+	return uep, nil
 }
