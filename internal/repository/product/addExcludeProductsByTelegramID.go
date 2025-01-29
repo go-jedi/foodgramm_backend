@@ -9,7 +9,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 )
 
-func (r *repo) ExcludeProductsByTelegramID(ctx context.Context, dto product.ExcludeProductsByTelegramIDDTO) (product.ExcludeProductsByTelegramIDResponse, error) {
+func (r *repo) AddExcludeProductsByTelegramID(ctx context.Context, dto product.AddExcludeProductsByTelegramIDDTO) (product.AddExcludeProductsByTelegramIDResponse, error) {
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 
@@ -25,7 +25,7 @@ func (r *repo) ExcludeProductsByTelegramID(ctx context.Context, dto product.Excl
 		RETURNING telegram_id, products;
 	`
 
-	var ep product.ExcludeProductsByTelegramIDResponse
+	var ep product.AddExcludeProductsByTelegramIDResponse
 
 	if err := r.db.Pool.QueryRow(
 		ctxTimeout, q,
@@ -34,11 +34,11 @@ func (r *repo) ExcludeProductsByTelegramID(ctx context.Context, dto product.Excl
 		&ep.TelegramID, &ep.Products,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
-			r.logger.Error("request timed out while exclude products by telegram id", "err", err)
-			return product.ExcludeProductsByTelegramIDResponse{}, fmt.Errorf("the request timed out: %w", err)
+			r.logger.Error("request timed out while add exclude products by telegram id", "err", err)
+			return product.AddExcludeProductsByTelegramIDResponse{}, fmt.Errorf("the request timed out: %w", err)
 		}
-		r.logger.Error("failed to exclude products by id", "err", err)
-		return product.ExcludeProductsByTelegramIDResponse{}, fmt.Errorf("could not exclude products by telegram id: %w", err)
+		r.logger.Error("failed to add exclude products by id", "err", err)
+		return product.AddExcludeProductsByTelegramIDResponse{}, fmt.Errorf("could not add exclude products by telegram id: %w", err)
 	}
 
 	return ep, nil

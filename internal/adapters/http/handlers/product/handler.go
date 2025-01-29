@@ -33,7 +33,7 @@ func NewHandler(
 func (h *Handler) initRoutes(engine *gin.Engine) {
 	api := engine.Group("/v1/product")
 	{
-		api.POST("/exclude/id", h.excludeProductsByID)
-		api.POST("/exclude/telegram", h.excludeProductsByTelegramID)
+		api.POST("/exclude/id", h.addExcludeProductsByID)
+		api.POST("/exclude/telegram", h.addExcludeProductsByTelegramID)
 	}
 }
