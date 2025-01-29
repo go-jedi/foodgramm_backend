@@ -7,8 +7,8 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/utils"
 )
 
-func (s *serv) ExcludeProductsByID(ctx context.Context, dto product.ExcludeProductsByIDDTO) (product.ExcludeProductsByIDResponse, error) {
+func (s *serv) AddExcludeProductsByID(ctx context.Context, dto product.AddExcludeProductsByIDDTO) (product.AddExcludeProductsByIDResponse, error) {
 	dto.Products = utils.RemoveDuplicates(dto.Products)
 
-	return s.productRepository.ExcludeProductsByID(ctx, dto)
+	return s.productRepository.AddExcludeProductsByID(ctx, dto)
 }

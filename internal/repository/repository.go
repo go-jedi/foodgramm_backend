@@ -21,6 +21,6 @@ type UserRepository interface {
 }
 
 type ProductRepository interface {
-	ExcludeProductsByID(ctx context.Context, dto product.ExcludeProductsByIDDTO) (product.ExcludeProductsByIDResponse, error)
-	ExcludeProductsByTelegramID(ctx context.Context, dto product.ExcludeProductsByTelegramIDDTO) (product.ExcludeProductsByTelegramIDResponse, error)
+	AddExcludeProductsByID(ctx context.Context, dto product.AddExcludeProductsByIDDTO) (product.AddExcludeProductsByIDResponse, error)
+	AddExcludeProductsByTelegramID(ctx context.Context, dto product.AddExcludeProductsByTelegramIDDTO) (product.AddExcludeProductsByTelegramIDResponse, error)
 }

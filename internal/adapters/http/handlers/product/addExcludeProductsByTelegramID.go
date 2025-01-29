@@ -7,8 +7,8 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 )
 
-func (h *Handler) excludeProductsByID(c *gin.Context) {
-	var dto product.ExcludeProductsByIDDTO
+func (h *Handler) addExcludeProductsByTelegramID(c *gin.Context) {
+	var dto product.AddExcludeProductsByTelegramIDDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -27,11 +27,11 @@ func (h *Handler) excludeProductsByID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.productService.ExcludeProductsByID(c, dto)
+	result, err := h.productService.AddExcludeProductsByTelegramID(c, dto)
 	if err != nil {
-		h.logger.Error("failed to exclude products by user id", "error", err)
+		h.logger.Error("failed to add exclude products by telegram id", "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error":  "failed to exclude products by user id",
+			"error":  "failed to add exclude products by telegram id",
 			"detail": err.Error(),
 		})
 		return
