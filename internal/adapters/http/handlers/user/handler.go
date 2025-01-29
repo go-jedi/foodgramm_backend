@@ -36,6 +36,8 @@ func (h *Handler) initRoutes(engine *gin.Engine) {
 		api.POST("", h.create)
 		api.POST("/list", h.list)
 		api.POST("/exists", h.exists)
+		api.GET("/exists/id/:userID", h.existsByID)
+		api.GET("/exists/telegram/:telegramID", h.existsByTelegramID)
 		api.GET("/all", h.all)
 		api.GET("/id/:userID", h.getByID)
 		api.GET("/telegram/:telegramID", h.getByTelegramID)

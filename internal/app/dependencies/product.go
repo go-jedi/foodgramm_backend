@@ -23,6 +23,7 @@ func (d *Dependencies) ProductService() service.ProductService {
 	if d.productService == nil {
 		d.productService = productService.NewService(
 			d.ProductRepository(),
+			d.UserRepository(),
 			d.logger,
 			d.cache,
 		)
