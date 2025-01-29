@@ -4,8 +4,7 @@ import (
 	"context"
 
 	"github.com/go-jedi/foodgrammm-backend/config"
-	"github.com/go-jedi/foodgrammm-backend/internal/app/product"
-	"github.com/go-jedi/foodgrammm-backend/internal/app/user"
+	"github.com/go-jedi/foodgrammm-backend/internal/app/dependencies"
 	"github.com/go-jedi/foodgrammm-backend/pkg/httpserver"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
 	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
@@ -14,12 +13,13 @@ import (
 )
 
 type App struct {
-	cfg       config.Config
-	logger    *logger.Logger
-	validator *validator.Validator
-	hs        *httpserver.HTTPServer
-	db        *postgres.Postgres
-	cache     *redis.Redis
+	cfg          config.Config
+	logger       *logger.Logger
+	validator    *validator.Validator
+	hs           *httpserver.HTTPServer
+	db           *postgres.Postgres
+	cache        *redis.Redis
+	dependencies *dependencies.Dependencies
 }
 
 func NewApp(ctx context.Context) (*App, error) {
@@ -46,7 +46,7 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initPostgres,
 		a.initRedis,
 		a.initHTTPServer,
-		a.initModules,
+		a.initDependencies,
 	}
 
 	for _, f := range i {
@@ -110,11 +110,9 @@ func (a *App) initHTTPServer(_ context.Context) (err error) {
 	return nil
 }
 
-// initModules initialize modules.
-func (a *App) initModules(ctx context.Context) error {
-	user.NewUser(a.hs.Engine, a.logger, a.validator, a.db, a.cache).Init(ctx)
-	product.NewProduct(a.hs.Engine, a.logger, a.validator, a.db, a.cache).Init(ctx)
-
+// initDependencies initialize dependencies.
+func (a *App) initDependencies(_ context.Context) error {
+	a.dependencies = dependencies.NewDependencies(a.hs.Engine, a.logger, a.validator, a.db, a.cache)
 	return nil
 }
 
