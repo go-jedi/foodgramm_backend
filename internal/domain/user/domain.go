@@ -1,8 +1,9 @@
 package user
 
 import (
-	"encoding/json"
 	"time"
+
+	jsoniter "github.com/json-iterator/go"
 )
 
 type User struct {
@@ -21,9 +22,9 @@ type User struct {
 
 type CreateDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
-	Username   string `json:"username" validate:"required"`
-	FirstName  string `json:"first_name" validate:"required"`
-	LastName   string `json:"last_name" validate:"required"`
+	Username   string `json:"username" validate:"required,min=1"`
+	FirstName  string `json:"first_name" validate:"required,min=1"`
+	LastName   string `json:"last_name" validate:"required,min=1"`
 }
 
 //
@@ -31,16 +32,16 @@ type CreateDTO struct {
 //
 
 type ListDTO struct {
-	Page int `json:"page" validate:"required,min=1"`
-	Size int `json:"size" validate:"required,min=1"`
+	Page int `json:"page" validate:"required,gt=0"`
+	Size int `json:"size" validate:"required,gt=0"`
 }
 
 type ListResponse struct {
-	TotalCount  int             `json:"total_count"`
-	TotalPages  int             `json:"total_pages"`
-	CurrentPage int             `json:"current_page"`
-	Size        int             `json:"size"`
-	Data        json.RawMessage `json:"data"`
+	TotalCount  int                 `json:"total_count"`
+	TotalPages  int                 `json:"total_pages"`
+	CurrentPage int                 `json:"current_page"`
+	Size        int                 `json:"size"`
+	Data        jsoniter.RawMessage `json:"data"`
 }
 
 //
@@ -49,7 +50,7 @@ type ListResponse struct {
 
 type ExistsDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
-	Username   string `json:"username" validate:"required"`
+	Username   string `json:"username" validate:"required,min=1"`
 }
 
 //
@@ -57,11 +58,11 @@ type ExistsDTO struct {
 //
 
 type UpdateDTO struct {
-	ID         int64  `json:"id"`
-	TelegramID string `json:"telegram_id"`
-	Username   string `json:"username"`
-	FirstName  string `json:"first_name"`
-	LastName   string `json:"last_name"`
+	ID         int64  `json:"id" validate:"required,gt=0"`
+	TelegramID string `json:"telegram_id" validate:"required,min=1"`
+	Username   string `json:"username" validate:"required,min=1"`
+	FirstName  string `json:"first_name" validate:"required,min=1"`
+	LastName   string `json:"last_name" validate:"required,min=1"`
 }
 
 //
@@ -69,8 +70,8 @@ type UpdateDTO struct {
 //
 
 type DeleteDTO struct {
-	ID         int64  `json:"id"`
-	TelegramID string `json:"telegram_id"`
+	ID         int64  `json:"id" validate:"required,gt=0"`
+	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 }
 
 type DeleteResponse struct {

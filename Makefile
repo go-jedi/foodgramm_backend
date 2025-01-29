@@ -1,5 +1,8 @@
 LOCAL_BIN:=$(CURDIR)/bin
 
+run:
+	go run cmd/app/main.go --config testdata/config.yaml
+
 install-deps:
 	GOBIN=$(LOCAL_BIN) go install github.com/air-verse/air@latest
 

@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
 
@@ -19,8 +20,7 @@ type UserRepository interface {
 	DeleteByTelegramID(ctx context.Context, telegramID string) (string, error)
 }
 
-type ProductRepository interface{}
-
-type RecipeRepository interface{}
-
-type RecipeIngredientRepository interface{}
+type ProductRepository interface {
+	ExcludeProductsByID(ctx context.Context, dto product.ExcludeProductsByIDDTO) (product.ExcludeProductsByIDResponse, error)
+	ExcludeProductsByTelegramID(ctx context.Context, dto product.ExcludeProductsByTelegramIDDTO) (product.ExcludeProductsByTelegramIDResponse, error)
+}

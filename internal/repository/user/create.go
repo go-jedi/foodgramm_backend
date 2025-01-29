@@ -7,27 +7,25 @@ import (
 	"time"
 
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
+	jsoniter "github.com/json-iterator/go"
 )
 
 func (r *repo) Create(ctx context.Context, dto user.CreateDTO) (user.User, error) {
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 
-	var nu user.User
+	q := `SELECT * FROM public.user_create($1);`
 
-	q := `
-		INSERT INTO users(
-			telegram_id,
-		    username,
-		    first_name,
-		    last_name
-		) VALUES($1, $2, $3, $4)
-		RETURNING *;
-	`
+	rawData, err := jsoniter.Marshal(dto)
+	if err != nil {
+		return user.User{}, err
+	}
+
+	var nu user.User
 
 	if err := r.db.Pool.QueryRow(
 		ctxTimeout, q,
-		dto.TelegramID, dto.Username, dto.FirstName, dto.LastName,
+		rawData,
 	).Scan(
 		&nu.ID, &nu.TelegramID, &nu.Username,
 		&nu.FirstName, &nu.LastName,

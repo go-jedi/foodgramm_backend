@@ -1,4 +1,4 @@
-package mathutils
+package utils
 
 import (
 	"math/big"
