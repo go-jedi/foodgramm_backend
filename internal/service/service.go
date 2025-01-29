@@ -3,6 +3,8 @@ package service
 import (
 	"context"
 
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
 
@@ -18,7 +20,15 @@ type UserService interface {
 	DeleteByTelegramID(ctx context.Context, telegramID string) (string, error)
 }
 
-type ProductService interface{}
+type ProductService interface {
+	ExcludeProductsByID(ctx context.Context, dto product.ExcludeProductsByIDDTO) (product.ExcludeProductsByIDResponse, error)
+	ExcludeProductsByTelegramID(ctx context.Context, dto product.ExcludeProductsByTelegramIDDTO) (product.ExcludeProductsByTelegramIDResponse, error)
+}
+
+type PaymentService interface {
+	Create(ctx context.Context, dto payment.CreateDTO) error
+	CheckStatus(ctx context.Context, dto payment.CheckStatusDTO) error
+}
 
 type RecipeService interface{}
 

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/go-jedi/foodgrammm-backend/config"
+	"github.com/go-jedi/foodgrammm-backend/internal/app/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/app/user"
 	"github.com/go-jedi/foodgrammm-backend/pkg/httpserver"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
@@ -112,6 +113,7 @@ func (a *App) initHTTPServer(_ context.Context) (err error) {
 // initModules initialize modules.
 func (a *App) initModules(ctx context.Context) error {
 	user.NewUser(a.hs.Engine, a.logger, a.validator, a.db, a.cache).Init(ctx)
+	product.NewProduct(a.hs.Engine, a.logger, a.validator, a.db, a.cache).Init(ctx)
 
 	return nil
 }
