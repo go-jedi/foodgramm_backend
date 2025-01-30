@@ -28,3 +28,7 @@ type ProductRepository interface {
 	GetExcludeProductsByUserID(ctx context.Context, userID int64) (product.UserExcludedProducts, error)
 	GetExcludeProductsByTelegramID(ctx context.Context, telegramID string) (product.UserExcludedProducts, error)
 }
+
+type SubscriptionRepository interface{}
+
+type PaymentRepository interface{}
