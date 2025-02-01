@@ -1,4 +1,109 @@
 basePath: /v1
+definitions:
+  user.CreateDTO:
+    properties:
+      first_name:
+        minLength: 1
+        type: string
+      last_name:
+        minLength: 1
+        type: string
+      telegram_id:
+        minLength: 1
+        type: string
+      username:
+        minLength: 1
+        type: string
+    required:
+    - first_name
+    - last_name
+    - telegram_id
+    - username
+    type: object
+  user.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
+  user.ExistsDTO:
+    properties:
+      telegram_id:
+        minLength: 1
+        type: string
+      username:
+        minLength: 1
+        type: string
+    required:
+    - telegram_id
+    - username
+    type: object
+  user.ListDTO:
+    properties:
+      page:
+        type: integer
+      size:
+        type: integer
+    required:
+    - page
+    - size
+    type: object
+  user.ListResponseSwagger:
+    properties:
+      current_page:
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/user.User'
+        type: array
+      size:
+        type: integer
+      total_count:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  user.UpdateDTO:
+    properties:
+      first_name:
+        minLength: 1
+        type: string
+      id:
+        type: integer
+      last_name:
+        minLength: 1
+        type: string
+      telegram_id:
+        minLength: 1
+        type: string
+      username:
+        minLength: 1
+        type: string
+    required:
+    - first_name
+    - id
+    - last_name
+    - telegram_id
+    - username
+    type: object
+  user.User:
+    properties:
+      created_at:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      telegram_id:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
 host: localhost:50050
 info:
   contact: {}
@@ -21,4 +126,320 @@ paths:
       summary: Ping
       tags:
       - Health
+  /v1/user:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with the provided details.
+      parameters:
+      - description: User data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreateDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/user.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Create a new user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update a user's information.
+      parameters:
+      - description: User update data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdateDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated user details
+          schema:
+            $ref: '#/definitions/user.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Update a user
+      tags:
+      - users
+  /v1/user/all:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all users.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Get all users
+      tags:
+      - users
+  /v1/user/exists:
+    post:
+      consumes:
+      - application/json
+      description: Check if a user exists by Telegram ID and Username.
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.ExistsDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Boolean flag indicating if the user exists
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Check if a user exists
+      tags:
+      - users
+  /v1/user/exists/id/{userID}:
+    get:
+      consumes:
+      - application/json
+      description: Check if a user exists by their unique identifier.
+      parameters:
+      - description: User ID
+        in: path
+        name: userID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Boolean flag indicating if the user exists
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Check if a user exists by ID
+      tags:
+      - users
+  /v1/user/exists/telegram/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Check if a user exists by their unique Telegram ID.
+      parameters:
+      - description: Telegram ID
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Boolean flag indicating if the user exists
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Check if a user exists by Telegram ID
+      tags:
+      - users
+  /v1/user/id/{userID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user by their unique identifier.
+      parameters:
+      - description: User ID
+        in: path
+        name: userID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ID of the deleted user
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Delete a user by ID
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a user by their unique identifier.
+      parameters:
+      - description: User ID
+        in: path
+        name: userID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User details
+          schema:
+            $ref: '#/definitions/user.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Get a user by ID
+      tags:
+      - users
+  /v1/user/list:
+    post:
+      consumes:
+      - application/json
+      description: Retrieve a list of users with pagination based on page and size.
+      parameters:
+      - description: Pagination parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.ListDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of users with pagination details
+          schema:
+            $ref: '#/definitions/user.ListResponseSwagger'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Get a list of users with pagination
+      tags:
+      - users
+  /v1/user/telegram/{telegramID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user by their unique Telegram ID.
+      parameters:
+      - description: Telegram ID
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Deleted Telegram ID
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Delete a user by Telegram ID
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a user by their unique Telegram ID.
+      parameters:
+      - description: Telegram ID
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User details
+          schema:
+            $ref: '#/definitions/user.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Get a user by Telegram ID
+      tags:
+      - users
 swagger: "2.0"
