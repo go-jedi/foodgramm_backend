@@ -4,16 +4,27 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
+// @Summary Get Exclude Products by Telegram ID
+// @Description Get excluded products for a user by their unique Telegram ID.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param telegramID path string true "Telegram ID"
+// @Success 200 {object} product.UserExcludedProducts "Excluded products for the user"
+// @Failure 400 {object} product.ErrorResponse
+// @Failure 500 {object} product.ErrorResponse
+// @Router /v1/product/exclude/telegram/{telegramID} [get]
 func (h *Handler) getExcludeProductsByTelegramID(c *gin.Context) {
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {
 		h.logger.Error("failed to get param telegramID", "error", apperrors.ErrParamIsRequired)
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":  "failed to get param telegramID",
-			"detail": apperrors.ErrParamIsRequired,
+		c.JSON(http.StatusBadRequest, product.ErrorResponse{
+			Error:  "failed to get param telegramID",
+			Detail: apperrors.ErrParamIsRequired.Error(),
 		})
 		return
 	}
@@ -21,9 +32,9 @@ func (h *Handler) getExcludeProductsByTelegramID(c *gin.Context) {
 	result, err := h.productService.GetExcludeProductsByTelegramID(c, telegramID)
 	if err != nil {
 		h.logger.Error("failed to get exclude products by telegram id", "error", err)
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error":  "failed to get exclude products by telegram id",
-			"detail": err.Error(),
+		c.JSON(http.StatusInternalServerError, product.ErrorResponse{
+			Error:  "failed to get exclude products by telegram id",
+			Detail: err.Error(),
 		})
 		return
 	}

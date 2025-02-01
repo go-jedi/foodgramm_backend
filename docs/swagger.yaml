@@ -1,5 +1,58 @@
 basePath: /v1
 definitions:
+  product.AddExcludeProductsByTelegramIDDTO:
+    properties:
+      products:
+        items:
+          type: string
+        maxItems: 50
+        minItems: 1
+        type: array
+      telegram_id:
+        minLength: 1
+        type: string
+    required:
+    - products
+    - telegram_id
+    type: object
+  product.AddExcludeProductsByUserIDDTO:
+    properties:
+      products:
+        items:
+          type: string
+        maxItems: 50
+        minItems: 1
+        type: array
+      user_id:
+        type: integer
+    required:
+    - products
+    - user_id
+    type: object
+  product.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
+  product.UserExcludedProducts:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      products:
+        items:
+          type: string
+        type: array
+      telegram_id:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
   user.CreateDTO:
     properties:
       first_name:
@@ -126,6 +179,124 @@ paths:
       summary: Ping
       tags:
       - Health
+  /v1/product/exclude/telegram/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Get excluded products for a user by their unique Telegram ID.
+      parameters:
+      - description: Telegram ID
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Excluded products for the user
+          schema:
+            $ref: '#/definitions/product.UserExcludedProducts'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+      summary: Get Exclude Products by Telegram ID
+      tags:
+      - users
+  /v1/product/exclude/telegram/id:
+    post:
+      consumes:
+      - application/json
+      description: Add excluded products for a user by their unique Telegram ID.
+      parameters:
+      - description: Exclude products data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.AddExcludeProductsByTelegramIDDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Excluded products for the user
+          schema:
+            $ref: '#/definitions/product.UserExcludedProducts'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+      summary: Add Exclude Products by Telegram ID
+      tags:
+      - users
+  /v1/product/exclude/user/{userID}:
+    get:
+      consumes:
+      - application/json
+      description: Get excluded products for a user by their unique User ID.
+      parameters:
+      - description: User ID
+        in: path
+        name: userID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Excluded products for the user
+          schema:
+            $ref: '#/definitions/product.UserExcludedProducts'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+      summary: Get Exclude Products by User ID
+      tags:
+      - users
+  /v1/product/exclude/user/id:
+    post:
+      consumes:
+      - application/json
+      description: Add excluded products for a user by their unique User ID.
+      parameters:
+      - description: Exclude products data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.AddExcludeProductsByUserIDDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Excluded products for the user
+          schema:
+            $ref: '#/definitions/product.UserExcludedProducts'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+      summary: Add Exclude Products by User ID
+      tags:
+      - users
   /v1/user:
     post:
       consumes:
