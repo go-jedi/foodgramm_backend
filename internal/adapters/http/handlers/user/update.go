@@ -7,6 +7,16 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
 
+// @Summary Update a user
+// @Description Update a user's information.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param request body user.UpdateDTO true "User update data"
+// @Success 200 {object} user.User "Updated user details"
+// @Failure 400 {object} user.ErrorResponse
+// @Failure 500 {object} user.ErrorResponse
+// @Router /v1/user [put]
 func (h *Handler) update(c *gin.Context) {
 	var dto user.UpdateDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

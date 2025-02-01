@@ -4,15 +4,24 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
 
+// @Summary Get all users
+// @Description Retrieve a list of all users.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Success 200 {array} user.User
+// @Failure 500 {object} user.ErrorResponse
+// @Router /v1/user/all [get]
 func (h *Handler) all(c *gin.Context) {
 	result, err := h.userService.All(c)
 	if err != nil {
 		h.logger.Error("failed to get all users", "error", err)
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error":  "failed to get all users",
-			"detail": err.Error(),
+		c.JSON(http.StatusInternalServerError, user.ErrorResponse{
+			Error:  "failed to get all users",
+			Detail: err.Error(),
 		})
 		return
 	}
