@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 
 	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/golang-migrate/migrate/v4"
@@ -91,7 +92,11 @@ func (p *Postgres) migrationsUp() error {
 	if err != nil {
 		return err
 	}
-	defer m.Close()
+	defer func(m *migrate.Migrate) {
+		if err, _ := m.Close(); err != nil {
+			log.Printf("error closes the source and the database: %v", err)
+		}
+	}(m)
 
 	if err := m.Up(); err != nil {
 		if !errors.Is(err, migrate.ErrNoChange) {

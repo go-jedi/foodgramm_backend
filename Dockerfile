@@ -4,12 +4,13 @@ WORKDIR /github.com/go-jedi/foodgrammm-backend/app
 COPY . /github.com/go-jedi/foodgrammm-backend/app
 
 RUN go mod download
-RUN go build -o .bin/app cmd/app/main.go
+RUN go build -ldflags="-s -w" -trimpath -buildvcs=false -o .bin/app cmd/app/main.go
 
 FROM alpine:latest
 
 WORKDIR /root/
 COPY --from=builder /github.com/go-jedi/foodgrammm-backend/app/.bin/app .
 COPY config.yaml /root/
+COPY migrations /root/migrations
 
 CMD ["./app", "--config", "config.yaml"]

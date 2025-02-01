@@ -10,6 +10,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-jedi/foodgrammm-backend/config"
 	_ "github.com/go-jedi/foodgrammm-backend/docs"
@@ -70,6 +71,7 @@ func NewHTTPServer(cfg config.HTTPServerConfig) (*HTTPServer, error) {
 		return nil, err
 	}
 
+	hs.initCORS(cfg.Cors)
 	hs.initSwagger()
 	hs.ping()
 
@@ -92,6 +94,19 @@ func (hs *HTTPServer) Start() error {
 	}
 
 	return nil
+}
+
+// initCORS initialize cors.
+func (hs *HTTPServer) initCORS(cfg config.CorsConfig) {
+	hs.Engine.Use(cors.New(cors.Config{
+		AllowOrigins:        cfg.AllowOrigins,
+		AllowMethods:        cfg.AllowMethods,
+		AllowHeaders:        cfg.AllowHeaders,
+		ExposeHeaders:       cfg.ExposeHeaders,
+		MaxAge:              time.Duration(cfg.MaxAge) * time.Second,
+		AllowCredentials:    cfg.AllowCredentials,
+		AllowPrivateNetwork: cfg.AllowPrivateNetwork,
+	}))
 }
 
 func (hs *HTTPServer) initSwagger() {

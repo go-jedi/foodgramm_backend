@@ -9,18 +9,18 @@ logger:
   max_age: 7
 
 postgres:
-  host: localhost
+  host: postgres
   user: admin
   password: test
   dbname: app_db
-  port: 54321
+  port: 5432
   sslmode: disable
   pool_max_conns: 10
   migrations_dir: file://migrations
   query_timeout: 2000000000 # 2 second
 
 redis:
-  addr: 127.0.0.1:6379
+  addr: redis:6379
   password: auth
   db: 0
   dial_timeout: 5 # second
@@ -37,3 +37,25 @@ httpserver:
   host: 127.0.0.1
   port: 50050
   gin_mode: release # debug, test, release
+  cors:
+    allow_origins:
+      - "*"
+    allow_methods:
+      - POST
+      - GET
+      - PUT
+      - PATCH
+      - DELETE
+      - HEAD
+      - OPTIONS
+    allow_headers:
+      - Origin
+      - Content-Length
+      - Content-Type
+      - Accept
+      - Authorization
+    expose_headers:
+      - Content-Length
+    max_age: 3600
+    allow_credentials: false
+    allow_private_network: false

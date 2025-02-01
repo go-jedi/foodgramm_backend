@@ -47,10 +47,21 @@ type RedisConfig struct {
 	DurCacheUpdate  int    `yaml:"dur_cache_update"`
 }
 
+type CorsConfig struct {
+	AllowOrigins        []string `yaml:"allow_origins"`
+	AllowMethods        []string `yaml:"allow_methods"`
+	AllowHeaders        []string `yaml:"allow_headers"`
+	ExposeHeaders       []string `yaml:"expose_headers"`
+	MaxAge              int      `yaml:"max_age"`
+	AllowCredentials    bool     `yaml:"allow_credentials"`
+	AllowPrivateNetwork bool     `yaml:"allow_private_network"`
+}
+
 type HTTPServerConfig struct {
-	Host    string `yaml:"host"`
-	Port    int    `yaml:"port"`
-	GinMode string `yaml:"gin_mode"`
+	Host    string     `yaml:"host"`
+	Port    int        `yaml:"port"`
+	GinMode string     `yaml:"gin_mode"`
+	Cors    CorsConfig `yaml:"cors"`
 }
 
 type Config struct {

@@ -1,0 +1,14 @@
+[Unit]
+Description=Foodgrammm backend service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/root/foodgrammm-backend
+ExecStart=/root/foodgrammm-backend/app --config=/root/foodgrammm-backend/config.yaml
+Restart=always
+RestartSec=4
+StandardOutput=inherit
+
+[Install]
+WantedBy=multi-user.target
