@@ -58,7 +58,7 @@ issues:
     - a blank import should be only in a main or test package
     - Comment should end in a period
     - lines are duplicate
+    - File is not `gofumpt`-ed
 #    - Magic number
 #    - G306
-#    - File is not `gofumpt`-ed
 #    - fiber (typecheck)

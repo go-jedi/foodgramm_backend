@@ -3,10 +3,17 @@ package service
 import (
 	"context"
 
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
+
+type AuthService interface {
+	SignIn(ctx context.Context, dto auth.SignInDTO) (auth.SignInResp, error)
+	Check(ctx context.Context, dto auth.CheckDTO) (auth.CheckResponse, error)
+	Refresh(ctx context.Context, dto auth.RefreshDTO) (auth.RefreshResponse, error)
+}
 
 type UserService interface {
 	Create(ctx context.Context, dto user.CreateDTO) (user.User, error)

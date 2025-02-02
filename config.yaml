@@ -1,12 +1,25 @@
 logger:
   is_json: true
   add_source: false
-  level: debug
+  level: error
   set_file: false
   file_name: logs/app.log
   max_size: 10
   max_backups: 3
   max_age: 7
+
+bcrypt:
+  cost: 10
+
+uid:
+  chars: 0123456789ABCDEFHKLMNPQRSTUVWXYZabcdefghkmnpqrstuvwxyz
+  count: 32
+
+jwt:
+  secret_path: .secret # path to file with secret key
+  secret_hash_len: 30
+  access_exp_at: 5 # minutes
+  refresh_exp_at: 30 # days
 
 postgres:
   host: postgres

@@ -8,6 +8,19 @@ logger:
   max_backups: 3
   max_age: 7
 
+bcrypt:
+  cost: 10
+
+uid:
+  chars: 0123456789ABCDEFHKLMNPQRSTUVWXYZabcdefghkmnpqrstuvwxyz
+  count: 32
+
+jwt:
+  secret_path: testdata/file_server/jwt/.secret # path to file with secret key
+  secret_hash_len: 30
+  access_exp_at: 5 # minutes
+  refresh_exp_at: 30 # days
+
 postgres:
   host: localhost
   user: admin

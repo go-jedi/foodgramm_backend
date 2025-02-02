@@ -19,6 +19,22 @@ type LoggerConfig struct {
 	MaxAge     int    `yaml:"max_age"`
 }
 
+type BcryptConfig struct {
+	Cost int `yaml:"cost"`
+}
+
+type UIDConfig struct {
+	Chars string `yaml:"chars"`
+	Count int    `yaml:"count"`
+}
+
+type JWTConfig struct {
+	SecretPath    string `yaml:"secret_path"`
+	SecretHashLen int    `yaml:"secret_hash_len"`
+	AccessExpAt   int    `yaml:"access_exp_at"`
+	RefreshExpAt  int    `yaml:"refresh_exp_at"`
+}
+
 type PostgresConfig struct {
 	Host          string `yaml:"host"`
 	User          string `yaml:"user"`
@@ -66,6 +82,9 @@ type HTTPServerConfig struct {
 
 type Config struct {
 	Logger     LoggerConfig     `yaml:"logger"`
+	Bcrypt     BcryptConfig     `yaml:"bcrypt"`
+	UID        UIDConfig        `yaml:"uid"`
+	JWT        JWTConfig        `yaml:"jwt"`
 	Postgres   PostgresConfig   `yaml:"postgres"`
 	Redis      RedisConfig      `yaml:"redis"`
 	HTTPServer HTTPServerConfig `yaml:"httpserver"`

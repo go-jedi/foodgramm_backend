@@ -5,10 +5,13 @@ import (
 
 	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/go-jedi/foodgrammm-backend/internal/app/dependencies"
+	"github.com/go-jedi/foodgrammm-backend/pkg/bcrypt"
 	"github.com/go-jedi/foodgrammm-backend/pkg/httpserver"
+	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
 	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
 	"github.com/go-jedi/foodgrammm-backend/pkg/redis"
+	"github.com/go-jedi/foodgrammm-backend/pkg/uid"
 	"github.com/go-jedi/foodgrammm-backend/pkg/validator"
 )
 
@@ -16,6 +19,9 @@ type App struct {
 	cfg          config.Config
 	logger       *logger.Logger
 	validator    *validator.Validator
+	bcrypt       *bcrypt.Bcrypt
+	uid          *uid.UID
+	jwt          *jwt.JWT
 	hs           *httpserver.HTTPServer
 	db           *postgres.Postgres
 	cache        *redis.Redis
@@ -43,6 +49,9 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initConfig,
 		a.initLogger,
 		a.initValidator,
+		a.initBcrypt,
+		a.initUID,
+		a.initJWT,
 		a.initPostgres,
 		a.initRedis,
 		a.initHTTPServer,
@@ -65,7 +74,7 @@ func (a *App) initConfig(_ context.Context) (err error) {
 		return err
 	}
 
-	return nil
+	return
 }
 
 // initLogger initialize logger.
@@ -80,6 +89,39 @@ func (a *App) initValidator(_ context.Context) error {
 	return nil
 }
 
+// initBcrypt initialize bcrypt.
+func (a *App) initBcrypt(_ context.Context) (err error) {
+	a.bcrypt, err = bcrypt.NewBcryptWithCost(a.cfg.Bcrypt)
+	if err != nil {
+		return err
+	}
+
+	return
+}
+
+// initUID initialize uid.
+func (a *App) initUID(_ context.Context) (err error) {
+	a.uid, err = uid.NewUID(uid.Option{
+		Chars: a.cfg.UID.Chars,
+		Count: a.cfg.UID.Count,
+	})
+	if err != nil {
+		return err
+	}
+
+	return
+}
+
+// initJWT initialize jwt.
+func (a *App) initJWT(_ context.Context) (err error) {
+	a.jwt, err = jwt.NewJWT(a.cfg.JWT, a.uid)
+	if err != nil {
+		return err
+	}
+
+	return
+}
+
 // initPostgres initialize postgres.
 func (a *App) initPostgres(ctx context.Context) (err error) {
 	a.db, err = postgres.NewPostgres(ctx, a.cfg.Postgres)
@@ -87,7 +129,7 @@ func (a *App) initPostgres(ctx context.Context) (err error) {
 		return err
 	}
 
-	return nil
+	return
 }
 
 // initRedis initialize redis.
@@ -97,7 +139,7 @@ func (a *App) initRedis(ctx context.Context) (err error) {
 		return err
 	}
 
-	return nil
+	return
 }
 
 // initHTTPServer initialize http server.
@@ -107,12 +149,13 @@ func (a *App) initHTTPServer(_ context.Context) (err error) {
 		return err
 	}
 
-	return nil
+	return
 }
 
 // initDependencies initialize dependencies.
 func (a *App) initDependencies(_ context.Context) error {
-	a.dependencies = dependencies.NewDependencies(a.hs.Engine, a.logger, a.validator, a.db, a.cache)
+	a.dependencies = dependencies.NewDependencies(a.hs.Engine, a.logger, a.validator, a.jwt, a.db, a.cache)
+
 	return nil
 }
 

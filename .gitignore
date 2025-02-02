@@ -3,3 +3,5 @@ bin
 .idea
 tmp
 .env
+.secret
+testdata/file_server/jwt/.secret
