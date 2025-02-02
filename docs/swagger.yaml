@@ -602,6 +602,41 @@ paths:
       summary: Get free recipes by Telegram ID
       tags:
       - Recipe
+    post:
+      consumes:
+      - application/json
+      description: This endpoint increments the count of free recipes available for
+        a user identified by their Telegram ID.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully incremented free recipes count
+          schema:
+            $ref: '#/definitions/recipe.UserFreeRecipes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+      summary: Add free recipes count by Telegram ID
+      tags:
+      - Recipe
   /v1/user:
     post:
       consumes:
