@@ -134,6 +134,28 @@ definitions:
       user_id:
         type: integer
     type: object
+  recipe.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
+  recipe.UserFreeRecipes:
+    properties:
+      created_at:
+        type: string
+      free_recipes_allowed:
+        type: integer
+      free_recipes_used:
+        type: integer
+      id:
+        type: integer
+      telegram_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
   user.CreateDTO:
     properties:
       first_name:
@@ -544,6 +566,42 @@ paths:
       summary: Add Exclude Products by User ID
       tags:
       - Product
+  /v1/recipe/free/telegram/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint retrieves the free recipes information for a user
+        identified by their Telegram ID.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved free recipes information
+          schema:
+            $ref: '#/definitions/recipe.UserFreeRecipes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+      summary: Get free recipes by Telegram ID
+      tags:
+      - Recipe
   /v1/user:
     post:
       consumes:

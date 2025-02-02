@@ -29,11 +29,11 @@ func (r *repo) GetByTelegramID(ctx context.Context, telegramID string) (user.Use
 		&u.CreatedAt, &u.UpdatedAt,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
-			r.logger.Error("request timed out while get user by telegramID", "err", err)
+			r.logger.Error("request timed out while get user by telegram id", "err", err)
 			return user.User{}, fmt.Errorf("the request timed out: %w", err)
 		}
-		r.logger.Error("failed to get user by telegramID", "err", err)
-		return user.User{}, fmt.Errorf("could not get user by telegramID: %w", err)
+		r.logger.Error("failed to get user by telegram id", "err", err)
+		return user.User{}, fmt.Errorf("could not get user by telegram id: %w", err)
 	}
 
 	return u, nil

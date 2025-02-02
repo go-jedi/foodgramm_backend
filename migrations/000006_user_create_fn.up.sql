@@ -26,6 +26,12 @@ BEGIN
         _u.telegram_id
     );
 
+    INSERT INTO user_free_recipes_table(
+        telegram_id
+    ) VALUES(
+        _u.telegram_id
+    );
+
     RETURN _u;
 END;
 $$;
