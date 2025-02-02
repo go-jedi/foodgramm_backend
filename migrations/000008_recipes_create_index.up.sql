@@ -1,0 +1,1 @@
+CREATE INDEX idx_recipes_telegram_id ON recipes(telegram_id);

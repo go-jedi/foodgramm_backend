@@ -36,6 +36,7 @@ type AddExcludeProductsByTelegramIDDTO struct {
 // GET EXCLUDE PRODUCTS BY USER ID
 //
 
+// GetExcludeProductsByUserIDDTO get exclude products by user id.
 type GetExcludeProductsByUserIDDTO struct {
 	UserID int64 `json:"user_id" validate:"required,gt=0"`
 }
@@ -44,6 +45,7 @@ type GetExcludeProductsByUserIDDTO struct {
 // GET EXCLUDE PRODUCTS BY TELEGRAM ID
 //
 
+// GetExcludeProductsByTelegramIDDTO get exclude products by telegram id.
 type GetExcludeProductsByTelegramIDDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 }
