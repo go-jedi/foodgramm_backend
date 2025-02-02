@@ -29,7 +29,7 @@ func (h *Handler) getExcludeProductsByTelegramID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.productService.GetExcludeProductsByTelegramID(c, telegramID)
+	result, err := h.productService.GetExcludeProductsByTelegramID(c.Request.Context(), telegramID)
 	if err != nil {
 		h.logger.Error("failed to get exclude products by telegram id", "error", err)
 		c.JSON(http.StatusInternalServerError, product.ErrorResponse{

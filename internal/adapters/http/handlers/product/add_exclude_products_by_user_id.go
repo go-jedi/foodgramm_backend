@@ -37,7 +37,7 @@ func (h *Handler) addExcludeProductsByUserID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.productService.AddExcludeProductsByUserID(c, dto)
+	result, err := h.productService.AddExcludeProductsByUserID(c.Request.Context(), dto)
 	if err != nil {
 		h.logger.Error("failed to add exclude products by user id", "error", err)
 		c.JSON(http.StatusInternalServerError, product.ErrorResponse{

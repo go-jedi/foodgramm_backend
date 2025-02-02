@@ -155,6 +155,44 @@ func (j *JWT) Verify(telegramID string, token string) (VerifyResp, error) {
 	}, nil
 }
 
+// ParseToken parse token.
+func (j *JWT) ParseToken(token string) (VerifyResp, error) {
+	// parse the token
+	t, err := jwt.ParseWithClaims(
+		token,
+		&tokenClaims{},
+		func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, ErrTokenSigningMethod
+			}
+			return j.secret, nil
+		})
+	if err != nil {
+		return VerifyResp{}, err
+	}
+
+	// check token valid
+	if !t.Valid {
+		return VerifyResp{}, ErrTokenInvalid
+	}
+
+	// extract the claims
+	c, ok := t.Claims.(*tokenClaims)
+	if !ok {
+		return VerifyResp{}, ErrTokenClaims
+	}
+
+	// check expired token
+	if c.ExpiresAt != nil && time.Now().After(c.ExpiresAt.Time) {
+		return VerifyResp{}, ErrTokenExpired
+	}
+
+	return VerifyResp{
+		TelegramID: c.TelegramID,
+		ExpAt:      c.ExpiresAt.Time,
+	}, nil
+}
+
 // createToken create token.
 func (j *JWT) createToken(telegramID string, expAt time.Time) (string, error) {
 	// create the claims

@@ -37,7 +37,7 @@ func (h *Handler) list(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.List(c, dto)
+	result, err := h.userService.List(c.Request.Context(), dto)
 	if err != nil {
 		h.logger.Error("failed to get list users", "error", err)
 		c.JSON(http.StatusInternalServerError, user.ErrorResponse{

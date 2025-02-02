@@ -26,7 +26,7 @@ type CreateDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 	Username   string `json:"username" validate:"required,min=1"`
 	FirstName  string `json:"first_name" validate:"required,min=1"`
-	LastName   string `json:"last_name" validate:"required,min=1"`
+	LastName   string `json:"last_name" validate:"omitempty,min=1"`
 }
 
 //
@@ -77,5 +77,5 @@ type UpdateDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 	Username   string `json:"username" validate:"required,min=1"`
 	FirstName  string `json:"first_name" validate:"required,min=1"`
-	LastName   string `json:"last_name" validate:"required,min=1"`
+	LastName   string `json:"last_name" validate:"omitempty,min=1"`
 }

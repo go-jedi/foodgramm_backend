@@ -54,7 +54,7 @@ func (h *Handler) getExcludeProductsByUserID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.productService.GetExcludeProductsByUserID(c, userIDInt)
+	result, err := h.productService.GetExcludeProductsByUserID(c.Request.Context(), userIDInt)
 	if err != nil {
 		h.logger.Error("failed to get exclude products by user id", "error", err)
 		c.JSON(http.StatusInternalServerError, product.ErrorResponse{

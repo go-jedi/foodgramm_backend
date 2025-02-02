@@ -2,9 +2,11 @@ package dependencies
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/auth"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
+	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
 	"github.com/go-jedi/foodgrammm-backend/internal/service"
 	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
@@ -15,12 +17,14 @@ import (
 )
 
 type Dependencies struct {
-	engine    *gin.Engine
-	logger    *logger.Logger
-	validator *validator.Validator
-	jwt       *jwt.JWT
-	db        *postgres.Postgres
-	cache     *redis.Redis
+	cookie     config.CookieConfig
+	engine     *gin.Engine
+	middleware *middleware.Middleware
+	logger     *logger.Logger
+	validator  *validator.Validator
+	jwt        *jwt.JWT
+	db         *postgres.Postgres
+	cache      *redis.Redis
 
 	// auth
 	authService service.AuthService
@@ -38,7 +42,9 @@ type Dependencies struct {
 }
 
 func NewDependencies(
+	cookie config.CookieConfig,
 	engine *gin.Engine,
+	middleware *middleware.Middleware,
 	logger *logger.Logger,
 	validator *validator.Validator,
 	jwt *jwt.JWT,
@@ -46,12 +52,14 @@ func NewDependencies(
 	cache *redis.Redis,
 ) *Dependencies {
 	d := &Dependencies{
-		engine:    engine,
-		logger:    logger,
-		validator: validator,
-		jwt:       jwt,
-		db:        db,
-		cache:     cache,
+		cookie:     cookie,
+		engine:     engine,
+		middleware: middleware,
+		logger:     logger,
+		validator:  validator,
+		jwt:        jwt,
+		db:         db,
+		cache:      cache,
 	}
 
 	d.Init()

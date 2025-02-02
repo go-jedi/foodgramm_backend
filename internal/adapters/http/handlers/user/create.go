@@ -40,7 +40,7 @@ func (h *Handler) create(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.Create(c, dto)
+	result, err := h.userService.Create(c.Request.Context(), dto)
 	if err != nil {
 		if errors.Is(err, apperrors.ErrUserAlreadyExists) {
 			h.logger.Error("user already exists", "error", err)

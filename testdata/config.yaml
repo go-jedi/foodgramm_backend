@@ -8,6 +8,15 @@ logger:
   max_backups: 3
   max_age: 7
 
+cookie:
+  refresh:
+    name: refresh
+    max_age: 2592000
+    path: /
+    domain: localhost
+    secure: false
+    http_only: true
+
 bcrypt:
   cost: 10
 

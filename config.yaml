@@ -8,6 +8,15 @@ logger:
   max_backups: 3
   max_age: 7
 
+cookie:
+  refresh:
+    name: refresh
+    max_age: 2592000
+    path: food.codewavestudio.ru
+    domain: localhost
+    secure: true
+    http_only: true
+
 bcrypt:
   cost: 10
 
@@ -18,7 +27,7 @@ uid:
 jwt:
   secret_path: .secret # path to file with secret key
   secret_hash_len: 30
-  access_exp_at: 5 # minutes
+  access_exp_at: 1440 # minutes
   refresh_exp_at: 30 # days
 
 postgres:

@@ -37,7 +37,7 @@ func (h *Handler) update(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.Update(c, dto)
+	result, err := h.userService.Update(c.Request.Context(), dto)
 	if err != nil {
 		h.logger.Error("failed to update user", "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{
