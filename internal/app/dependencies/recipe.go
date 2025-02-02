@@ -23,6 +23,7 @@ func (d *Dependencies) RecipeService() service.RecipeService {
 	if d.recipeService == nil {
 		d.recipeService = recipeService.NewService(
 			d.RecipeRepository(),
+			d.UserRepository(),
 			d.logger,
 			d.cache,
 		)

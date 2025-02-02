@@ -32,6 +32,7 @@ type ProductRepository interface {
 }
 
 type RecipeRepository interface {
+	AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 	// SaveRecipeByTelegramID(ctx context.Context) error
 }

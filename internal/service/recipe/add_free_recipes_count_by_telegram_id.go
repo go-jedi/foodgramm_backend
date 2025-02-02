@@ -7,7 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
-func (s *serv) GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error) {
+func (s *serv) AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error) {
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, telegramID)
 	if err != nil {
 		return recipe.UserFreeRecipes{}, err
@@ -17,5 +17,5 @@ func (s *serv) GetFreeRecipesByTelegramID(ctx context.Context, telegramID string
 		return recipe.UserFreeRecipes{}, apperrors.ErrUserDoesNotExist
 	}
 
-	return s.recipeRepository.GetFreeRecipesByTelegramID(ctx, telegramID)
+	return s.recipeRepository.AddFreeRecipesCountByTelegramID(ctx, telegramID)
 }
