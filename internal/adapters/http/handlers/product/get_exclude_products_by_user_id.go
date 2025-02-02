@@ -1,6 +1,7 @@
 package product
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -57,6 +58,14 @@ func (h *Handler) getExcludeProductsByUserID(c *gin.Context) {
 
 	result, err := h.productService.GetExcludeProductsByUserID(c.Request.Context(), userIDInt)
 	if err != nil {
+		if errors.Is(err, apperrors.ErrUserDoesNotExist) {
+			c.JSON(http.StatusNotFound, product.ErrorResponse{
+				Error:  "user does not exists",
+				Detail: err.Error(),
+			})
+			return
+		}
+
 		h.logger.Error("failed to get exclude products by user id", "error", err)
 		c.JSON(http.StatusInternalServerError, product.ErrorResponse{
 			Error:  "failed to get exclude products by user id",

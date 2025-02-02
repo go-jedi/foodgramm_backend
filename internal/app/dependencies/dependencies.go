@@ -6,6 +6,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/auth"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe"
+	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
 	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
@@ -41,10 +42,15 @@ type Dependencies struct {
 	productService    service.ProductService
 	productHandler    *product.Handler
 
-	//	recipe
+	// recipe
 	recipeRepository repository.RecipeRepository
 	recipeService    service.RecipeService
 	recipeHandler    *recipe.Handler
+
+	// subscription
+	subscriptionRepository repository.SubscriptionRepository
+	subscriptionService    service.SubscriptionService
+	subscriptionHandler    *subscription.Handler
 }
 
 func NewDependencies(
@@ -78,4 +84,5 @@ func (d *Dependencies) Init() {
 	_ = d.UserHandler()
 	_ = d.ProductHandler()
 	_ = d.RecipeHandler()
+	_ = d.SubscriptionHandler()
 }

@@ -32,9 +32,9 @@ func (h *Handler) getByTelegramID(c *gin.Context) {
 
 	result, err := h.userService.GetByTelegramID(c.Request.Context(), telegramID)
 	if err != nil {
-		h.logger.Error("failed to get user by telegramID", "error", err)
+		h.logger.Error("failed to get user by telegram id", "error", err)
 		c.JSON(http.StatusInternalServerError, user.ErrorResponse{
-			Error:  "failed to get user by telegramID",
+			Error:  "failed to get user by telegram id",
 			Detail: err.Error(),
 		})
 		return

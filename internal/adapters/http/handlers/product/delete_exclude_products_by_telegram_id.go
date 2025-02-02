@@ -1,6 +1,7 @@
 package product
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -43,6 +44,14 @@ func (h *Handler) deleteExcludeProductsByTelegramID(c *gin.Context) {
 
 	result, err := h.productService.DeleteExcludeProductsByTelegramID(c.Request.Context(), telegramID, prod)
 	if err != nil {
+		if errors.Is(err, apperrors.ErrUserDoesNotExist) {
+			c.JSON(http.StatusNotFound, product.ErrorResponse{
+				Error:  "user does not exists",
+				Detail: err.Error(),
+			})
+			return
+		}
+
 		h.logger.Error("failed to delete exclude product by telegram id", "error", err)
 		c.JSON(http.StatusInternalServerError, product.ErrorResponse{
 			Error:  "failed to delete exclude product by telegram id",

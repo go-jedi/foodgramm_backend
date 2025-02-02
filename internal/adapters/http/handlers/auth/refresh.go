@@ -1,10 +1,12 @@
 package auth
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
+	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
 // Refresh
@@ -41,6 +43,14 @@ func (h *Handler) Refresh(c *gin.Context) {
 
 	result, err := h.authService.Refresh(c.Request.Context(), dto)
 	if err != nil {
+		if errors.Is(err, apperrors.ErrUserDoesNotExist) {
+			c.JSON(http.StatusNotFound, auth.ErrorResponse{
+				Error:  "user does not exists",
+				Detail: err.Error(),
+			})
+			return
+		}
+
 		h.logger.Error("failed to refresh token", "error", err)
 		c.JSON(http.StatusInternalServerError, auth.ErrorResponse{
 			Error:  "failed to refresh token",

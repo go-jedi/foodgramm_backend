@@ -1,10 +1,12 @@
 package product
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
+	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
 // @Summary Add Exclude Products by Telegram ID
@@ -40,6 +42,14 @@ func (h *Handler) addExcludeProductsByTelegramID(c *gin.Context) {
 
 	result, err := h.productService.AddExcludeProductsByTelegramID(c.Request.Context(), dto)
 	if err != nil {
+		if errors.Is(err, apperrors.ErrUserDoesNotExist) {
+			c.JSON(http.StatusNotFound, product.ErrorResponse{
+				Error:  "user does not exists",
+				Detail: err.Error(),
+			})
+			return
+		}
+
 		h.logger.Error("failed to add exclude products by telegram id", "error", err)
 		c.JSON(http.StatusInternalServerError, product.ErrorResponse{
 			Error:  "failed to add exclude products by telegram id",

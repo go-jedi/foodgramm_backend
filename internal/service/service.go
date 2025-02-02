@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
 
@@ -38,14 +39,17 @@ type ProductService interface {
 	DeleteExcludeProductsByTelegramID(ctx context.Context, telegramID string, prod string) (product.UserExcludedProducts, error)
 }
 
-type PaymentService interface {
-	Create(ctx context.Context, dto payment.CreateDTO) error
-	CheckStatus(ctx context.Context, dto payment.CheckStatusDTO) error
-}
-
 type RecipeService interface {
 	AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 }
 
-type RecipeIngredientService interface{}
+type SubscriptionService interface {
+	GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error)
+	ExistsByTelegramID(ctx context.Context, telegramID string) (bool, error)
+}
+
+type PaymentService interface {
+	Create(ctx context.Context, dto payment.CreateDTO) error
+	CheckStatus(ctx context.Context, dto payment.CheckStatusDTO) error
+}

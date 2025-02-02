@@ -156,6 +156,30 @@ definitions:
       updated_at:
         type: string
     type: object
+  subscription.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
+  subscription.Subscription:
+    properties:
+      created_at:
+        type: string
+      expires_at:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      subscribed_at:
+        type: string
+      telegram_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
   user.CreateDTO:
     properties:
       first_name:
@@ -637,6 +661,74 @@ paths:
       summary: Add free recipes count by Telegram ID
       tags:
       - Recipe
+  /v1/subscription/exists/telegram/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Checks whether a subscription exists for a user with the specified
+        Telegram ID.
+      parameters:
+      - description: Telegram ID of the user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Indicates whether the subscription exists
+          schema:
+            type: boolean
+        "400":
+          description: Invalid or missing 'telegramID' parameter
+          schema:
+            $ref: '#/definitions/subscription.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/subscription.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/subscription.ErrorResponse'
+      summary: Check if subscription exists by Telegram ID
+      tags:
+      - Subscription
+  /v1/subscription/telegram/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves subscription details for a user with the specified Telegram
+        ID.
+      parameters:
+      - description: Telegram ID of the user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Subscription details
+          schema:
+            $ref: '#/definitions/subscription.Subscription'
+        "400":
+          description: Invalid or missing 'telegramID' parameter
+          schema:
+            $ref: '#/definitions/subscription.ErrorResponse'
+        "404":
+          description: User not found or subscription does not exist
+          schema:
+            $ref: '#/definitions/subscription.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/subscription.ErrorResponse'
+      summary: Get subscription by Telegram ID
+      tags:
+      - Subscription
   /v1/user:
     post:
       consumes:

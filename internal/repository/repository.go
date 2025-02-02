@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
 
@@ -37,6 +38,10 @@ type RecipeRepository interface {
 	// SaveRecipeByTelegramID(ctx context.Context) error
 }
 
-type SubscriptionRepository interface{}
+type SubscriptionRepository interface {
+	Create(ctx context.Context, telegramID string) (subscription.Subscription, error)
+	GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error)
+	ExistsByTelegramID(ctx context.Context, telegramID string) (bool, error)
+}
 
 type PaymentRepository interface{}
