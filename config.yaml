@@ -12,7 +12,7 @@ cookie:
   refresh:
     name: refresh
     max_age: 2592000
-    path: food.codewavestudio.ru
+    path: / # food.codewavestudio.ru
     domain: localhost
     secure: true
     http_only: true
