@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS user_excluded_products_table;
+DROP TABLE IF EXISTS user_excluded_products;

@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS idx_user_free_recipes_telegram_id;

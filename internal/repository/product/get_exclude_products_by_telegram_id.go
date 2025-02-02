@@ -17,7 +17,7 @@ func (r *repo) GetExcludeProductsByTelegramID(ctx context.Context, telegramID st
 
 	q := `
 		SELECT *
-		FROM user_excluded_products_table
+		FROM user_excluded_products
 		WHERE telegram_id = $1;
 	`
 

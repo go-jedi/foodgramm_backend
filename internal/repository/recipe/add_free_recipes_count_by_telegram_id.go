@@ -16,7 +16,7 @@ func (r *repo) AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID s
 	var uufr recipe.UserFreeRecipes
 
 	q := `
-		UPDATE user_free_recipes_table SET
+		UPDATE user_free_recipes SET
 			free_recipes_used = free_recipes_used + 1,
 			updated_at = NOW()
 		WHERE telegram_id = $1

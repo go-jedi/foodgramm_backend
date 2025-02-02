@@ -14,7 +14,7 @@ func (r *repo) DeleteExcludeProductsByTelegramID(ctx context.Context, telegramID
 	defer cancel()
 
 	q := `
-		UPDATE user_excluded_products_table SET
+		UPDATE user_excluded_products SET
 		    products = ARRAY_REMOVE(products, $1),
 		    updated_at = NOW()
 		WHERE telegram_id = $2

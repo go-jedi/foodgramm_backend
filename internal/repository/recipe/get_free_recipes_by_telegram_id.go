@@ -17,7 +17,7 @@ func (r *repo) GetFreeRecipesByTelegramID(ctx context.Context, telegramID string
 
 	q := `
 		SELECT *
-		FROM user_free_recipes_table
+		FROM user_free_recipes
 		WHERE telegram_id = $1;
 	`
 

@@ -1,7 +1,7 @@
-CREATE TABLE IF NOT EXISTS user_excluded_products_table(
+CREATE TABLE IF NOT EXISTS user_excluded_products(
     id SERIAL PRIMARY KEY, -- Уникальный идентификатор.
     user_id INTEGER, -- Идентификатор пользователя.
-    telegram_id TEXT, -- Telegram id пользователя.
+    telegram_id TEXT NOT NULL UNIQUE, -- Telegram id пользователя.
     products TEXT[] NOT NULL DEFAULT '{}', -- Исключенные продукты пользователя.
     created_at TIMESTAMP NOT NULL DEFAULT NOW(), -- Дата создания записи.
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(), -- Дата обновления записи.

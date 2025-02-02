@@ -1,0 +1,1 @@
+CREATE INDEX idx_user_free_recipes_telegram_id ON user_free_recipes(telegram_id);

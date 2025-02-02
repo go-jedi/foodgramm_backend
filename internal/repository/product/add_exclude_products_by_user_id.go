@@ -14,7 +14,7 @@ func (r *repo) AddExcludeProductsByUserID(ctx context.Context, dto product.AddEx
 	defer cancel()
 
 	q := `
-		UPDATE user_excluded_products_table SET
+		UPDATE user_excluded_products SET
 			products = ARRAY_CAT(products, (
             	SELECT ARRAY_AGG(DISTINCT product)
             	FROM UNNEST($1::TEXT[]) AS product

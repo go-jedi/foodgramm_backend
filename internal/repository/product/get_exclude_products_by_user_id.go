@@ -17,7 +17,7 @@ func (r *repo) GetExcludeProductsByUserID(ctx context.Context, userID int64) (pr
 
 	q := `
 		SELECT *
-		FROM user_excluded_products_table
+		FROM user_excluded_products
 		WHERE user_id = $1;
 	`
 

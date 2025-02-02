@@ -18,7 +18,7 @@ BEGIN
         _src->>'last_name'
     ) RETURNING * INTO _u;
 
-    INSERT INTO user_excluded_products_table(
+    INSERT INTO user_excluded_products(
         user_id,
         telegram_id
     ) VALUES(
@@ -26,7 +26,7 @@ BEGIN
         _u.telegram_id
     );
 
-    INSERT INTO user_free_recipes_table(
+    INSERT INTO user_free_recipes(
         telegram_id
     ) VALUES(
         _u.telegram_id
