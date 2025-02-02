@@ -36,6 +36,8 @@ func (d *Dependencies) ProductHandler() *product.Handler {
 	if d.productHandler == nil {
 		d.productHandler = product.NewHandler(
 			d.ProductService(),
+			d.cookie,
+			d.middleware,
 			d.engine,
 			d.logger,
 			d.validator,

@@ -54,7 +54,7 @@ func (h *Handler) getByID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.GetByID(c, userIDInt)
+	result, err := h.userService.GetByID(c.Request.Context(), userIDInt)
 	if err != nil {
 		h.logger.Error("failed to get user by id", "error", err)
 		c.JSON(http.StatusInternalServerError, user.ErrorResponse{

@@ -29,7 +29,7 @@ func (h *Handler) deleteByTelegramID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.DeleteByTelegramID(c, telegramID)
+	result, err := h.userService.DeleteByTelegramID(c.Request.Context(), telegramID)
 	if err != nil {
 		h.logger.Error("failed to delete user by telegramID", "error", err)
 		c.JSON(http.StatusInternalServerError, user.ErrorResponse{

@@ -2,6 +2,8 @@ package payment
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/go-jedi/foodgrammm-backend/config"
+	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
 	"github.com/go-jedi/foodgrammm-backend/internal/service"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
 	"github.com/go-jedi/foodgrammm-backend/pkg/validator"
@@ -9,18 +11,24 @@ import (
 
 type Handler struct {
 	paymentService service.PaymentService
+	cookie         config.CookieConfig
+	middleware     *middleware.Middleware
 	logger         *logger.Logger
 	validator      *validator.Validator
 }
 
 func NewHandler(
 	paymentService service.PaymentService,
+	cookie config.CookieConfig,
+	middleware *middleware.Middleware,
 	engine *gin.Engine,
 	logger *logger.Logger,
 	validator *validator.Validator,
 ) *Handler {
 	h := &Handler{
 		paymentService: paymentService,
+		cookie:         cookie,
+		middleware:     middleware,
 		logger:         logger,
 		validator:      validator,
 	}
@@ -31,7 +39,7 @@ func NewHandler(
 }
 
 func (h *Handler) initRoutes(engine *gin.Engine) {
-	api := engine.Group("/v1/payment")
+	api := engine.Group("/v1/payment", h.middleware.Auth.AuthMiddleware)
 	{
 		api.POST("/create/link", h.create)
 		api.GET("/check/status", h.checkStatus)

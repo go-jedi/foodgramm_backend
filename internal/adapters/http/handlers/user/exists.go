@@ -37,7 +37,7 @@ func (h *Handler) exists(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.Exists(c, dto.TelegramID, dto.Username)
+	result, err := h.userService.Exists(c.Request.Context(), dto.TelegramID, dto.Username)
 	if err != nil {
 		h.logger.Error("failed to exists user", "error", err)
 		c.JSON(http.StatusInternalServerError, user.ErrorResponse{

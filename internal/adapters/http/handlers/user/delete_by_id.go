@@ -45,7 +45,7 @@ func (h *Handler) deleteByID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.DeleteByID(c, userIDInt)
+	result, err := h.userService.DeleteByID(c.Request.Context(), userIDInt)
 	if err != nil {
 		h.logger.Error("failed to delete user by id", "error", err)
 		c.JSON(http.StatusInternalServerError, user.ErrorResponse{

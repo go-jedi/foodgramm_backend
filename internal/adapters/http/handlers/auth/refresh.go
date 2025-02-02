@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
 )
 
+// Refresh
 // @Summary Refresh user token
 // @Description Refresh the access token using the provided Telegram ID and refresh token
 // @Tags Authentication
@@ -47,17 +48,14 @@ func (h *Handler) Refresh(c *gin.Context) {
 		return
 	}
 
-	const maxAge = 86400
-	const domain = "localhost"
-
 	c.SetCookie(
-		"refresh",
+		h.cookie.Refresh.Name,
 		result.RefreshToken,
-		maxAge,
-		"/",
-		domain,
-		true,
-		true,
+		h.cookie.Refresh.MaxAge,
+		h.cookie.Refresh.Path,
+		h.cookie.Refresh.Domain,
+		h.cookie.Refresh.Secure,
+		h.cookie.Refresh.HTTPOnly,
 	)
 
 	c.JSON(http.StatusOK, result)

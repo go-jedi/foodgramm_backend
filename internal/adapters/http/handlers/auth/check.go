@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
 )
 
+// Check
 // @Summary Check user token
 // @Description Check if the provided Telegram ID and token are valid
 // @Tags Authentication

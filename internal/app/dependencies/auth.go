@@ -23,6 +23,8 @@ func (d *Dependencies) AuthHandler() *auth.Handler {
 	if d.authHandler == nil {
 		d.authHandler = auth.NewHandler(
 			d.AuthService(),
+			d.cookie,
+			d.middleware,
 			d.engine,
 			d.logger,
 			d.validator,

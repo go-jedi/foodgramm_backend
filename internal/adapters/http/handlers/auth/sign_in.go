@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
 )
 
+// SignIn
 // @Summary Sign in user
 // @Description Sign in a user using their Telegram ID, username, first name, and last name
 // @Tags Authentication
@@ -47,17 +48,14 @@ func (h *Handler) SignIn(c *gin.Context) {
 		return
 	}
 
-	const maxAge = 86400
-	const domain = "localhost"
-
 	c.SetCookie(
-		"refresh",
+		h.cookie.Refresh.Name,
 		result.RefreshToken,
-		maxAge,
-		"/",
-		domain,
-		true,
-		true,
+		h.cookie.Refresh.MaxAge,
+		h.cookie.Refresh.Path,
+		h.cookie.Refresh.Domain,
+		h.cookie.Refresh.Secure,
+		h.cookie.Refresh.HTTPOnly,
 	)
 
 	c.JSON(http.StatusOK, result)

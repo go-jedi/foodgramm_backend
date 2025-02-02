@@ -54,7 +54,7 @@ func (h *Handler) existsByID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.userService.ExistsByID(c, userIDInt)
+	result, err := h.userService.ExistsByID(c.Request.Context(), userIDInt)
 	if err != nil {
 		h.logger.Error("failed to exists user by id", "error", err)
 		c.JSON(http.StatusInternalServerError, user.ErrorResponse{

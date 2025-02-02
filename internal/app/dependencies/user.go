@@ -35,6 +35,8 @@ func (d *Dependencies) UserHandler() *user.Handler {
 	if d.userHandler == nil {
 		d.userHandler = user.NewHandler(
 			d.UserService(),
+			d.cookie,
+			d.middleware,
 			d.engine,
 			d.logger,
 			d.validator,

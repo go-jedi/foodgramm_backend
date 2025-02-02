@@ -19,6 +19,17 @@ type LoggerConfig struct {
 	MaxAge     int    `yaml:"max_age"`
 }
 
+type CookieConfig struct {
+	Refresh struct {
+		Name     string `yaml:"name"`
+		MaxAge   int    `yaml:"max_age"`
+		Path     string `yaml:"path"`
+		Domain   string `yaml:"domain"`
+		Secure   bool   `yaml:"secure"`
+		HTTPOnly bool   `yaml:"http_only"`
+	} `yaml:"refresh"`
+}
+
 type BcryptConfig struct {
 	Cost int `yaml:"cost"`
 }
@@ -82,6 +93,7 @@ type HTTPServerConfig struct {
 
 type Config struct {
 	Logger     LoggerConfig     `yaml:"logger"`
+	Cookie     CookieConfig     `yaml:"cookie"`
 	Bcrypt     BcryptConfig     `yaml:"bcrypt"`
 	UID        UIDConfig        `yaml:"uid"`
 	JWT        JWTConfig        `yaml:"jwt"`
