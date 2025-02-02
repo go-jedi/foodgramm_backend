@@ -6,6 +6,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
 
@@ -42,6 +43,8 @@ type PaymentService interface {
 	CheckStatus(ctx context.Context, dto payment.CheckStatusDTO) error
 }
 
-type RecipeService interface{}
+type RecipeService interface {
+	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
+}
 
 type RecipeIngredientService interface{}
