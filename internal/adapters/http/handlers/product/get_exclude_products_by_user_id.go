@@ -11,7 +11,7 @@ import (
 
 // @Summary Get Exclude Products by User ID
 // @Description Get excluded products for a user by their unique User ID.
-// @Tags users
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param userID path int64 true "User ID"

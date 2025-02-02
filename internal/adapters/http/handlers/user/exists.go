@@ -9,7 +9,7 @@ import (
 
 // @Summary Check if a user exists
 // @Description Check if a user exists by Telegram ID and Username.
-// @Tags users
+// @Tags User
 // @Accept json
 // @Produce json
 // @Param request body user.ExistsDTO true "User data"

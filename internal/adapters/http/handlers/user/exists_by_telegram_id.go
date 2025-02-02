@@ -10,7 +10,7 @@ import (
 
 // @Summary Check if a user exists by Telegram ID
 // @Description Check if a user exists by their unique Telegram ID.
-// @Tags users
+// @Tags User
 // @Accept json
 // @Produce json
 // @Param telegramID path string true "Telegram ID"

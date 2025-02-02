@@ -10,7 +10,7 @@ import (
 
 // @Summary Get a user by Telegram ID
 // @Description Retrieve a user by their unique Telegram ID.
-// @Tags users
+// @Tags User
 // @Accept json
 // @Produce json
 // @Param telegramID path string true "Telegram ID"

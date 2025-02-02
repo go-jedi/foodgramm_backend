@@ -9,7 +9,7 @@ import (
 
 // @Summary Add Exclude Products by Telegram ID
 // @Description Add excluded products for a user by their unique Telegram ID.
-// @Tags users
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param request body product.AddExcludeProductsByTelegramIDDTO true "Exclude products data"

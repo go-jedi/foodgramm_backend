@@ -381,7 +381,7 @@ paths:
             $ref: '#/definitions/product.ErrorResponse'
       summary: Get Exclude Products by Telegram ID
       tags:
-      - users
+      - Product
   /v1/product/exclude/telegram/id:
     post:
       consumes:
@@ -411,7 +411,7 @@ paths:
             $ref: '#/definitions/product.ErrorResponse'
       summary: Add Exclude Products by Telegram ID
       tags:
-      - users
+      - Product
   /v1/product/exclude/user/{userID}:
     get:
       consumes:
@@ -440,7 +440,7 @@ paths:
             $ref: '#/definitions/product.ErrorResponse'
       summary: Get Exclude Products by User ID
       tags:
-      - users
+      - Product
   /v1/product/exclude/user/id:
     post:
       consumes:
@@ -470,7 +470,7 @@ paths:
             $ref: '#/definitions/product.ErrorResponse'
       summary: Add Exclude Products by User ID
       tags:
-      - users
+      - Product
   /v1/user:
     post:
       consumes:
@@ -504,7 +504,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Create a new user
       tags:
-      - users
+      - User
     put:
       consumes:
       - application/json
@@ -533,7 +533,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Update a user
       tags:
-      - users
+      - User
   /v1/user/all:
     get:
       consumes:
@@ -554,7 +554,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Get all users
       tags:
-      - users
+      - User
   /v1/user/exists:
     post:
       consumes:
@@ -584,7 +584,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Check if a user exists
       tags:
-      - users
+      - User
   /v1/user/exists/id/{userID}:
     get:
       consumes:
@@ -613,7 +613,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Check if a user exists by ID
       tags:
-      - users
+      - User
   /v1/user/exists/telegram/{telegramID}:
     get:
       consumes:
@@ -642,7 +642,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Check if a user exists by Telegram ID
       tags:
-      - users
+      - User
   /v1/user/id/{userID}:
     delete:
       consumes:
@@ -671,7 +671,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Delete a user by ID
       tags:
-      - users
+      - User
     get:
       consumes:
       - application/json
@@ -699,7 +699,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Get a user by ID
       tags:
-      - users
+      - User
   /v1/user/list:
     post:
       consumes:
@@ -729,7 +729,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Get a list of users with pagination
       tags:
-      - users
+      - User
   /v1/user/telegram/{telegramID}:
     delete:
       consumes:
@@ -758,7 +758,7 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Delete a user by Telegram ID
       tags:
-      - users
+      - User
     get:
       consumes:
       - application/json
@@ -786,5 +786,5 @@ paths:
             $ref: '#/definitions/user.ErrorResponse'
       summary: Get a user by Telegram ID
       tags:
-      - users
+      - User
 swagger: "2.0"

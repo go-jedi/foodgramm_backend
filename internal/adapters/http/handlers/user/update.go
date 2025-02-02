@@ -9,7 +9,7 @@ import (
 
 // @Summary Update a user
 // @Description Update a user's information.
-// @Tags users
+// @Tags User
 // @Accept json
 // @Produce json
 // @Param request body user.UpdateDTO true "User update data"

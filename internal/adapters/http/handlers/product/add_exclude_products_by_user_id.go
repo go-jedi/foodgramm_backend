@@ -9,7 +9,7 @@ import (
 
 // @Summary Add Exclude Products by User ID
 // @Description Add excluded products for a user by their unique User ID.
-// @Tags users
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param request body product.AddExcludeProductsByUserIDDTO true "Exclude products data"

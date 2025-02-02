@@ -10,7 +10,7 @@ import (
 
 // @Summary Get Exclude Products by Telegram ID
 // @Description Get excluded products for a user by their unique Telegram ID.
-// @Tags users
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param telegramID path string true "Telegram ID"

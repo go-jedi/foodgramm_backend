@@ -9,7 +9,7 @@ import (
 
 // @Summary Get a list of users with pagination
 // @Description Retrieve a list of users with pagination based on page and size.
-// @Tags users
+// @Tags User
 // @Accept json
 // @Produce json
 // @Param request body user.ListDTO true "Pagination parameters"

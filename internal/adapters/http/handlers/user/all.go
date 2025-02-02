@@ -9,7 +9,7 @@ import (
 
 // @Summary Get all users
 // @Description Retrieve a list of all users.
-// @Tags users
+// @Tags User
 // @Accept json
 // @Produce json
 // @Success 200 {array} user.User

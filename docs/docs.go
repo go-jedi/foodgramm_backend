@@ -186,7 +186,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Product"
                 ],
                 "summary": "Add Exclude Products by Telegram ID",
                 "parameters": [
@@ -232,7 +232,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Product"
                 ],
                 "summary": "Get Exclude Products by Telegram ID",
                 "parameters": [
@@ -276,7 +276,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Product"
                 ],
                 "summary": "Add Exclude Products by User ID",
                 "parameters": [
@@ -322,7 +322,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Product"
                 ],
                 "summary": "Get Exclude Products by User ID",
                 "parameters": [
@@ -366,7 +366,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Update a user",
                 "parameters": [
@@ -410,7 +410,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Create a new user",
                 "parameters": [
@@ -462,7 +462,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Get all users",
                 "responses": {
@@ -494,7 +494,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Check if a user exists",
                 "parameters": [
@@ -540,7 +540,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Check if a user exists by ID",
                 "parameters": [
@@ -584,7 +584,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Check if a user exists by Telegram ID",
                 "parameters": [
@@ -628,7 +628,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Get a user by ID",
                 "parameters": [
@@ -670,7 +670,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Delete a user by ID",
                 "parameters": [
@@ -714,7 +714,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Get a list of users with pagination",
                 "parameters": [
@@ -760,7 +760,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Get a user by Telegram ID",
                 "parameters": [
@@ -802,7 +802,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "User"
                 ],
                 "summary": "Delete a user by Telegram ID",
                 "parameters": [

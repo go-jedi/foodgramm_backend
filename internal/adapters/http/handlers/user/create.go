@@ -11,7 +11,7 @@ import (
 
 // @Summary Create a new user
 // @Description Create a new user with the provided details.
-// @Tags users
+// @Tags User
 // @Accept json
 // @Produce json
 // @Param user body user.CreateDTO true "User data"

@@ -11,7 +11,7 @@ import (
 
 // @Summary Delete a user by ID
 // @Description Delete a user by their unique identifier.
-// @Tags users
+// @Tags User
 // @Accept json
 // @Produce json
 // @Param userID path int64 true "User ID"
