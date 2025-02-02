@@ -4,9 +4,19 @@ import (
 	"context"
 
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
+	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
 func (s *serv) Check(ctx context.Context, dto auth.CheckDTO) (auth.CheckResponse, error) {
+	ie, err := s.userRepository.ExistsByTelegramID(ctx, dto.TelegramID)
+	if err != nil {
+		return auth.CheckResponse{}, err
+	}
+
+	if !ie {
+		return auth.CheckResponse{}, apperrors.ErrUserDoesNotExist
+	}
+
 	u, err := s.userRepository.GetByTelegramID(ctx, dto.TelegramID)
 	if err != nil {
 		return auth.CheckResponse{}, err

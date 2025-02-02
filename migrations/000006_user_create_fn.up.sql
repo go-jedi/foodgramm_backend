@@ -32,6 +32,12 @@ BEGIN
         _u.telegram_id
     );
 
+    INSERT INTO subscriptions(
+        telegram_id
+    ) VALUES(
+        _u.telegram_id
+    );
+
     RETURN _u;
 END;
 $$;

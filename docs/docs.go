@@ -563,6 +563,106 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/subscription/exists/telegram/{telegramID}": {
+            "get": {
+                "description": "Checks whether a subscription exists for a user with the specified Telegram ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subscription"
+                ],
+                "summary": "Check if subscription exists by Telegram ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Telegram ID of the user",
+                        "name": "telegramID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Indicates whether the subscription exists",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid or missing 'telegramID' parameter",
+                        "schema": {
+                            "$ref": "#/definitions/subscription.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/subscription.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/subscription.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/subscription/telegram/{telegramID}": {
+            "get": {
+                "description": "Retrieves subscription details for a user with the specified Telegram ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subscription"
+                ],
+                "summary": "Get subscription by Telegram ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Telegram ID of the user",
+                        "name": "telegramID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Subscription details",
+                        "schema": {
+                            "$ref": "#/definitions/subscription.Subscription"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid or missing 'telegramID' parameter",
+                        "schema": {
+                            "$ref": "#/definitions/subscription.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found or subscription does not exist",
+                        "schema": {
+                            "$ref": "#/definitions/subscription.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/subscription.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/user": {
             "put": {
                 "description": "Update a user's information.",
@@ -1325,6 +1425,43 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "telegram_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "subscription.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "subscription.Subscription": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "expires_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "subscribed_at": {
+                    "type": "string"
                 },
                 "telegram_id": {
                     "type": "string"
