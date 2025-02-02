@@ -13,11 +13,7 @@ func (r *repo) ExistsByTelegramID(ctx context.Context, telegramID string) (bool,
 
 	ie := false
 
-	q := `
-		SELECT is_active
-		FROM subscriptions
-		WHERE telegram_id = $1;
-	`
+	q := `SELECT * FROM public.subscription_exists($1);`
 
 	if err := r.db.Pool.QueryRow(
 		ctxTimeout, q,

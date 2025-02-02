@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS public.subscription_get_by_telegram_id(TEXT);

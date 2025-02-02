@@ -1,1 +1,1 @@
-DROP FUNCTION IF EXISTS public.subscription_create(JSON);
+DROP FUNCTION IF EXISTS public.subscription_create(TEXT);

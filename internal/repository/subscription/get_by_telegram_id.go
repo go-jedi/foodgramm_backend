@@ -15,11 +15,7 @@ func (r *repo) GetByTelegramID(ctx context.Context, telegramID string) (subscrip
 
 	var s subscription.Subscription
 
-	q := `
-		SELECT *
-		FROM subscriptions
-		WHERE telegram_id = $1;
-	`
+	q := `SELECT * FROM public.subscription_get_by_telegram_id($1);`
 
 	if err := r.db.Pool.QueryRow(
 		ctxTimeout, q,
