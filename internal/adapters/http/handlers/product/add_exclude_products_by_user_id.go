@@ -12,6 +12,7 @@ import (
 // @Tags Product
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param request body product.AddExcludeProductsByUserIDDTO true "Exclude products data"
 // @Success 200 {object} product.UserExcludedProducts "Excluded products for the user"
 // @Failure 400 {object} product.ErrorResponse

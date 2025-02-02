@@ -12,6 +12,7 @@ import (
 // @Tags User
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Success 200 {array} user.User
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user/all [get]

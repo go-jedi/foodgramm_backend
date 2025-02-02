@@ -13,6 +13,7 @@ import (
 // @Tags User
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param telegramID path string true "Telegram ID"
 // @Success 200 {string} string "Deleted Telegram ID"
 // @Failure 400 {object} user.ErrorResponse

@@ -13,6 +13,7 @@ import (
 // @Tags Authentication
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param request body auth.CheckDTO true "Check request body"
 // @Success 200 {object} auth.CheckResponse "Successful response with user token details"
 // @Failure 400 {object} auth.ErrorResponse "Bad request error"

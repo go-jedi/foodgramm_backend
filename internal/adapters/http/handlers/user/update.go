@@ -12,6 +12,7 @@ import (
 // @Tags User
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param request body user.UpdateDTO true "User update data"
 // @Success 200 {object} user.User "Updated user details"
 // @Failure 400 {object} user.ErrorResponse

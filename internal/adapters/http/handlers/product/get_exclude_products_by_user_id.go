@@ -14,6 +14,7 @@ import (
 // @Tags Product
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param userID path int64 true "User ID"
 // @Success 200 {object} product.UserExcludedProducts "Excluded products for the user"
 // @Failure 400 {object} product.ErrorResponse

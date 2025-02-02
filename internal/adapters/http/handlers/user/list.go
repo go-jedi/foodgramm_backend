@@ -12,6 +12,7 @@ import (
 // @Tags User
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param request body user.ListDTO true "Pagination parameters"
 // @Success 200 {object} user.ListResponseSwagger "List of users with pagination details"
 // @Failure 400 {object} user.ErrorResponse

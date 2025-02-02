@@ -13,6 +13,7 @@ import (
 // @Tags Product
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param telegramID path string true "Telegram ID"
 // @Success 200 {object} product.UserExcludedProducts "Excluded products for the user"
 // @Failure 400 {object} product.ErrorResponse

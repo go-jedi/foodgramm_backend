@@ -14,6 +14,7 @@ import (
 // @Tags User
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param userID path int64 true "User ID"
 // @Success 200 {object} user.User "User details"
 // @Failure 400 {object} user.ErrorResponse

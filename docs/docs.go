@@ -53,6 +53,14 @@ const docTemplate = `{
                 "summary": "Check user token",
                 "parameters": [
                     {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "Check request body",
                         "name": "request",
                         "in": "body",
@@ -98,6 +106,14 @@ const docTemplate = `{
                 ],
                 "summary": "Refresh user token",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "Refresh request body",
                         "name": "request",
@@ -191,6 +207,14 @@ const docTemplate = `{
                 "summary": "Add Exclude Products by Telegram ID",
                 "parameters": [
                     {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "Exclude products data",
                         "name": "request",
                         "in": "body",
@@ -238,6 +262,14 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
                         "description": "Telegram ID",
                         "name": "telegramID",
                         "in": "path",
@@ -280,6 +312,14 @@ const docTemplate = `{
                 ],
                 "summary": "Add Exclude Products by User ID",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "Exclude products data",
                         "name": "request",
@@ -327,6 +367,14 @@ const docTemplate = `{
                 "summary": "Get Exclude Products by User ID",
                 "parameters": [
                     {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "type": "integer",
                         "description": "User ID",
                         "name": "userID",
@@ -370,6 +418,14 @@ const docTemplate = `{
                 ],
                 "summary": "Update a user",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "User update data",
                         "name": "request",
@@ -465,6 +521,16 @@ const docTemplate = `{
                     "User"
                 ],
                 "summary": "Get all users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -633,6 +699,14 @@ const docTemplate = `{
                 "summary": "Get a user by ID",
                 "parameters": [
                     {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "type": "integer",
                         "description": "User ID",
                         "name": "userID",
@@ -674,6 +748,14 @@ const docTemplate = `{
                 ],
                 "summary": "Delete a user by ID",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "integer",
                         "description": "User ID",
@@ -718,6 +800,14 @@ const docTemplate = `{
                 ],
                 "summary": "Get a list of users with pagination",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "Pagination parameters",
                         "name": "request",
@@ -766,6 +856,14 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
                         "description": "Telegram ID",
                         "name": "telegramID",
                         "in": "path",
@@ -806,6 +904,14 @@ const docTemplate = `{
                 ],
                 "summary": "Delete a user by Telegram ID",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "Telegram ID",
@@ -1040,7 +1146,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "first_name",
-                "last_name",
                 "telegram_id",
                 "username"
             ],
@@ -1134,7 +1239,6 @@ const docTemplate = `{
             "required": [
                 "first_name",
                 "id",
-                "last_name",
                 "telegram_id",
                 "username"
             ],
