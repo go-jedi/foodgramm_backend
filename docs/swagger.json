@@ -290,6 +290,63 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "This endpoint allows you to delete excluded products for a user identified by their Telegram ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete excluded products by Telegram ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Telegram ID of the user",
+                        "name": "telegramID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Product name to be deleted",
+                        "name": "product",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted excluded product",
+                        "schema": {
+                            "$ref": "#/definitions/product.UserExcludedProducts"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/product.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/product.ErrorResponse"
+                        }
+                    }
+                }
             }
         },
         "/v1/product/exclude/user/id": {
@@ -1018,7 +1075,6 @@
             "type": "object",
             "required": [
                 "first_name",
-                "last_name",
                 "telegram_id",
                 "username"
             ],

@@ -38,7 +38,7 @@ func (r *repo) AddExcludeProductsByTelegramID(ctx context.Context, dto product.A
 			r.logger.Error("request timed out while add exclude products by telegram id", "err", err)
 			return product.UserExcludedProducts{}, fmt.Errorf("the request timed out: %w", err)
 		}
-		r.logger.Error("failed to add exclude products by id", "err", err)
+		r.logger.Error("failed to add exclude products by telegram id", "err", err)
 		return product.UserExcludedProducts{}, fmt.Errorf("could not add exclude products by telegram id: %w", err)
 	}
 
