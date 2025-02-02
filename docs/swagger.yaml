@@ -668,6 +668,12 @@ paths:
       description: Checks whether a subscription exists for a user with the specified
         Telegram ID.
       parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Telegram ID of the user
         in: path
         name: telegramID
@@ -702,6 +708,12 @@ paths:
       description: Retrieves subscription details for a user with the specified Telegram
         ID.
       parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Telegram ID of the user
         in: path
         name: telegramID

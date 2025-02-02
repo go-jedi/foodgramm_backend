@@ -579,6 +579,14 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
                         "description": "Telegram ID of the user",
                         "name": "telegramID",
                         "in": "path",
@@ -627,6 +635,14 @@ const docTemplate = `{
                 ],
                 "summary": "Get subscription by Telegram ID",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "Telegram ID of the user",

@@ -14,6 +14,7 @@ import (
 // @Tags Subscription
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param telegramID path string true "Telegram ID of the user"
 // @Success 200 {object} bool "Indicates whether the subscription exists"
 // @Failure 400 {object} subscription.ErrorResponse "Invalid or missing 'telegramID' parameter"
