@@ -9,7 +9,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 )
 
-func (r *repo) GetAllergiesByTelegramID(ctx context.Context, telegramID string) (product.UserExcludedProducts, error) {
+func (r *repo) GetExcludeProductsByTelegramID(ctx context.Context, telegramID string) (product.UserExcludedProducts, error) {
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 
@@ -21,18 +21,16 @@ func (r *repo) GetAllergiesByTelegramID(ctx context.Context, telegramID string) 
 		WHERE telegram_id = $1;
 	`
 
-	if err := r.db.Pool.QueryRow(
-		ctxTimeout, q, telegramID,
-	).Scan(
+	if err := r.db.Pool.QueryRow(ctxTimeout, q, telegramID).Scan(
 		&uep.ID, &uep.UserID, &uep.TelegramID, &uep.Allergies,
 		&uep.Products, &uep.CreatedAt, &uep.UpdatedAt,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
-			r.logger.Error("request timed out while get allergies by telegram id", "err", err)
+			r.logger.Error("request timed out while get exclude products by telegram id", "err", err)
 			return product.UserExcludedProducts{}, fmt.Errorf("the request timed out: %w", err)
 		}
-		r.logger.Error("failed to get allergies by telegram id", "err", err)
-		return product.UserExcludedProducts{}, fmt.Errorf("could not get allergies by telegram id: %w", err)
+		r.logger.Error("failed to get exclude products by telegram id", "err", err)
+		return product.UserExcludedProducts{}, fmt.Errorf("could not get exclude products by telegram id: %w", err)
 	}
 
 	return uep, nil

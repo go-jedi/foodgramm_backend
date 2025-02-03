@@ -93,6 +93,21 @@ definitions:
     - allergies
     - telegram_id
     type: object
+  product.AddExcludeProductsByTelegramIDDTO:
+    properties:
+      products:
+        items:
+          type: string
+        maxItems: 50
+        minItems: 1
+        type: array
+      telegram_id:
+        minLength: 1
+        type: string
+    required:
+    - products
+    - telegram_id
+    type: object
   product.ErrorResponse:
     properties:
       detail:
@@ -108,6 +123,10 @@ definitions:
         type: string
       id:
         type: integer
+      products:
+        items:
+          type: string
+        type: array
       telegram_id:
         type: string
       updated_at:
@@ -504,6 +523,117 @@ paths:
           schema:
             $ref: '#/definitions/product.ErrorResponse'
       summary: Get Allergies by Telegram ID
+      tags:
+      - Product
+  /v1/product/exclude/telegram/{telegramID}:
+    delete:
+      consumes:
+      - application/json
+      description: This endpoint allows you to delete excluded products for a user
+        identified by their Telegram ID.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      - description: Product name to be deleted
+        in: query
+        name: product
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully deleted excluded product
+          schema:
+            $ref: '#/definitions/product.UserExcludedProducts'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+      summary: Delete excluded products by Telegram ID
+      tags:
+      - Product
+    get:
+      consumes:
+      - application/json
+      description: Get excluded products for a user by their unique Telegram ID.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Excluded products for the user
+          schema:
+            $ref: '#/definitions/product.UserExcludedProducts'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+      summary: Get Exclude Products by Telegram ID
+      tags:
+      - Product
+  /v1/product/exclude/telegram/id:
+    post:
+      consumes:
+      - application/json
+      description: Add excluded products for a user by their unique Telegram ID.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Exclude products data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.AddExcludeProductsByTelegramIDDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Excluded products for the user
+          schema:
+            $ref: '#/definitions/product.UserExcludedProducts'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.ErrorResponse'
+      summary: Add Exclude Products by Telegram ID
       tags:
       - Product
   /v1/recipe/free/telegram/{telegramID}:
