@@ -9,18 +9,19 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
-// @Summary      Get free recipes by Telegram ID
-// @Description  This endpoint retrieves the free recipes information for a user identified by their Telegram ID.
-// @Tags         Recipe
-// @Accept       json
-// @Produce      json
-// @Param        Authorization header string true "Authorization token" default(Bearer <token>)
-// @Param        telegramID path string true "Telegram ID of the user"
-// @Success      200 {object} UserFreeRecipes "Successfully retrieved free recipes information"
-// @Failure      400 {object} recipe.ErrorResponse "Bad Request"
-// @Failure      500 {object} recipe.ErrorResponse "Internal Server Error"
-// @Router       /v1/recipe/free/telegram/{telegramID} [get]
-func (h *Handler) getFreeRecipesByTelegramID(c *gin.Context) {
+// @Summary Get Recipes by Telegram ID
+// @Description Retrieve recipes for a user by their Telegram ID
+// @Tags Recipe
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
+// @Param telegramID path string true "Telegram ID of the user"
+// @Success 200 {array} recipe.RecipesSwagger "List of recipes"
+// @Failure 400 {object} recipe.ErrorResponse "Bad request error"
+// @Failure 404 {object} recipe.ErrorResponse "User not found error"
+// @Failure 500 {object} recipe.ErrorResponse "Internal server error"
+// @Router /v1/recipe/telegram/{telegramID} [get]
+func (h *Handler) getRecipesByTelegramID(c *gin.Context) {
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {
 		h.logger.Error("failed to get param telegramID", "error", apperrors.ErrParamIsRequired)
@@ -31,7 +32,7 @@ func (h *Handler) getFreeRecipesByTelegramID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.recipeService.GetFreeRecipesByTelegramID(c.Request.Context(), telegramID)
+	result, err := h.recipeService.GetRecipesByTelegramID(c.Request.Context(), telegramID)
 	if err != nil {
 		if errors.Is(err, apperrors.ErrUserDoesNotExist) {
 			c.JSON(http.StatusNotFound, recipe.ErrorResponse{
@@ -43,7 +44,7 @@ func (h *Handler) getFreeRecipesByTelegramID(c *gin.Context) {
 
 		h.logger.Error("failed to get recipes by telegram id", "error", err)
 		c.JSON(http.StatusInternalServerError, recipe.ErrorResponse{
-			Error:  "failed to get free recipes by telegram id",
+			Error:  "failed to get recipes by telegram id",
 			Detail: err.Error(),
 		})
 		return

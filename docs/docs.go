@@ -412,6 +412,67 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/recipe/telegram/{telegramID}": {
+            "get": {
+                "description": "Retrieve recipes for a user by their Telegram ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe"
+                ],
+                "summary": "Get Recipes by Telegram ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Telegram ID of the user",
+                        "name": "telegramID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of recipes",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/recipe.RecipesSwagger"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found error",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/subscription/exists/telegram/{telegramID}": {
             "get": {
                 "description": "Checks whether a subscription exists for a user with the specified Telegram ID.",
@@ -1238,6 +1299,35 @@ const docTemplate = `{
                 }
             }
         },
+        "recipe.Content": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "ingredients": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "method_preparation": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "recipe_preparation": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
         "recipe.ErrorResponse": {
             "type": "object",
             "properties": {
@@ -1245,6 +1335,35 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "recipe.RecipesSwagger": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/recipe.Content"
+                        }
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "telegram_id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updated_at": {
                     "type": "string"
                 }
             }

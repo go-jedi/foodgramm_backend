@@ -115,11 +115,49 @@ definitions:
       user_id:
         type: integer
     type: object
+  recipe.Content:
+    properties:
+      id:
+        type: integer
+      ingredients:
+        items:
+          type: string
+        type: array
+      method_preparation:
+        items:
+          type: string
+        type: array
+      recipe_preparation:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+    type: object
   recipe.ErrorResponse:
     properties:
       detail:
         type: string
       error:
+        type: string
+    type: object
+  recipe.RecipesSwagger:
+    properties:
+      content:
+        items:
+          items:
+            $ref: '#/definitions/recipe.Content'
+          type: array
+        type: array
+      created_at:
+        type: string
+      id:
+        type: integer
+      telegram_id:
+        type: string
+      title:
+        type: string
+      updated_at:
         type: string
     type: object
   recipe.UserFreeRecipes:
@@ -537,6 +575,47 @@ paths:
           schema:
             $ref: '#/definitions/recipe.ErrorResponse'
       summary: Add free recipes count by Telegram ID
+      tags:
+      - Recipe
+  /v1/recipe/telegram/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve recipes for a user by their Telegram ID
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of recipes
+          schema:
+            items:
+              $ref: '#/definitions/recipe.RecipesSwagger'
+            type: array
+        "400":
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+        "404":
+          description: User not found error
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+      summary: Get Recipes by Telegram ID
       tags:
       - Recipe
   /v1/subscription/exists/telegram/{telegramID}:
