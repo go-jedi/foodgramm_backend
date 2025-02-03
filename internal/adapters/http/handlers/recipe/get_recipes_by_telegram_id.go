@@ -16,7 +16,7 @@ import (
 // @Produce json
 // @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param telegramID path string true "Telegram ID of the user"
-// @Success 200 {array} recipe.RecipesSwagger "List of recipes"
+// @Success 200 {array} recipe.Recipes "List of recipes"
 // @Failure 400 {object} recipe.ErrorResponse "Bad request error"
 // @Failure 404 {object} recipe.ErrorResponse "User not found error"
 // @Failure 500 {object} recipe.ErrorResponse "Internal server error"

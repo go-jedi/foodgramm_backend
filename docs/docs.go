@@ -611,7 +611,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/recipe.RecipesSwagger"
+                                "$ref": "#/definitions/recipe.Recipes"
                             }
                         }
                     },
@@ -1529,7 +1529,7 @@ const docTemplate = `{
                 }
             }
         },
-        "recipe.RecipesSwagger": {
+        "recipe.Recipes": {
             "type": "object",
             "properties": {
                 "content": {

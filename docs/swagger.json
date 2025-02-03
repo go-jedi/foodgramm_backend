@@ -605,7 +605,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/recipe.RecipesSwagger"
+                                "$ref": "#/definitions/recipe.Recipes"
                             }
                         }
                     },
@@ -1523,7 +1523,7 @@
                 }
             }
         },
-        "recipe.RecipesSwagger": {
+        "recipe.Recipes": {
             "type": "object",
             "properties": {
                 "content": {

@@ -160,7 +160,7 @@ definitions:
       error:
         type: string
     type: object
-  recipe.RecipesSwagger:
+  recipe.Recipes:
     properties:
       content:
         items:
@@ -731,7 +731,7 @@ paths:
           description: List of recipes
           schema:
             items:
-              $ref: '#/definitions/recipe.RecipesSwagger'
+              $ref: '#/definitions/recipe.Recipes'
             type: array
         "400":
           description: Bad request error
