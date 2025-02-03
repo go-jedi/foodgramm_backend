@@ -47,7 +47,7 @@ func (r *repo) All(ctx context.Context) ([]user.User, error) {
 		usrs = append(usrs, u)
 	}
 
-	if rows.Err() != nil {
+	if err := rows.Err(); err != nil {
 		r.logger.Error("failed to get all users", "err", rows.Err())
 		return nil, fmt.Errorf("failed to get all users: %w", err)
 	}

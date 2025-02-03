@@ -29,11 +29,11 @@ func (r *repo) GetFreeRecipesByTelegramID(ctx context.Context, telegramID string
 		&ufr.CreatedAt, &ufr.UpdatedAt,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
-			r.logger.Error("request timed out while get recipes by telegram id", "err", err)
+			r.logger.Error("request timed out while get free recipes by telegram id", "err", err)
 			return recipe.UserFreeRecipes{}, fmt.Errorf("the request timed out: %w", err)
 		}
-		r.logger.Error("failed to get recipes by telegram id", "err", err)
-		return recipe.UserFreeRecipes{}, fmt.Errorf("could not get recipes by telegram id: %w", err)
+		r.logger.Error("failed to get free recipes by telegram id", "err", err)
+		return recipe.UserFreeRecipes{}, fmt.Errorf("could not get free recipes by telegram id: %w", err)
 	}
 
 	return ufr, nil
