@@ -7,8 +7,8 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
-func (s *serv) GetExcludeProductsByUserID(ctx context.Context, userID int64) (product.UserExcludedProducts, error) {
-	ie, err := s.userRepository.ExistsByID(ctx, userID)
+func (s *serv) AddAllergiesByTelegramID(ctx context.Context, dto product.AddAllergiesByTelegramIDDTO) (product.UserExcludedProducts, error) {
+	ie, err := s.userRepository.ExistsByTelegramID(ctx, dto.TelegramID)
 	if err != nil {
 		return product.UserExcludedProducts{}, err
 	}
@@ -17,5 +17,5 @@ func (s *serv) GetExcludeProductsByUserID(ctx context.Context, userID int64) (pr
 		return product.UserExcludedProducts{}, apperrors.ErrUserDoesNotExist
 	}
 
-	return s.productRepository.GetExcludeProductsByUserID(ctx, userID)
+	return s.productRepository.AddAllergiesByTelegramID(ctx, dto)
 }

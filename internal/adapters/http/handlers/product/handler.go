@@ -41,10 +41,7 @@ func NewHandler(
 func (h *Handler) initRoutes(engine *gin.Engine) {
 	api := engine.Group("/v1/product", h.middleware.Auth.AuthMiddleware)
 	{
-		api.POST("/exclude/user/id", h.addExcludeProductsByUserID)
-		api.POST("/exclude/telegram/id", h.addExcludeProductsByTelegramID)
-		api.GET("/exclude/user/:userID", h.getExcludeProductsByUserID)
-		api.GET("/exclude/telegram/:telegramID", h.getExcludeProductsByTelegramID)
-		api.DELETE("/exclude/telegram/:telegramID", h.deleteExcludeProductsByTelegramID)
+		api.POST("/allergy", h.addAllergiesByTelegramID)
+		api.GET("/allergy/telegram/:telegramID", h.getAllergiesByTelegramID)
 	}
 }

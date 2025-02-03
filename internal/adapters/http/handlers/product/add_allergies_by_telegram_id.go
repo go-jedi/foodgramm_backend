@@ -9,19 +9,20 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
-// @Summary Add Exclude Products by User ID
-// @Description Add excluded products for a user by their unique User ID.
+// @Summary Add Allergies by Telegram ID
+// @Description Add or update user allergies based on Telegram ID
 // @Tags Product
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Authorization token" default(Bearer <token>)
-// @Param request body product.AddExcludeProductsByUserIDDTO true "Exclude products data"
-// @Success 200 {object} product.UserExcludedProducts "Excluded products for the user"
-// @Failure 400 {object} product.ErrorResponse
-// @Failure 500 {object} product.ErrorResponse
-// @Router /v1/product/exclude/user/id [post]
-func (h *Handler) addExcludeProductsByUserID(c *gin.Context) {
-	var dto product.AddExcludeProductsByUserIDDTO
+// @Param product body product.AddAllergiesByTelegramIDDTO true "Add Allergies Request"
+// @Success 200 {object} product.UserExcludedProducts "User Excluded Products Response"
+// @Failure 400 {object} product.ErrorResponse "Bad Request"
+// @Failure 404 {object} product.ErrorResponse "User Not Found"
+// @Failure 500 {object} product.ErrorResponse "Internal Server Error"
+// @Router /v1/product/allergy [post]
+func (h *Handler) addAllergiesByTelegramID(c *gin.Context) {
+	var dto product.AddAllergiesByTelegramIDDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)
 		c.JSON(http.StatusBadRequest, product.ErrorResponse{
@@ -40,7 +41,7 @@ func (h *Handler) addExcludeProductsByUserID(c *gin.Context) {
 		return
 	}
 
-	result, err := h.productService.AddExcludeProductsByUserID(c.Request.Context(), dto)
+	result, err := h.productService.AddAllergiesByTelegramID(c.Request.Context(), dto)
 	if err != nil {
 		if errors.Is(err, apperrors.ErrUserDoesNotExist) {
 			c.JSON(http.StatusNotFound, product.ErrorResponse{
@@ -50,9 +51,9 @@ func (h *Handler) addExcludeProductsByUserID(c *gin.Context) {
 			return
 		}
 
-		h.logger.Error("failed to add exclude products by user id", "error", err)
+		h.logger.Error("failed to add allergies by telegram id", "error", err)
 		c.JSON(http.StatusInternalServerError, product.ErrorResponse{
-			Error:  "failed to add exclude products by user id",
+			Error:  "failed to add allergies by telegram id",
 			Detail: err.Error(),
 		})
 		return

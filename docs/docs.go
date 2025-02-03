@@ -192,9 +192,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/product/exclude/telegram/id": {
+        "/v1/product/allergy": {
             "post": {
-                "description": "Add excluded products for a user by their unique Telegram ID.",
+                "description": "Add or update user allergies based on Telegram ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -204,7 +204,7 @@ const docTemplate = `{
                 "tags": [
                     "Product"
                 ],
-                "summary": "Add Exclude Products by Telegram ID",
+                "summary": "Add Allergies by Telegram ID",
                 "parameters": [
                     {
                         "type": "string",
@@ -215,24 +215,30 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "Exclude products data",
-                        "name": "request",
+                        "description": "Add Allergies Request",
+                        "name": "product",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/product.AddExcludeProductsByTelegramIDDTO"
+                            "$ref": "#/definitions/product.AddAllergiesByTelegramIDDTO"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Excluded products for the user",
+                        "description": "User Excluded Products Response",
                         "schema": {
                             "$ref": "#/definitions/product.UserExcludedProducts"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/product.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
                         "schema": {
                             "$ref": "#/definitions/product.ErrorResponse"
                         }
@@ -246,9 +252,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/product/exclude/telegram/{telegramID}": {
+        "/v1/product/allergy/telegram/{telegramID}": {
             "get": {
-                "description": "Get excluded products for a user by their unique Telegram ID.",
+                "description": "Retrieve user allergies based on Telegram ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -258,57 +264,7 @@ const docTemplate = `{
                 "tags": [
                     "Product"
                 ],
-                "summary": "Get Exclude Products by Telegram ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003ctoken\u003e",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Telegram ID",
-                        "name": "telegramID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Excluded products for the user",
-                        "schema": {
-                            "$ref": "#/definitions/product.UserExcludedProducts"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "This endpoint allows you to delete excluded products for a user identified by their Telegram ID.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Delete excluded products by Telegram ID",
+                "summary": "Get Allergies by Telegram ID",
                 "parameters": [
                     {
                         "type": "string",
@@ -324,18 +280,11 @@ const docTemplate = `{
                         "name": "telegramID",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Product name to be deleted",
-                        "name": "product",
-                        "in": "query",
-                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successfully deleted excluded product",
+                        "description": "User Excluded Products Response",
                         "schema": {
                             "$ref": "#/definitions/product.UserExcludedProducts"
                         }
@@ -346,108 +295,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/product.ErrorResponse"
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/product/exclude/user/id": {
-            "post": {
-                "description": "Add excluded products for a user by their unique User ID.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Add Exclude Products by User ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003ctoken\u003e",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "Exclude products data",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/product.AddExcludeProductsByUserIDDTO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Excluded products for the user",
-                        "schema": {
-                            "$ref": "#/definitions/product.UserExcludedProducts"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/product/exclude/user/{userID}": {
-            "get": {
-                "description": "Get excluded products for a user by their unique User ID.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get Exclude Products by User ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003ctoken\u003e",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "User ID",
-                        "name": "userID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Excluded products for the user",
-                        "schema": {
-                            "$ref": "#/definitions/product.UserExcludedProducts"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "User Not Found",
                         "schema": {
                             "$ref": "#/definitions/product.ErrorResponse"
                         }
@@ -1338,44 +1187,20 @@ const docTemplate = `{
                 }
             }
         },
-        "product.AddExcludeProductsByTelegramIDDTO": {
+        "product.AddAllergiesByTelegramIDDTO": {
             "type": "object",
             "required": [
-                "products",
+                "allergies",
                 "telegram_id"
             ],
             "properties": {
-                "products": {
-                    "type": "array",
-                    "maxItems": 50,
-                    "minItems": 1,
-                    "items": {
-                        "type": "string"
-                    }
+                "allergies": {
+                    "type": "string",
+                    "minLength": 1
                 },
                 "telegram_id": {
                     "type": "string",
                     "minLength": 1
-                }
-            }
-        },
-        "product.AddExcludeProductsByUserIDDTO": {
-            "type": "object",
-            "required": [
-                "products",
-                "user_id"
-            ],
-            "properties": {
-                "products": {
-                    "type": "array",
-                    "maxItems": 50,
-                    "minItems": 1,
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "user_id": {
-                    "type": "integer"
                 }
             }
         },
@@ -1393,17 +1218,14 @@ const docTemplate = `{
         "product.UserExcludedProducts": {
             "type": "object",
             "properties": {
+                "allergies": {
+                    "type": "string"
+                },
                 "created_at": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
-                },
-                "products": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 },
                 "telegram_id": {
                     "type": "string"
