@@ -192,124 +192,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/product/allergy": {
-            "post": {
-                "description": "Add or update user allergies based on Telegram ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Add Allergies by Telegram ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003ctoken\u003e",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "Add Allergies Request",
-                        "name": "product",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/product.AddAllergiesByTelegramIDDTO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User Excluded Products Response",
-                        "schema": {
-                            "$ref": "#/definitions/product.UserExcludedProducts"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "User Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/product/allergy/telegram/{telegramID}": {
-            "get": {
-                "description": "Retrieve user allergies based on Telegram ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get Allergies by Telegram ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003ctoken\u003e",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Telegram ID of the user",
-                        "name": "telegramID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User Excluded Products Response",
-                        "schema": {
-                            "$ref": "#/definitions/product.UserExcludedProducts"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "User Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/product.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/v1/product/exclude/telegram/id": {
             "post": {
                 "description": "Add excluded products for a user by their unique Telegram ID.",
@@ -1411,23 +1293,6 @@ const docTemplate = `{
                 }
             }
         },
-        "product.AddAllergiesByTelegramIDDTO": {
-            "type": "object",
-            "required": [
-                "allergies",
-                "telegram_id"
-            ],
-            "properties": {
-                "allergies": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "telegram_id": {
-                    "type": "string",
-                    "minLength": 1
-                }
-            }
-        },
         "product.AddExcludeProductsByTelegramIDDTO": {
             "type": "object",
             "required": [
@@ -1463,9 +1328,6 @@ const docTemplate = `{
         "product.UserExcludedProducts": {
             "type": "object",
             "properties": {
-                "allergies": {
-                    "type": "string"
-                },
                 "created_at": {
                     "type": "string"
                 },

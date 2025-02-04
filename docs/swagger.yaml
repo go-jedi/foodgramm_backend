@@ -81,18 +81,6 @@ definitions:
       refresh_token:
         type: string
     type: object
-  product.AddAllergiesByTelegramIDDTO:
-    properties:
-      allergies:
-        minLength: 1
-        type: string
-      telegram_id:
-        minLength: 1
-        type: string
-    required:
-    - allergies
-    - telegram_id
-    type: object
   product.AddExcludeProductsByTelegramIDDTO:
     properties:
       products:
@@ -117,8 +105,6 @@ definitions:
     type: object
   product.UserExcludedProducts:
     properties:
-      allergies:
-        type: string
       created_at:
         type: string
       id:
@@ -446,85 +432,6 @@ paths:
       summary: Sign in user
       tags:
       - Authentication
-  /v1/product/allergy:
-    post:
-      consumes:
-      - application/json
-      description: Add or update user allergies based on Telegram ID
-      parameters:
-      - default: Bearer <token>
-        description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Add Allergies Request
-        in: body
-        name: product
-        required: true
-        schema:
-          $ref: '#/definitions/product.AddAllergiesByTelegramIDDTO'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: User Excluded Products Response
-          schema:
-            $ref: '#/definitions/product.UserExcludedProducts'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/product.ErrorResponse'
-        "404":
-          description: User Not Found
-          schema:
-            $ref: '#/definitions/product.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/product.ErrorResponse'
-      summary: Add Allergies by Telegram ID
-      tags:
-      - Product
-  /v1/product/allergy/telegram/{telegramID}:
-    get:
-      consumes:
-      - application/json
-      description: Retrieve user allergies based on Telegram ID
-      parameters:
-      - default: Bearer <token>
-        description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Telegram ID of the user
-        in: path
-        name: telegramID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: User Excluded Products Response
-          schema:
-            $ref: '#/definitions/product.UserExcludedProducts'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/product.ErrorResponse'
-        "404":
-          description: User Not Found
-          schema:
-            $ref: '#/definitions/product.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/product.ErrorResponse'
-      summary: Get Allergies by Telegram ID
-      tags:
-      - Product
   /v1/product/exclude/telegram/{telegramID}:
     delete:
       consumes:

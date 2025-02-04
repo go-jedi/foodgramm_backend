@@ -22,7 +22,7 @@ func (r *repo) GetExcludeProductsByTelegramID(ctx context.Context, telegramID st
 	`
 
 	if err := r.db.Pool.QueryRow(ctxTimeout, q, telegramID).Scan(
-		&uep.ID, &uep.UserID, &uep.TelegramID, &uep.Allergies,
+		&uep.ID, &uep.UserID, &uep.TelegramID,
 		&uep.Products, &uep.CreatedAt, &uep.UpdatedAt,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
