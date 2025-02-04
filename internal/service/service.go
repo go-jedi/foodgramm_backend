@@ -32,8 +32,6 @@ type UserService interface {
 }
 
 type ProductService interface {
-	AddAllergiesByTelegramID(ctx context.Context, dto product.AddAllergiesByTelegramIDDTO) (product.UserExcludedProducts, error)
-	GetAllergiesByTelegramID(ctx context.Context, telegramID string) (product.UserExcludedProducts, error)
 	AddExcludeProductsByTelegramID(ctx context.Context, dto product.AddExcludeProductsByTelegramIDDTO) (product.UserExcludedProducts, error)
 	GetExcludeProductsByTelegramID(ctx context.Context, telegramID string) (product.UserExcludedProducts, error)
 	DeleteExcludeProductsByTelegramID(ctx context.Context, telegramID string, prod string) (product.UserExcludedProducts, error)

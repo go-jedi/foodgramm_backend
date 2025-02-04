@@ -15,12 +15,7 @@ func (r *repo) AddExcludeProductsByTelegramID(ctx context.Context, dto product.A
 
 	q := `
 		UPDATE user_excluded_products SET
-			products = ARRAY_CAT(products, (
-            	SELECT ARRAY_AGG(DISTINCT product)
-            	FROM UNNEST($1::TEXT[]) AS product
-            	WHERE product NOT IN (SELECT UNNEST(products))
-        	)
-		) 
+			products = $1 
         WHERE telegram_id = $2
 		RETURNING *;
 	`
@@ -31,7 +26,7 @@ func (r *repo) AddExcludeProductsByTelegramID(ctx context.Context, dto product.A
 		ctxTimeout, q,
 		dto.Products, dto.TelegramID,
 	).Scan(
-		&uep.ID, &uep.UserID, &uep.TelegramID, &uep.Allergies,
+		&uep.ID, &uep.UserID, &uep.TelegramID,
 		&uep.Products, &uep.CreatedAt, &uep.UpdatedAt,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {

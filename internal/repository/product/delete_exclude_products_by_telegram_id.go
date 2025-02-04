@@ -27,7 +27,7 @@ func (r *repo) DeleteExcludeProductsByTelegramID(ctx context.Context, telegramID
 		ctxTimeout, q,
 		prod, telegramID,
 	).Scan(
-		&uep.ID, &uep.UserID, &uep.TelegramID, &uep.Allergies,
+		&uep.ID, &uep.UserID, &uep.TelegramID,
 		&uep.Products, &uep.CreatedAt, &uep.UpdatedAt,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
