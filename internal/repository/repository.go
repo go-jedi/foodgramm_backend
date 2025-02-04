@@ -32,17 +32,16 @@ type ProductRepository interface {
 	DeleteExcludeProductsByTelegramID(ctx context.Context, telegramID string, prod string) (product.UserExcludedProducts, error)
 }
 
-type RecipeRepository interface {
-	GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error)
-	AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
-	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
-	// SaveRecipeByTelegramID(ctx context.Context) error
-}
-
 type SubscriptionRepository interface {
 	Create(ctx context.Context, telegramID string) (subscription.Subscription, error)
 	GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error)
 	ExistsByTelegramID(ctx context.Context, telegramID string) (bool, error)
+}
+
+type RecipeRepository interface {
+	GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error)
+	AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
+	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 }
 
 type PaymentRepository interface{}

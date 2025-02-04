@@ -33,3 +33,17 @@ type UserFreeRecipes struct {
 	CreatedAt          time.Time `json:"created_at"`
 	UpdatedAt          time.Time `json:"updated_at"`
 }
+
+//
+// GENERATE RECIPE
+//
+
+type GenerateRecipeDTO struct {
+	TelegramID        string   `json:"telegram_id" validate:"required,min=1"`
+	Type              int      `json:"type" validate:"required,gt=0,lte=5"`
+	Allergies         string   `json:"allergies" validate:"required,min=1"`
+	Products          []string `json:"products" validate:"required,min=1,max=50,dive,min=1"`
+	Name              *string  `json:"name" validate:"omitempty,min=1"`
+	AmountCalories    *int     `json:"amount_calories" validate:"omitempty,gt=0"`
+	AvailableProducts []string `json:"available_products" validate:"omitempty,min=1,max=50,dive,min=1"`
+}

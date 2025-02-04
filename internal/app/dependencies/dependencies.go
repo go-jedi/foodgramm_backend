@@ -8,9 +8,11 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
+	"github.com/go-jedi/foodgrammm-backend/internal/client"
 	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
 	"github.com/go-jedi/foodgrammm-backend/internal/service"
+	"github.com/go-jedi/foodgrammm-backend/internal/templates"
 	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
 	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
@@ -25,6 +27,8 @@ type Dependencies struct {
 	logger     *logger.Logger
 	validator  *validator.Validator
 	jwt        *jwt.JWT
+	templates  *templates.Templates
+	client     *client.Client
 	db         *postgres.Postgres
 	cache      *redis.Redis
 
@@ -60,6 +64,8 @@ func NewDependencies(
 	logger *logger.Logger,
 	validator *validator.Validator,
 	jwt *jwt.JWT,
+	templates *templates.Templates,
+	client *client.Client,
 	db *postgres.Postgres,
 	cache *redis.Redis,
 ) *Dependencies {
@@ -70,6 +76,8 @@ func NewDependencies(
 		logger:     logger,
 		validator:  validator,
 		jwt:        jwt,
+		templates:  templates,
+		client:     client,
 		db:         db,
 		cache:      cache,
 	}
