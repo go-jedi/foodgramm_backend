@@ -5,7 +5,9 @@ import (
 
 	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/go-jedi/foodgrammm-backend/internal/app/dependencies"
+	"github.com/go-jedi/foodgrammm-backend/internal/client"
 	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
+	"github.com/go-jedi/foodgrammm-backend/internal/templates"
 	"github.com/go-jedi/foodgrammm-backend/pkg/bcrypt"
 	"github.com/go-jedi/foodgrammm-backend/pkg/httpserver"
 	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
@@ -23,6 +25,8 @@ type App struct {
 	bcrypt       *bcrypt.Bcrypt
 	uid          *uid.UID
 	jwt          *jwt.JWT
+	templates    *templates.Templates
+	client       *client.Client
 	hs           *httpserver.HTTPServer
 	middleware   *middleware.Middleware
 	db           *postgres.Postgres
@@ -54,6 +58,8 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initBcrypt,
 		a.initUID,
 		a.initJWT,
+		a.initTemplates,
+		a.initClient,
 		a.initPostgres,
 		a.initRedis,
 		a.initHTTPServer,
@@ -125,6 +131,23 @@ func (a *App) initJWT(_ context.Context) (err error) {
 	return
 }
 
+// initTemplates initialize templates.
+func (a *App) initTemplates(_ context.Context) error {
+	a.templates = templates.NewTemplates()
+
+	return nil
+}
+
+// initClient initialize client.
+func (a *App) initClient(_ context.Context) (err error) {
+	a.client, err = client.NewClient(a.cfg.Client)
+	if err != nil {
+		return err
+	}
+
+	return
+}
+
 // initPostgres initialize postgres.
 func (a *App) initPostgres(ctx context.Context) (err error) {
 	a.db, err = postgres.NewPostgres(ctx, a.cfg.Postgres)
@@ -171,6 +194,8 @@ func (a *App) initDependencies(_ context.Context) error {
 		a.logger,
 		a.validator,
 		a.jwt,
+		a.templates,
+		a.client,
 		a.db,
 		a.cache,
 	)

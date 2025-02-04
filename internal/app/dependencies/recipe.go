@@ -24,6 +24,10 @@ func (d *Dependencies) RecipeService() service.RecipeService {
 		d.recipeService = recipeService.NewService(
 			d.RecipeRepository(),
 			d.UserRepository(),
+			d.ProductRepository(),
+			d.SubscriptionRepository(),
+			d.client,
+			d.templates,
 			d.logger,
 			d.cache,
 		)

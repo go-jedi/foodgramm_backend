@@ -46,6 +46,13 @@ type JWTConfig struct {
 	RefreshExpAt  int    `yaml:"refresh_exp_at"`
 }
 
+type ClientConfig struct {
+	TimeoutReq int `yaml:"timeout_req"`
+	OpenAI     struct {
+		URL string `yaml:"url"`
+	} `yaml:"openai"`
+}
+
 type PostgresConfig struct {
 	Host          string `yaml:"host"`
 	User          string `yaml:"user"`
@@ -97,6 +104,7 @@ type Config struct {
 	Bcrypt     BcryptConfig     `yaml:"bcrypt"`
 	UID        UIDConfig        `yaml:"uid"`
 	JWT        JWTConfig        `yaml:"jwt"`
+	Client     ClientConfig     `yaml:"client"`
 	Postgres   PostgresConfig   `yaml:"postgres"`
 	Redis      RedisConfig      `yaml:"redis"`
 	HTTPServer HTTPServerConfig `yaml:"httpserver"`

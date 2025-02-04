@@ -30,6 +30,11 @@ jwt:
   access_exp_at: 5 # minutes
   refresh_exp_at: 30 # days
 
+client:
+  timeout_req: 15 # second
+  openai:
+    url: https://food-gpt.codewavestudio.ru
+
 postgres:
   host: localhost
   user: admin

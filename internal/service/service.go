@@ -39,15 +39,16 @@ type ProductService interface {
 	DeleteExcludeProductsByTelegramID(ctx context.Context, telegramID string, prod string) (product.UserExcludedProducts, error)
 }
 
-type RecipeService interface {
-	GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error)
-	AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
-	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
-}
-
 type SubscriptionService interface {
 	GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error)
 	ExistsByTelegramID(ctx context.Context, telegramID string) (bool, error)
+}
+
+type RecipeService interface {
+	GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO) error
+	GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error)
+	AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
+	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 }
 
 type PaymentService interface {
