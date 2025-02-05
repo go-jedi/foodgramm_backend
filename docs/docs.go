@@ -457,6 +457,58 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/recipe/generate": {
+            "post": {
+                "description": "Generates a new recipe based on the provided parameters.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe"
+                ],
+                "summary": "Generate a new recipe",
+                "parameters": [
+                    {
+                        "description": "Generate recipe request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/recipe.GenerateRecipeDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully generated recipe",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.GenerateRecipeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request due to invalid input",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User does not exist",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/recipe/telegram/{telegramID}": {
             "get": {
                 "description": "Retrieve recipes for a user by their Telegram ID",
@@ -1354,6 +1406,9 @@ const docTemplate = `{
         "recipe.Content": {
             "type": "object",
             "properties": {
+                "calories": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
@@ -1387,6 +1442,77 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "recipe.GenerateRecipeDTO": {
+            "type": "object",
+            "required": [
+                "products",
+                "telegram_id",
+                "type"
+            ],
+            "properties": {
+                "amount_calories": {
+                    "type": "integer"
+                },
+                "available_products": {
+                    "type": "array",
+                    "maxItems": 50,
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "non_consumable_products": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "products": {
+                    "type": "array",
+                    "maxItems": 50,
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "telegram_id": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "type": {
+                    "type": "integer",
+                    "maximum": 4
+                }
+            }
+        },
+        "recipe.GenerateRecipeResponse": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/recipe.Content"
+                        }
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "telegram_id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updated_at": {
                     "type": "string"
                 }
             }

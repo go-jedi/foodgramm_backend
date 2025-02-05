@@ -9,6 +9,18 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
+// GenerateRecipe
+// @Summary Generate a new recipe
+// @Description Generates a new recipe based on the provided parameters.
+// @Tags Recipe
+// @Accept json
+// @Produce json
+// @Param request body recipe.GenerateRecipeDTO true "Generate recipe request body"
+// @Success 200 {object} recipe.GenerateRecipeResponse "Successfully generated recipe"
+// @Failure 400 {object} recipe.ErrorResponse "Bad request due to invalid input"
+// @Failure 404 {object} recipe.ErrorResponse "User does not exist"
+// @Failure 500 {object} recipe.ErrorResponse "Internal server error"
+// @Router /v1/recipe/generate [post]
 func (h *Handler) generateRecipe(c *gin.Context) {
 	var dto recipe.GenerateRecipeDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

@@ -48,6 +48,7 @@ type UserFreeRecipes struct {
 // GENERATE RECIPE DTO
 //
 
+// GenerateRecipeDTO represents a generate recipe dto in the system.
 type GenerateRecipeDTO struct {
 	TelegramID            string   `json:"telegram_id" validate:"required,min=1"`
 	Type                  int      `json:"type" validate:"required,gt=0,lte=4"`
@@ -62,6 +63,7 @@ type GenerateRecipeDTO struct {
 // GENERATE RECIPE RESPONSE
 //
 
+// GenerateRecipeResponse represents a generate recipe response in the system.
 type GenerateRecipeResponse struct {
 	TelegramID string      `json:"telegram_id"`
 	Title      string      `json:"title"`
