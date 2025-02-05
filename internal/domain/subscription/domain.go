@@ -2,6 +2,14 @@ package subscription
 
 import "time"
 
+type AccessType int
+
+const (
+	NoAccess AccessType = iota
+	SubscriptionAccess
+	FreeRecipesAccess
+)
+
 // Subscription represents a subscription in the system.
 type Subscription struct {
 	ID           int64      `json:"id"`

@@ -10,6 +10,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
 	"github.com/go-jedi/foodgrammm-backend/internal/client"
 	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
+	"github.com/go-jedi/foodgrammm-backend/internal/parser"
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
 	"github.com/go-jedi/foodgrammm-backend/internal/service"
 	"github.com/go-jedi/foodgrammm-backend/internal/templates"
@@ -28,6 +29,7 @@ type Dependencies struct {
 	validator  *validator.Validator
 	jwt        *jwt.JWT
 	templates  *templates.Templates
+	parser     *parser.Parser
 	client     *client.Client
 	db         *postgres.Postgres
 	cache      *redis.Redis
@@ -65,6 +67,7 @@ func NewDependencies(
 	validator *validator.Validator,
 	jwt *jwt.JWT,
 	templates *templates.Templates,
+	parser *parser.Parser,
 	client *client.Client,
 	db *postgres.Postgres,
 	cache *redis.Redis,
@@ -77,6 +80,7 @@ func NewDependencies(
 		validator:  validator,
 		jwt:        jwt,
 		templates:  templates,
+		parser:     parser,
 		client:     client,
 		db:         db,
 		cache:      cache,

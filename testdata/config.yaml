@@ -31,7 +31,7 @@ jwt:
   refresh_exp_at: 30 # days
 
 client:
-  timeout_req: 15 # second
+  timeout_req: 60 # second
   openai:
     url: https://food-gpt.codewavestudio.ru
 

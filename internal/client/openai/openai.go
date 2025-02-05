@@ -25,45 +25,45 @@ var (
 	ErrFailedToSendRequest      = errors.New("failed to send request")
 )
 
-type OpenAI struct {
+type Client struct {
 	httpClient *http.Client
 	headers    http.Header
 	url        string
 }
 
-func NewOpenAI(cfg config.ClientConfig, httpClient *http.Client) (*OpenAI, error) {
-	oai := &OpenAI{
+func NewOpenAI(cfg config.ClientConfig, httpClient *http.Client) (*Client, error) {
+	c := &Client{
 		httpClient: httpClient,
 		url:        cfg.OpenAI.URL,
 	}
 
-	if err := oai.init(); err != nil {
+	if err := c.init(); err != nil {
 		return nil, err
 	}
 
-	return oai, nil
+	return c, nil
 }
 
-func (oai *OpenAI) init() error {
-	if oai.url == "" {
-		oai.url = defaultURL
+func (c *Client) init() error {
+	if c.url == "" {
+		c.url = defaultURL
 	}
 
 	return nil
 }
 
 // SetDefaultHeaders sets default headers for all requests.
-func (oai *OpenAI) SetDefaultHeaders(headers http.Header) {
+func (c *Client) SetDefaultHeaders(headers http.Header) {
 	for key, values := range headers {
 		for _, value := range values {
-			oai.headers.Add(key, value)
+			c.headers.Add(key, value)
 		}
 	}
 }
 
 // joinURLs concatenate base URL and path.
-func (oai *OpenAI) joinURLs(api string) (string, error) {
-	parsedBaseURL, err := url.Parse(oai.url)
+func (c *Client) joinURLs(api string) (string, error) {
+	parsedBaseURL, err := url.Parse(c.url)
 	if err != nil {
 		return "", fmt.Errorf("error parsing base URL: %w", err)
 	}
@@ -76,10 +76,10 @@ func (oai *OpenAI) joinURLs(api string) (string, error) {
 	return parsedBaseURL.ResolveReference(parsedPath).String(), nil
 }
 
-func (oai *OpenAI) Send(ctx context.Context, data interface{}) ([]byte, error) {
+func (c *Client) Send(ctx context.Context, data interface{}) ([]byte, error) {
 	const api = "/v1/openai/send"
 
-	fullURL, err := oai.joinURLs(api)
+	fullURL, err := c.joinURLs(api)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (oai *OpenAI) Send(ctx context.Context, data interface{}) ([]byte, error) {
 
 	req.Header.Set("Content-Type", "application/json")
 
-	resp, err := oai.httpClient.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("%w: %v", ErrFailedToSendRequest, err)
 	}

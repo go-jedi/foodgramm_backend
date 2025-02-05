@@ -12,7 +12,7 @@ const defaultTimeoutReq = 15 // second
 
 // Client represents an HTTP client.
 type Client struct {
-	OpenAI *openai.OpenAI
+	OpenAI *openai.Client
 }
 
 // NewClient creates a new instance of HTTP client with a specified timeout.

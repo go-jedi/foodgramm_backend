@@ -21,8 +21,8 @@ import (
 const (
 	defaultHost     = "127.0.0.1"
 	defaultPort     = 50050
-	readTimeoutSec  = 10
-	writeTimeoutSec = 10
+	readTimeoutSec  = 60
+	writeTimeoutSec = 60
 	idleTimeout     = 120
 	maxHeaderBytes  = 1 << 20
 )

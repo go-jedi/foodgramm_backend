@@ -14,12 +14,22 @@ type Recipes struct {
 	UpdatedAt  time.Time   `json:"updated_at"`
 }
 
+// InCache represents a recipe entry in the cache.
+type InCache struct {
+	TelegramID string      `json:"telegram_id"`
+	Title      string      `json:"title"`
+	Content    [][]Content `json:"content"`
+	CreatedAt  time.Time   `json:"created_at"`
+	UpdatedAt  time.Time   `json:"updated_at"`
+}
+
 // Content represents a content of recipes in the systems.
 type Content struct {
 	ID                int64    `json:"id"`
 	Type              string   `json:"type"`
 	Title             string   `json:"title"`
 	RecipePreparation string   `json:"recipe_preparation"`
+	Calories          string   `json:"calories"`
 	Ingredients       []string `json:"ingredients"`
 	MethodPreparation []string `json:"method_preparation"`
 }
@@ -35,15 +45,27 @@ type UserFreeRecipes struct {
 }
 
 //
-// GENERATE RECIPE
+// GENERATE RECIPE DTO
 //
 
 type GenerateRecipeDTO struct {
-	TelegramID        string   `json:"telegram_id" validate:"required,min=1"`
-	Type              int      `json:"type" validate:"required,gt=0,lte=5"`
-	Allergies         string   `json:"allergies" validate:"required,min=1"`
-	Products          []string `json:"products" validate:"required,min=1,max=50,dive,min=1"`
-	Name              *string  `json:"name" validate:"omitempty,min=1"`
-	AmountCalories    *int     `json:"amount_calories" validate:"omitempty,gt=0"`
-	AvailableProducts []string `json:"available_products" validate:"omitempty,min=1,max=50,dive,min=1"`
+	TelegramID            string   `json:"telegram_id" validate:"required,min=1"`
+	Type                  int      `json:"type" validate:"required,gt=0,lte=4"`
+	Products              []string `json:"products" validate:"required,min=1,max=50,dive,min=1"`
+	NonConsumableProducts *string  `json:"non_consumable_products" validate:"omitempty,min=0"`
+	Name                  *string  `json:"name" validate:"omitempty,min=1"`
+	AmountCalories        *int     `json:"amount_calories" validate:"omitempty,gt=0"`
+	AvailableProducts     []string `json:"available_products" validate:"omitempty,min=1,max=50,dive,min=1"`
+}
+
+//
+// GENERATE RECIPE RESPONSE
+//
+
+type GenerateRecipeResponse struct {
+	TelegramID string      `json:"telegram_id"`
+	Title      string      `json:"title"`
+	Content    [][]Content `json:"content"`
+	CreatedAt  time.Time   `json:"created_at"`
+	UpdatedAt  time.Time   `json:"updated_at"`
 }

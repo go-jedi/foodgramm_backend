@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/app/dependencies"
 	"github.com/go-jedi/foodgrammm-backend/internal/client"
 	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
+	"github.com/go-jedi/foodgrammm-backend/internal/parser"
 	"github.com/go-jedi/foodgrammm-backend/internal/templates"
 	"github.com/go-jedi/foodgrammm-backend/pkg/bcrypt"
 	"github.com/go-jedi/foodgrammm-backend/pkg/httpserver"
@@ -26,6 +27,7 @@ type App struct {
 	uid          *uid.UID
 	jwt          *jwt.JWT
 	templates    *templates.Templates
+	parser       *parser.Parser
 	client       *client.Client
 	hs           *httpserver.HTTPServer
 	middleware   *middleware.Middleware
@@ -59,6 +61,7 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initUID,
 		a.initJWT,
 		a.initTemplates,
+		a.initParser,
 		a.initClient,
 		a.initPostgres,
 		a.initRedis,
@@ -138,6 +141,13 @@ func (a *App) initTemplates(_ context.Context) error {
 	return nil
 }
 
+// initParser initialize parser.
+func (a *App) initParser(_ context.Context) error {
+	a.parser = parser.NewParser()
+
+	return nil
+}
+
 // initClient initialize client.
 func (a *App) initClient(_ context.Context) (err error) {
 	a.client, err = client.NewClient(a.cfg.Client)
@@ -195,6 +205,7 @@ func (a *App) initDependencies(_ context.Context) error {
 		a.validator,
 		a.jwt,
 		a.templates,
+		a.parser,
 		a.client,
 		a.db,
 		a.cache,

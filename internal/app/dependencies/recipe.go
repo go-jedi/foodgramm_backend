@@ -28,6 +28,7 @@ func (d *Dependencies) RecipeService() service.RecipeService {
 			d.SubscriptionRepository(),
 			d.client,
 			d.templates,
+			d.parser,
 			d.logger,
 			d.cache,
 		)
