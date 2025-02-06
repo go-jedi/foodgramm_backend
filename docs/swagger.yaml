@@ -182,23 +182,6 @@ definitions:
     - telegram_id
     - type
     type: object
-  recipe.GenerateRecipeResponse:
-    properties:
-      content:
-        items:
-          items:
-            $ref: '#/definitions/recipe.Content'
-          type: array
-        type: array
-      created_at:
-        type: string
-      telegram_id:
-        type: string
-      title:
-        type: string
-      updated_at:
-        type: string
-    type: object
   recipe.Recipes:
     properties:
       content:
@@ -632,41 +615,6 @@ paths:
       summary: Get free recipes by Telegram ID
       tags:
       - Recipe
-    post:
-      consumes:
-      - application/json
-      description: This endpoint increments the count of free recipes available for
-        a user identified by their Telegram ID.
-      parameters:
-      - default: Bearer <token>
-        description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Telegram ID of the user
-        in: path
-        name: telegramID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Successfully incremented free recipes count
-          schema:
-            $ref: '#/definitions/recipe.UserFreeRecipes'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/recipe.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/recipe.ErrorResponse'
-      summary: Add free recipes count by Telegram ID
-      tags:
-      - Recipe
   /v1/recipe/generate:
     post:
       consumes:
@@ -691,7 +639,7 @@ paths:
         "200":
           description: Successfully generated recipe
           schema:
-            $ref: '#/definitions/recipe.GenerateRecipeResponse'
+            $ref: '#/definitions/recipe.Recipes'
         "400":
           description: Bad request due to invalid input
           schema:
@@ -705,45 +653,6 @@ paths:
           schema:
             $ref: '#/definitions/recipe.ErrorResponse'
       summary: Generate a new recipe
-      tags:
-      - Recipe
-  /v1/recipe/save/telegram/{telegramID}:
-    get:
-      consumes:
-      - application/json
-      description: Save a recipe associated with a Telegram user
-      parameters:
-      - default: Bearer <token>
-        description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Telegram ID of the user
-        in: path
-        name: telegramID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Recipe saved successfully
-          schema:
-            type: boolean
-        "400":
-          description: Invalid request
-          schema:
-            $ref: '#/definitions/recipe.ErrorResponse'
-        "404":
-          description: User does not exist
-          schema:
-            $ref: '#/definitions/recipe.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/recipe.ErrorResponse'
-      summary: Save Recipe by Telegram ID
       tags:
       - Recipe
   /v1/recipe/telegram/{telegramID}:

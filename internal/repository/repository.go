@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
@@ -37,9 +38,8 @@ type SubscriptionRepository interface {
 }
 
 type RecipeRepository interface {
-	SaveRecipe(ctx context.Context, data recipe.InCache) (bool, error)
+	CreateRecipe(ctx context.Context, accessType subscription.AccessType, data parser.ParsedRecipe) (recipe.Recipes, error)
 	GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error)
-	AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 	ExistsFreeRecipesByTelegramID(ctx context.Context, telegramID string) (bool, error)
 }

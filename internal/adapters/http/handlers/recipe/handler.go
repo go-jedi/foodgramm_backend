@@ -42,8 +42,6 @@ func (h *Handler) initRoutes(engine *gin.Engine) {
 	api := engine.Group("/v1/recipe", h.middleware.Auth.AuthMiddleware)
 	{
 		api.POST("/generate", h.generateRecipe)
-		api.POST("/free/telegram/:telegramID", h.addFreeRecipesCountByTelegramID)
-		api.GET("/save/telegram/:telegramID", h.saveRecipeByTelegramID)
 		api.GET("/telegram/:telegramID", h.getRecipesByTelegramID)
 		api.GET("/free/telegram/:telegramID", h.getFreeRecipesByTelegramID)
 	}

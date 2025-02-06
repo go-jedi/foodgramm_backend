@@ -399,56 +399,6 @@
                         }
                     }
                 }
-            },
-            "post": {
-                "description": "This endpoint increments the count of free recipes available for a user identified by their Telegram ID.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Recipe"
-                ],
-                "summary": "Add free recipes count by Telegram ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003ctoken\u003e",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Telegram ID of the user",
-                        "name": "telegramID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully incremented free recipes count",
-                        "schema": {
-                            "$ref": "#/definitions/recipe.UserFreeRecipes"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/recipe.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/recipe.ErrorResponse"
-                        }
-                    }
-                }
             }
         },
         "/v1/recipe/generate": {
@@ -487,69 +437,11 @@
                     "200": {
                         "description": "Successfully generated recipe",
                         "schema": {
-                            "$ref": "#/definitions/recipe.GenerateRecipeResponse"
+                            "$ref": "#/definitions/recipe.Recipes"
                         }
                     },
                     "400": {
                         "description": "Bad request due to invalid input",
-                        "schema": {
-                            "$ref": "#/definitions/recipe.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "User does not exist",
-                        "schema": {
-                            "$ref": "#/definitions/recipe.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "$ref": "#/definitions/recipe.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/recipe/save/telegram/{telegramID}": {
-            "get": {
-                "description": "Save a recipe associated with a Telegram user",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Recipe"
-                ],
-                "summary": "Save Recipe by Telegram ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003ctoken\u003e",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Telegram ID of the user",
-                        "name": "telegramID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Recipe saved successfully",
-                        "schema": {
-                            "type": "boolean"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request",
                         "schema": {
                             "$ref": "#/definitions/recipe.ErrorResponse"
                         }
@@ -1550,32 +1442,6 @@
                 "type": {
                     "type": "integer",
                     "maximum": 4
-                }
-            }
-        },
-        "recipe.GenerateRecipeResponse": {
-            "type": "object",
-            "properties": {
-                "content": {
-                    "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/recipe.Content"
-                        }
-                    }
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "telegram_id": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
                 }
             }
         },

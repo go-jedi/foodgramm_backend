@@ -17,7 +17,7 @@ import (
 // @Produce json
 // @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param request body recipe.GenerateRecipeDTO true "Generate recipe request body"
-// @Success 200 {object} recipe.GenerateRecipeResponse "Successfully generated recipe"
+// @Success 200 {object} recipe.Recipes "Successfully generated recipe"
 // @Failure 400 {object} recipe.ErrorResponse "Bad request due to invalid input"
 // @Failure 404 {object} recipe.ErrorResponse "User does not exist"
 // @Failure 500 {object} recipe.ErrorResponse "Internal server error"

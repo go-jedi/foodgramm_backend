@@ -3,9 +3,8 @@ package recipe
 import (
 	"bufio"
 	"strings"
-	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
 )
 
 const (
@@ -21,8 +20,8 @@ const (
 )
 
 type Parser struct {
-	contents            [][]recipe.Content
-	currentContent      recipe.Content
+	contents            [][]parser.Content
+	currentContent      parser.Content
 	title               string
 	isIngredients       bool
 	isRecipes           bool
@@ -37,8 +36,8 @@ func NewRecipe() *Parser {
 }
 
 func (p *Parser) Reset() {
-	p.contents = [][]recipe.Content{}
-	p.currentContent = recipe.Content{}
+	p.contents = [][]parser.Content{}
+	p.currentContent = parser.Content{}
 	p.title = ""
 	p.isIngredients = false
 	p.isRecipes = false
@@ -54,7 +53,7 @@ func (p *Parser) addCurrentContent() {
 }
 
 func (p *Parser) newElementInSlice() {
-	p.contents = append(p.contents, []recipe.Content{})
+	p.contents = append(p.contents, []parser.Content{})
 }
 
 func (p *Parser) setMealTitle(line string, title string, id int64) {
@@ -66,7 +65,7 @@ func (p *Parser) setMealTitle(line string, title string, id int64) {
 		p.idx++
 	}
 
-	p.currentContent = recipe.Content{ID: id, Type: strings.Split(title, ":")[0]}
+	p.currentContent = parser.Content{ID: id, Type: strings.Split(title, ":")[0]}
 	p.currentContent.Title = strings.TrimSpace(strings.Split(line, ": ")[1])
 }
 
@@ -186,7 +185,7 @@ func (p *Parser) handleLine(line string) {
 	}
 }
 
-func (p *Parser) ParseRecipe(telegramID string, input string) (recipe.GenerateRecipeResponse, error) {
+func (p *Parser) ParseRecipe(telegramID string, input string) (parser.ParsedRecipe, error) {
 	s := bufio.NewScanner(strings.NewReader(input))
 
 	for s.Scan() {
@@ -196,15 +195,13 @@ func (p *Parser) ParseRecipe(telegramID string, input string) (recipe.GenerateRe
 	p.addCurrentContent()
 
 	if err := s.Err(); err != nil {
-		return recipe.GenerateRecipeResponse{}, err
+		return parser.ParsedRecipe{}, err
 	}
 
-	grr := recipe.GenerateRecipeResponse{
+	grr := parser.ParsedRecipe{
 		TelegramID: telegramID,
 		Title:      p.title,
 		Content:    p.contents,
-		CreatedAt:  time.Now(),
-		UpdatedAt:  time.Now(),
 	}
 
 	p.Reset()

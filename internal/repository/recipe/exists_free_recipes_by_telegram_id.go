@@ -18,7 +18,7 @@ func (r *repo) ExistsFreeRecipesByTelegramID(ctx context.Context, telegramID str
 			SELECT 1
 			FROM user_free_recipes
 			WHERE telegram_id = $1
-			AND free_recipes_used < free_recipes_allowed
+			AND free_recipes_used > 0
 		);
 	`
 

@@ -59,16 +59,3 @@ type GenerateRecipeDTO struct {
 	AmountCalories        *int     `json:"amount_calories" validate:"omitempty,gt=0"`
 	AvailableProducts     []string `json:"available_products" validate:"omitempty,min=1,max=50,dive,min=1"`
 }
-
-//
-// GENERATE RECIPE RESPONSE
-//
-
-// GenerateRecipeResponse represents a generate recipe response in the system.
-type GenerateRecipeResponse struct {
-	TelegramID string      `json:"telegram_id"`
-	Title      string      `json:"title"`
-	Content    [][]Content `json:"content"`
-	CreatedAt  time.Time   `json:"created_at"`
-	UpdatedAt  time.Time   `json:"updated_at"`
-}

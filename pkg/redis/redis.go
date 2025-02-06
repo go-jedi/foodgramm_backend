@@ -7,13 +7,10 @@ import (
 
 	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
-	"github.com/go-jedi/foodgrammm-backend/pkg/redis/recipe"
 	"github.com/redis/go-redis/v9"
 )
 
 type Redis struct {
-	Recipe *recipe.Cache
-
 	// DurCacheUpdate duration in minutes to update cache
 	durCacheUpdate int
 	db             *postgres.Postgres
@@ -45,8 +42,6 @@ func NewRedis(ctx context.Context, cfg config.RedisConfig, db *postgres.Postgres
 	if err != nil {
 		return nil, fmt.Errorf("redis ping failed: %w", err)
 	}
-
-	r.Recipe = recipe.NewRecipe(c)
 
 	return r, nil
 }
