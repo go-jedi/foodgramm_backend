@@ -1258,8 +1258,7 @@
             "type": "object",
             "required": [
                 "first_name",
-                "telegram_id",
-                "username"
+                "telegram_id"
             ],
             "properties": {
                 "first_name": {
@@ -1538,8 +1537,7 @@
             "type": "object",
             "required": [
                 "first_name",
-                "telegram_id",
-                "username"
+                "telegram_id"
             ],
             "properties": {
                 "first_name": {
@@ -1574,8 +1572,7 @@
         "user.ExistsDTO": {
             "type": "object",
             "required": [
-                "telegram_id",
-                "username"
+                "telegram_id"
             ],
             "properties": {
                 "telegram_id": {
@@ -1631,8 +1628,7 @@
             "required": [
                 "first_name",
                 "id",
-                "telegram_id",
-                "username"
+                "telegram_id"
             ],
             "properties": {
                 "first_name": {

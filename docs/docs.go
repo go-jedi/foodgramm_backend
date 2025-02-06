@@ -1264,8 +1264,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "first_name",
-                "telegram_id",
-                "username"
+                "telegram_id"
             ],
             "properties": {
                 "first_name": {
@@ -1544,8 +1543,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "first_name",
-                "telegram_id",
-                "username"
+                "telegram_id"
             ],
             "properties": {
                 "first_name": {
@@ -1580,8 +1578,7 @@ const docTemplate = `{
         "user.ExistsDTO": {
             "type": "object",
             "required": [
-                "telegram_id",
-                "username"
+                "telegram_id"
             ],
             "properties": {
                 "telegram_id": {
@@ -1637,8 +1634,7 @@ const docTemplate = `{
             "required": [
                 "first_name",
                 "id",
-                "telegram_id",
-                "username"
+                "telegram_id"
             ],
             "properties": {
                 "first_name": {

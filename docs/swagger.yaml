@@ -68,7 +68,6 @@ definitions:
     required:
     - first_name
     - telegram_id
-    - username
     type: object
   auth.SignInResp:
     properties:
@@ -257,7 +256,6 @@ definitions:
     required:
     - first_name
     - telegram_id
-    - username
     type: object
   user.ErrorResponse:
     properties:
@@ -276,7 +274,6 @@ definitions:
         type: string
     required:
     - telegram_id
-    - username
     type: object
   user.ListDTO:
     properties:
@@ -323,7 +320,6 @@ definitions:
     - first_name
     - id
     - telegram_id
-    - username
     type: object
   user.User:
     properties:

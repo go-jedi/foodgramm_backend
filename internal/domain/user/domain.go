@@ -24,7 +24,7 @@ type User struct {
 // CreateDTO represents the data required to create a new user.
 type CreateDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
-	Username   string `json:"username" validate:"required,min=1"`
+	Username   string `json:"username" validate:"omitempty,min=1"`
 	FirstName  string `json:"first_name" validate:"required,min=1"`
 	LastName   string `json:"last_name" validate:"omitempty,min=1"`
 }
@@ -64,7 +64,7 @@ type ListResponseSwagger struct {
 // ExistsDTO represents the data required to check if a user exists.
 type ExistsDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
-	Username   string `json:"username" validate:"required,min=1"`
+	Username   string `json:"username" validate:"omitempty,min=1"`
 }
 
 //
@@ -75,7 +75,7 @@ type ExistsDTO struct {
 type UpdateDTO struct {
 	ID         int64  `json:"id" validate:"required,gt=0"`
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
-	Username   string `json:"username" validate:"required,min=1"`
+	Username   string `json:"username" validate:"omitempty,min=1"`
 	FirstName  string `json:"first_name" validate:"required,min=1"`
 	LastName   string `json:"last_name" validate:"omitempty,min=1"`
 }
