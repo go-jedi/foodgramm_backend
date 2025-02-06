@@ -517,6 +517,64 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/recipe/save/telegram/{telegramID}": {
+            "get": {
+                "description": "Save a recipe associated with a Telegram user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe"
+                ],
+                "summary": "Save Recipe by Telegram ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Telegram ID of the user",
+                        "name": "telegramID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Recipe saved successfully",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User does not exist",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/recipe/telegram/{telegramID}": {
             "get": {
                 "description": "Retrieve recipes for a user by their Telegram ID",
@@ -1414,6 +1472,9 @@ const docTemplate = `{
         "recipe.Content": {
             "type": "object",
             "properties": {
+                "bzhu": {
+                    "type": "string"
+                },
                 "calories": {
                     "type": "string"
                 },
@@ -1484,7 +1545,6 @@ const docTemplate = `{
                 "products": {
                     "type": "array",
                     "maxItems": 50,
-                    "minItems": 1,
                     "items": {
                         "type": "string"
                     }
