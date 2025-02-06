@@ -17,15 +17,19 @@ const (
 	recipesTitle           = "Рецепт:"
 	recipePreparationTitle = "Время готовки:"
 	caloriesTitle          = "Калорийность:"
+	bzhuTitle              = "БЖУ:"
 )
 
 type Parser struct {
-	contents       [][]recipe.Content
-	currentContent recipe.Content
-	title          string
-	isIngredients  bool
-	isRecipes      bool
-	idx            int
+	contents            [][]recipe.Content
+	currentContent      recipe.Content
+	title               string
+	isIngredients       bool
+	isRecipes           bool
+	isRecipePreparation bool
+	isCalories          bool
+	isBzhu              bool
+	idx                 int
 }
 
 func NewRecipe() *Parser {
@@ -38,6 +42,9 @@ func (p *Parser) Reset() {
 	p.title = ""
 	p.isIngredients = false
 	p.isRecipes = false
+	p.isRecipePreparation = false
+	p.isCalories = false
+	p.isBzhu = false
 }
 
 func (p *Parser) addCurrentContent() {
@@ -73,6 +80,11 @@ func (p *Parser) handleLine(line string) {
 		return
 	}
 
+	if strings.HasPrefix(line, "Фитнес-меню") {
+		p.title = strings.TrimSpace(line)
+		return
+	}
+
 	if strings.HasPrefix(line, breakfastTitle) {
 		if len(p.contents) == 0 {
 			p.newElementInSlice()
@@ -80,50 +92,79 @@ func (p *Parser) handleLine(line string) {
 
 		const id = int64(1)
 		p.setMealTitle(line, breakfastTitle, id)
+
 		return
 	}
 
 	if strings.HasPrefix(line, lunchTitle) {
 		const id = int64(2)
 		p.setMealTitle(line, lunchTitle, id)
+
 		return
 	}
 
 	if strings.HasPrefix(line, afternoonSnack) {
 		const id = int64(3)
 		p.setMealTitle(line, afternoonSnack, id)
+
 		return
 	}
 
 	if strings.HasPrefix(line, dinnerTitle) {
 		const id = int64(4)
 		p.setMealTitle(line, dinnerTitle, id)
+
 		return
 	}
 
-	if line == ingredientsTitle {
+	if strings.HasPrefix(line, ingredientsTitle) {
 		p.isIngredients = true
 		p.isRecipes = false
+		p.isRecipePreparation = false
+		p.isCalories = false
+		p.isBzhu = false
 		return
 	}
 
-	if line == recipesTitle {
+	if strings.HasPrefix(line, recipesTitle) {
 		p.isRecipes = true
 		p.isIngredients = false
+		p.isRecipePreparation = false
+		p.isCalories = false
+		p.isBzhu = false
 		return
 	}
 
-	if line == recipePreparationTitle {
+	if strings.HasPrefix(line, recipePreparationTitle) {
 		p.isRecipes = false
 		p.isIngredients = false
+		p.isRecipePreparation = true
+		p.isCalories = false
+		p.isBzhu = false
 		p.currentContent.RecipePreparation = strings.TrimSpace(strings.Split(line, ": ")[1])
+
 		return
 	}
 
-	if line == caloriesTitle {
+	if strings.HasPrefix(line, caloriesTitle) {
 		p.isRecipes = false
 		p.isIngredients = false
+		p.isRecipePreparation = false
+		p.isCalories = true
+		p.isBzhu = false
 		p.currentContent.Calories = strings.TrimSpace(strings.Split(line, ": ")[1])
+
+		return
+	}
+
+	if strings.HasPrefix(line, bzhuTitle) {
+		p.isRecipes = false
+		p.isIngredients = false
+		p.isRecipePreparation = false
+		p.isCalories = false
+		p.isBzhu = true
+		p.currentContent.Bzhu = strings.TrimSpace(strings.Split(line, ": ")[1])
+
 		return
 	}
 

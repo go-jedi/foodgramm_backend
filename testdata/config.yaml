@@ -27,8 +27,8 @@ uid:
 jwt:
   secret_path: testdata/file_server/jwt/.secret # path to file with secret key
   secret_hash_len: 30
-  access_exp_at: 5 # minutes
-  refresh_exp_at: 30 # days
+  access_exp_at: 30 # minutes
+  refresh_exp_at: 60 # days
 
 client:
   timeout_req: 60 # second

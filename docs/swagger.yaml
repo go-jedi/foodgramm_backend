@@ -672,6 +672,12 @@ paths:
       - application/json
       description: Generates a new recipe based on the provided parameters.
       parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Generate recipe request body
         in: body
         name: request

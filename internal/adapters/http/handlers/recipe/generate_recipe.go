@@ -15,6 +15,7 @@ import (
 // @Tags Recipe
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param request body recipe.GenerateRecipeDTO true "Generate recipe request body"
 // @Success 200 {object} recipe.GenerateRecipeResponse "Successfully generated recipe"
 // @Failure 400 {object} recipe.ErrorResponse "Bad request due to invalid input"

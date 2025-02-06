@@ -30,6 +30,7 @@ type Content struct {
 	Title             string   `json:"title"`
 	RecipePreparation string   `json:"recipe_preparation"`
 	Calories          string   `json:"calories"`
+	Bzhu              string   `json:"bzhu"`
 	Ingredients       []string `json:"ingredients"`
 	MethodPreparation []string `json:"method_preparation"`
 }
@@ -52,7 +53,7 @@ type UserFreeRecipes struct {
 type GenerateRecipeDTO struct {
 	TelegramID            string   `json:"telegram_id" validate:"required,min=1"`
 	Type                  int      `json:"type" validate:"required,gt=0,lte=4"`
-	Products              []string `json:"products" validate:"required,min=1,max=50,dive,min=1"`
+	Products              []string `json:"products" validate:"required,max=50,dive,min=1"`
 	NonConsumableProducts *string  `json:"non_consumable_products" validate:"omitempty,min=0"`
 	Name                  *string  `json:"name" validate:"omitempty,min=1"`
 	AmountCalories        *int     `json:"amount_calories" validate:"omitempty,gt=0"`

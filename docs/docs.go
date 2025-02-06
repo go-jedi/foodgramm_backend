@@ -472,6 +472,14 @@ const docTemplate = `{
                 "summary": "Generate a new recipe",
                 "parameters": [
                     {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "Generate recipe request body",
                         "name": "request",
                         "in": "body",
