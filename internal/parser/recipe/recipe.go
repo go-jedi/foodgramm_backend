@@ -85,6 +85,16 @@ func (p *Parser) handleLine(line string) {
 		return
 	}
 
+	if strings.HasPrefix(line, "Меню из имеющихся продуктов") {
+		p.title = strings.TrimSpace(line)
+		return
+	}
+
+	if strings.HasPrefix(line, "Получить рецепт") {
+		p.title = strings.TrimSpace(line)
+		return
+	}
+
 	if strings.HasPrefix(line, breakfastTitle) {
 		if len(p.contents) == 0 {
 			p.newElementInSlice()
