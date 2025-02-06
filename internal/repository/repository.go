@@ -37,6 +37,7 @@ type SubscriptionRepository interface {
 }
 
 type RecipeRepository interface {
+	SaveRecipe(ctx context.Context, data recipe.InCache) (bool, error)
 	GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error)
 	AddFreeRecipesCountByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)

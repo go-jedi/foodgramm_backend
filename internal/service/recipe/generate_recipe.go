@@ -108,6 +108,8 @@ func (s *serv) applyDataToTemplate(dto recipe.GenerateRecipeDTO) (templates.Appl
 
 // saveParsedDataToCache save parsed data to cache.
 func (s *serv) saveParsedDataToCache(ctx context.Context, telegramID string, parsedData recipe.GenerateRecipeResponse) error {
+	const expirationMin = 60
+
 	ic := recipe.InCache{
 		TelegramID: telegramID,
 		Title:      parsedData.Title,
@@ -115,13 +117,12 @@ func (s *serv) saveParsedDataToCache(ctx context.Context, telegramID string, par
 		CreatedAt:  parsedData.CreatedAt,
 		UpdatedAt:  parsedData.UpdatedAt,
 	}
-	expirationMin := 10
 
 	if err := s.cache.Recipe.Set(
 		ctx,
 		telegramID,
 		ic,
-		time.Duration(expirationMin)*time.Second,
+		time.Duration(expirationMin)*time.Minute,
 	); err != nil {
 		return err
 	}

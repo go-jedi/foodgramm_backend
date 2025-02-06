@@ -122,6 +122,8 @@ definitions:
     type: object
   recipe.Content:
     properties:
+      bzhu:
+        type: string
       calories:
         type: string
       id:
@@ -168,7 +170,6 @@ definitions:
         items:
           type: string
         maxItems: 50
-        minItems: 1
         type: array
       telegram_id:
         minLength: 1
@@ -704,6 +705,45 @@ paths:
           schema:
             $ref: '#/definitions/recipe.ErrorResponse'
       summary: Generate a new recipe
+      tags:
+      - Recipe
+  /v1/recipe/save/telegram/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Save a recipe associated with a Telegram user
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Recipe saved successfully
+          schema:
+            type: boolean
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+        "404":
+          description: User does not exist
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+      summary: Save Recipe by Telegram ID
       tags:
       - Recipe
   /v1/recipe/telegram/{telegramID}:
