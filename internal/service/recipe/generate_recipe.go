@@ -17,6 +17,8 @@ var (
 )
 
 func (s *serv) GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO) (recipe.Recipes, error) {
+	fmt.Println("dto:", dto)
+
 	// check user exists by telegram id.
 	ieu, err := s.userRepository.ExistsByTelegramID(ctx, dto.TelegramID)
 	if err != nil {
