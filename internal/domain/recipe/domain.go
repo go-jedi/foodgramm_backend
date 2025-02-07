@@ -59,3 +59,15 @@ type GenerateRecipeDTO struct {
 	AmountCalories        *int     `json:"amount_calories" validate:"omitempty,gt=0"`
 	AvailableProducts     []string `json:"available_products" validate:"omitempty,min=1,max=50,dive,min=1"`
 }
+
+// SetDefaults check values for Products and NonConsumableProducts.
+func (grd *GenerateRecipeDTO) SetDefaults() {
+	if grd.Products == nil || len(grd.Products) == 0 {
+		grd.Products = []string{"нет"}
+	}
+
+	if grd.NonConsumableProducts == nil || *grd.NonConsumableProducts == "" {
+		defaultValue := "нет"
+		grd.NonConsumableProducts = &defaultValue
+	}
+}

@@ -33,6 +33,8 @@ func (h *Handler) generateRecipe(c *gin.Context) {
 		return
 	}
 
+	dto.SetDefaults()
+
 	if err := h.validator.Struct(dto); err != nil {
 		h.logger.Error("failed to validate struct", "error", err)
 		c.JSON(http.StatusBadRequest, recipe.ErrorResponse{
