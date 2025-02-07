@@ -3,6 +3,7 @@ package recipe
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
@@ -38,17 +39,23 @@ func (s *serv) GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO)
 		return recipe.Recipes{}, err
 	}
 
+	fmt.Println("data.Content:", data.Content)
+
 	// send data for openai service by http request.
-	result, err := s.client.OpenAI.Send(ctx, data)
+	result, err := s.client.OpenAI.Send(ctx, data.Content)
 	if err != nil {
 		return recipe.Recipes{}, err
 	}
+
+	fmt.Println("result:", result)
 
 	// parse recipe from openai.
 	parsedRecipe, err := s.parser.Recipe.ParseRecipe(dto.TelegramID, string(result))
 	if err != nil {
 		return recipe.Recipes{}, err
 	}
+
+	fmt.Println("parsedRecipe:", parsedRecipe)
 
 	// create parsed recipe in database and have free recipe add count and return response.
 	return s.recipeRepository.CreateRecipe(ctx, at, parsedRecipe)
