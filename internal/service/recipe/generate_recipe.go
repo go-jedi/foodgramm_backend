@@ -42,7 +42,7 @@ func (s *serv) GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO)
 	fmt.Println("data.Content:", data.Content)
 
 	// send data for openai service by http request.
-	result, err := s.client.OpenAI.Send(ctx, data.Content)
+	result, err := s.client.OpenAI.Send(ctx, data)
 	if err != nil {
 		return recipe.Recipes{}, err
 	}
