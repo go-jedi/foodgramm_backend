@@ -3,6 +3,7 @@ package recipe
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
@@ -38,11 +39,15 @@ func (s *serv) GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO)
 		return recipe.Recipes{}, err
 	}
 
+	fmt.Println("data:", data)
+
 	// send data for openai service by http request.
 	result, err := s.client.OpenAI.Send(ctx, data)
 	if err != nil {
 		return recipe.Recipes{}, err
 	}
+
+	fmt.Println("result:", result)
 
 	// parse recipe from openai.
 	parsedRecipe, err := s.parser.Recipe.ParseRecipe(dto.TelegramID, string(result))
