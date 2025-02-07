@@ -47,7 +47,7 @@ func (s *serv) GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO)
 		return recipe.Recipes{}, err
 	}
 
-	fmt.Println("result:", result)
+	fmt.Println("result:", string(result))
 
 	// parse recipe from openai.
 	parsedRecipe, err := s.parser.Recipe.ParseRecipe(dto.TelegramID, string(result))
