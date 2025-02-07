@@ -53,6 +53,12 @@ type ClientConfig struct {
 	} `yaml:"openai"`
 }
 
+type WorkerConfig struct {
+	LifeHackOfTheDay struct {
+		SleepDuration int `yaml:"sleep_duration"`
+	} `yaml:"life_hack_of_the_day"`
+}
+
 type PostgresConfig struct {
 	Host          string `yaml:"host"`
 	User          string `yaml:"user"`
@@ -105,6 +111,7 @@ type Config struct {
 	UID        UIDConfig        `yaml:"uid"`
 	JWT        JWTConfig        `yaml:"jwt"`
 	Client     ClientConfig     `yaml:"client"`
+	Worker     WorkerConfig     `yaml:"worker"`
 	Postgres   PostgresConfig   `yaml:"postgres"`
 	Redis      RedisConfig      `yaml:"redis"`
 	HTTPServer HTTPServerConfig `yaml:"httpserver"`

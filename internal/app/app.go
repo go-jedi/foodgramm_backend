@@ -199,6 +199,7 @@ func (a *App) initMiddleware(_ context.Context) error {
 func (a *App) initDependencies(_ context.Context) error {
 	a.dependencies = dependencies.NewDependencies(
 		a.cfg.Cookie,
+		a.cfg.Worker,
 		a.hs.Engine,
 		a.middleware,
 		a.logger,

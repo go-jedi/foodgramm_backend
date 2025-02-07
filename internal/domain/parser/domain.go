@@ -16,3 +16,8 @@ type ParsedRecipe struct {
 	Title      string      `json:"title"`
 	Content    [][]Content `json:"content"`
 }
+
+type ParsedRecipeOfDays struct {
+	Title   string      `json:"title"`
+	Content [][]Content `json:"content"`
+}

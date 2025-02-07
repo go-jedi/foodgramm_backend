@@ -48,6 +48,10 @@ type RecipeService interface {
 	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 }
 
+type RecipeOfDaysService interface {
+	Create(ctx context.Context) error
+}
+
 type PaymentService interface {
 	Create(ctx context.Context, dto payment.CreateDTO) error
 	CheckStatus(ctx context.Context, dto payment.CheckStatusDTO) error

@@ -44,4 +44,8 @@ type RecipeRepository interface {
 	ExistsFreeRecipesByTelegramID(ctx context.Context, telegramID string) (bool, error)
 }
 
+type RecipeOfDaysRepository interface {
+	Create(ctx context.Context, data parser.ParsedRecipeOfDays) error
+}
+
 type PaymentRepository interface{}
