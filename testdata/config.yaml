@@ -35,6 +35,10 @@ client:
   openai:
     url: https://food-gpt.codewavestudio.ru
 
+worker:
+  life_hack_of_the_day:
+    sleep_duration: 120 # minutes
+
 postgres:
   host: localhost
   user: admin

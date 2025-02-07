@@ -1,6 +1,8 @@
 package dependencies
 
 import (
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/auth"
@@ -23,6 +25,7 @@ import (
 
 type Dependencies struct {
 	cookie     config.CookieConfig
+	worker     config.WorkerConfig
 	engine     *gin.Engine
 	middleware *middleware.Middleware
 	logger     *logger.Logger
@@ -61,6 +64,7 @@ type Dependencies struct {
 
 func NewDependencies(
 	cookie config.CookieConfig,
+	worker config.WorkerConfig,
 	engine *gin.Engine,
 	middleware *middleware.Middleware,
 	logger *logger.Logger,
@@ -74,6 +78,7 @@ func NewDependencies(
 ) *Dependencies {
 	d := &Dependencies{
 		cookie:     cookie,
+		worker:     worker,
 		engine:     engine,
 		middleware: middleware,
 		logger:     logger,
@@ -86,15 +91,24 @@ func NewDependencies(
 		cache:      cache,
 	}
 
-	d.Init()
+	d.InitHandlers()
+	go d.initWorkerLifeHackOfTheDay()
 
 	return d
 }
 
-func (d *Dependencies) Init() {
+func (d *Dependencies) InitHandlers() {
 	_ = d.AuthHandler()
 	_ = d.UserHandler()
 	_ = d.ProductHandler()
 	_ = d.RecipeHandler()
 	_ = d.SubscriptionHandler()
+}
+
+// initWorkerLifeHackOfTheDay initialize worker life hack of the day.
+func (d *Dependencies) initWorkerLifeHackOfTheDay() {
+	for {
+		// do actions
+		time.Sleep(time.Duration(d.worker.LifeHackOfTheDay.SleepDuration) * time.Minute)
+	}
 }

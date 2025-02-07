@@ -8,15 +8,23 @@ import (
 )
 
 const (
-	breakfastTitle         = "Завтрак:"
-	lunchTitle             = "Обед:"
-	afternoonSnack         = "Полдник:"
-	dinnerTitle            = "Ужин:"
-	ingredientsTitle       = "Ингредиенты:"
-	recipesTitle           = "Рецепт:"
-	recipePreparationTitle = "Время готовки:"
-	caloriesTitle          = "Калорийность:"
-	bzhuTitle              = "БЖУ:"
+	menuForTheDay           = "Меню на день"
+	menuFitness             = "Фитнес-меню"
+	menuOfAvailableProducts = "Меню из имеющихся продуктов"
+	getTheRecipe            = "Получить рецепт"
+	breakfastTitle          = "Завтрак:"
+	lunchTitle              = "Обед:"
+	afternoonSnack          = "Полдник:"
+	dinnerTitle             = "Ужин:"
+	dish                    = "Блюдо"
+	dishOne                 = "Блюдо 1"
+	dishTwo                 = "Блюдо 2"
+	dishThree               = "Блюдо 3"
+	ingredientsTitle        = "Ингредиенты:"
+	recipesTitle            = "Рецепт:"
+	recipePreparationTitle  = "Время готовки:"
+	caloriesTitle           = "Калорийность:"
+	bzhuTitle               = "БЖУ:"
 )
 
 type Parser struct {
@@ -74,22 +82,22 @@ func (p *Parser) handleLine(line string) {
 		return
 	}
 
-	if strings.HasPrefix(line, "Меню на день") {
+	if strings.HasPrefix(line, menuForTheDay) {
 		p.title = strings.TrimSpace(line)
 		return
 	}
 
-	if strings.HasPrefix(line, "Фитнес-меню") {
+	if strings.HasPrefix(line, menuFitness) {
 		p.title = strings.TrimSpace(line)
 		return
 	}
 
-	if strings.HasPrefix(line, "Меню из имеющихся продуктов") {
+	if strings.HasPrefix(line, menuOfAvailableProducts) {
 		p.title = strings.TrimSpace(line)
 		return
 	}
 
-	if strings.HasPrefix(line, "Получить рецепт") {
+	if strings.HasPrefix(line, getTheRecipe) {
 		p.title = strings.TrimSpace(line)
 		return
 	}
@@ -122,6 +130,42 @@ func (p *Parser) handleLine(line string) {
 	if strings.HasPrefix(line, dinnerTitle) {
 		const id = int64(4)
 		p.setMealTitle(line, dinnerTitle, id)
+
+		return
+	}
+
+	if strings.HasPrefix(line, dishOne) {
+		if len(p.contents) == 0 {
+			p.newElementInSlice()
+		}
+
+		const id = int64(1)
+		p.setMealTitle(line, dishOne, id)
+
+		return
+	}
+
+	if strings.HasPrefix(line, dishTwo) {
+		const id = int64(2)
+		p.setMealTitle(line, dishTwo, id)
+
+		return
+	}
+
+	if strings.HasPrefix(line, dishThree) {
+		const id = int64(3)
+		p.setMealTitle(line, dishThree, id)
+
+		return
+	}
+
+	if strings.HasPrefix(line, dish) {
+		if len(p.contents) == 0 {
+			p.newElementInSlice()
+		}
+
+		const id = int64(1)
+		p.setMealTitle(line, dish, id)
 
 		return
 	}
