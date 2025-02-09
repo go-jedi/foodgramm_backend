@@ -62,7 +62,7 @@ type GenerateRecipeDTO struct {
 
 // SetDefaults check values for Products and NonConsumableProducts.
 func (grd *GenerateRecipeDTO) SetDefaults() {
-	if grd.Products == nil || len(grd.Products) == 0 {
+	if len(grd.Products) == 0 {
 		grd.Products = []string{"нет"}
 	}
 

@@ -2,10 +2,13 @@ package recipe
 
 import (
 	"bufio"
+	"errors"
 	"strings"
 
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
 )
+
+var ErrNoRecipeFound = errors.New("recipe not found")
 
 const (
 	menuForTheDay           = "Меню на день"
@@ -52,6 +55,7 @@ func (p *Parser) Reset() {
 	p.isRecipePreparation = false
 	p.isCalories = false
 	p.isBzhu = false
+	p.idx = 0
 }
 
 func (p *Parser) addCurrentContent() {
@@ -242,7 +246,11 @@ func (p *Parser) ParseRecipe(telegramID string, input string) (parser.ParsedReci
 		return parser.ParsedRecipe{}, err
 	}
 
-	grr := parser.ParsedRecipe{
+	if len(p.title) == 0 || len(p.contents) == 0 {
+		return parser.ParsedRecipe{}, ErrNoRecipeFound
+	}
+
+	pr := parser.ParsedRecipe{
 		TelegramID: telegramID,
 		Title:      p.title,
 		Content:    p.contents,
@@ -250,5 +258,5 @@ func (p *Parser) ParseRecipe(telegramID string, input string) (parser.ParsedReci
 
 	p.Reset()
 
-	return grr, nil
+	return pr, nil
 }

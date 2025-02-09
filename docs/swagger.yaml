@@ -215,6 +215,55 @@ definitions:
       updated_at:
         type: string
     type: object
+  recipeofdays.Content:
+    properties:
+      bzhu:
+        type: string
+      calories:
+        type: string
+      id:
+        type: integer
+      ingredients:
+        items:
+          type: string
+        type: array
+      method_preparation:
+        items:
+          type: string
+        type: array
+      recipe_preparation:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+    type: object
+  recipeofdays.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
+  recipeofdays.Recipe:
+    properties:
+      content:
+        items:
+          items:
+            $ref: '#/definitions/recipeofdays.Content'
+          type: array
+        type: array
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
   subscription.ErrorResponse:
     properties:
       detail:
@@ -692,6 +741,32 @@ paths:
       summary: Get Recipes by Telegram ID
       tags:
       - Recipe
+  /v1/recipe_of_days:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve the current recipe of the day.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/recipeofdays.Recipe'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/recipeofdays.ErrorResponse'
+      summary: Get Recipe of the Day
+      tags:
+      - Recipe of days
   /v1/subscription/exists/telegram/{telegramID}:
     get:
       consumes:

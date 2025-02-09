@@ -17,13 +17,14 @@ func (r *repo) Create(ctx context.Context, data parser.ParsedRecipeOfDays) error
 	q := `
 		INSERT INTO recipe_of_days(
 		    title,
-		    content
-		) VALUES ($1, $2);
+		    content,
+		    description
+		) VALUES ($1, $2, $3);
 	`
 
 	commandTag, err := r.db.Pool.Exec(
 		ctxTimeout, q,
-		data.Title, data.Content,
+		data.Title, data.Content, data.Description,
 	)
 	if err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
