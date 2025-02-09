@@ -11,8 +11,10 @@ import (
 var ErrNoRecipeFound = errors.New("recipe not found")
 
 const (
+	lifehackTitle          = "1. Лайфхак:"
 	nameTitle              = "Название:"
 	descriptionTitle       = "Описание:"
+	menuTitle              = "2. Меню:"
 	dishTitle              = "Блюдо:"
 	ingredientsTitle       = "Ингредиенты:"
 	recipesTitle           = "Рецепт:"
@@ -24,8 +26,8 @@ const (
 type Parser struct {
 	contents            [][]parser.Content
 	currentContent      parser.Content
-	title               string
-	description         string
+	lifehack            parser.Lifehack
+	isLifehack          bool
 	isIngredients       bool
 	isRecipes           bool
 	isRecipePreparation bool
@@ -41,8 +43,8 @@ func NewRecipe() *Parser {
 func (p *Parser) Reset() {
 	p.contents = [][]parser.Content{}
 	p.currentContent = parser.Content{}
-	p.title = ""
-	p.description = ""
+	p.lifehack = parser.Lifehack{}
+	p.isLifehack = false
 	p.isIngredients = false
 	p.isRecipes = false
 	p.isRecipePreparation = false
@@ -61,7 +63,7 @@ func (p *Parser) newElementInSlice() {
 	p.contents = append(p.contents, []parser.Content{})
 }
 
-func (p *Parser) setMealTitle(line string, title string, id int64) {
+func (p *Parser) setMealTitle(line string, id int64) {
 	p.addCurrentContent()
 
 	const lastID = 4
@@ -70,7 +72,7 @@ func (p *Parser) setMealTitle(line string, title string, id int64) {
 		p.idx++
 	}
 
-	p.currentContent = parser.Content{ID: id, Type: strings.Split(title, ":")[0]}
+	p.currentContent = parser.Content{ID: id, Type: "Меню"}
 	p.currentContent.Title = strings.TrimSpace(strings.Split(line, ": ")[1])
 }
 
@@ -79,12 +81,12 @@ func (p *Parser) handleLine(line string) {
 		return
 	}
 
-	if strings.HasPrefix(line, nameTitle) {
-		p.title = strings.TrimSpace(strings.Split(line, ": ")[1])
+	if strings.HasPrefix(line, nameTitle) && p.isLifehack {
+		p.lifehack.Name = strings.TrimSpace(strings.Split(line, ": ")[1])
 	}
 
-	if strings.HasPrefix(line, descriptionTitle) {
-		p.description = strings.TrimSpace(strings.Split(line, ": ")[1])
+	if strings.HasPrefix(line, descriptionTitle) && p.isLifehack {
+		p.lifehack.Description = strings.TrimSpace(strings.Split(line, ": ")[1])
 	}
 
 	if strings.HasPrefix(line, dishTitle) {
@@ -93,7 +95,22 @@ func (p *Parser) handleLine(line string) {
 		}
 
 		const id = int64(1)
-		p.setMealTitle(line, strings.TrimSpace(strings.Split(line, ": ")[1]), id)
+		p.setMealTitle(line, id)
+	}
+
+	if strings.HasPrefix(line, lifehackTitle) {
+		p.isLifehack = true
+		p.isIngredients = false
+		p.isRecipes = false
+		p.isRecipePreparation = false
+		p.isCalories = false
+		p.isBzhu = false
+		return
+	}
+
+	if strings.HasPrefix(line, menuTitle) {
+		p.isLifehack = false
+		return
 	}
 
 	if strings.HasPrefix(line, ingredientsTitle) {
@@ -168,14 +185,14 @@ func (p *Parser) ParseRecipe(input string) (parser.ParsedRecipeOfDays, error) {
 		return parser.ParsedRecipeOfDays{}, err
 	}
 
-	if len(p.title) == 0 || len(p.description) == 0 || len(p.contents) == 0 {
+	if len(p.lifehack.Name) == 0 || len(p.lifehack.Description) == 0 || len(p.contents) == 0 {
 		return parser.ParsedRecipeOfDays{}, ErrNoRecipeFound
 	}
 
 	prod := parser.ParsedRecipeOfDays{
-		Title:       p.title,
-		Description: p.description,
-		Content:     p.contents,
+		Title:    "Лайфхак дня",
+		Lifehack: p.lifehack,
+		Content:  p.contents,
 	}
 
 	p.Reset()

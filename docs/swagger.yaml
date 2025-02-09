@@ -245,6 +245,13 @@ definitions:
       error:
         type: string
     type: object
+  recipeofdays.Lifehack:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    type: object
   recipeofdays.Recipe:
     properties:
       content:
@@ -255,10 +262,10 @@ definitions:
         type: array
       created_at:
         type: string
-      description:
-        type: string
       id:
         type: integer
+      lifehack:
+        $ref: '#/definitions/recipeofdays.Lifehack'
       title:
         type: string
       updated_at:

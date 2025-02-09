@@ -25,7 +25,7 @@ func (r *repo) Get(ctx context.Context) (recipeofdays.Recipe, error) {
 	if err := r.db.Pool.QueryRow(
 		ctxTimeout, q,
 	).Scan(
-		&rod.ID, &rod.Title, &rod.Description,
+		&rod.ID, &rod.Title, &rod.Lifehack,
 		&rod.Content, &rod.CreatedAt, &rod.UpdatedAt,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {

@@ -1587,6 +1587,17 @@ const docTemplate = `{
                 }
             }
         },
+        "recipeofdays.Lifehack": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "recipeofdays.Recipe": {
             "type": "object",
             "properties": {
@@ -1602,11 +1613,11 @@ const docTemplate = `{
                 "created_at": {
                     "type": "string"
                 },
-                "description": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "integer"
+                },
+                "lifehack": {
+                    "$ref": "#/definitions/recipeofdays.Lifehack"
                 },
                 "title": {
                     "type": "string"
