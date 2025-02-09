@@ -1,13 +1,15 @@
 package dependencies
 
 import (
-	"time"
+	"context"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-jedi/foodgrammm-backend/config"
+	recipeofdayscron "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/cron/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/auth"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe"
+	recipeofdayshandler "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
 	"github.com/go-jedi/foodgrammm-backend/internal/client"
@@ -60,9 +62,18 @@ type Dependencies struct {
 	subscriptionRepository repository.SubscriptionRepository
 	subscriptionService    service.SubscriptionService
 	subscriptionHandler    *subscription.Handler
+
+	// recipe of days
+	recipeOfDaysRepository repository.RecipeOfDaysRepository
+	recipeOfDaysService    service.RecipeOfDaysService
+	recipeOfDaysHandler    *recipeofdayshandler.Handler
+
+	//	cron recipe of days
+	recipeOfDaysCron *recipeofdayscron.Cron
 }
 
 func NewDependencies(
+	ctx context.Context,
 	cookie config.CookieConfig,
 	worker config.WorkerConfig,
 	engine *gin.Engine,
@@ -91,24 +102,21 @@ func NewDependencies(
 		cache:      cache,
 	}
 
-	d.InitHandlers()
-	go d.initWorkerLifeHackOfTheDay()
+	d.initHandler()
+	d.initCron(ctx)
 
 	return d
 }
 
-func (d *Dependencies) InitHandlers() {
+func (d *Dependencies) initHandler() {
 	_ = d.AuthHandler()
 	_ = d.UserHandler()
 	_ = d.ProductHandler()
 	_ = d.RecipeHandler()
 	_ = d.SubscriptionHandler()
+	_ = d.RecipeOfDaysHandler()
 }
 
-// initWorkerLifeHackOfTheDay initialize worker life hack of the day.
-func (d *Dependencies) initWorkerLifeHackOfTheDay() {
-	for {
-		// do actions
-		time.Sleep(time.Duration(d.worker.LifeHackOfTheDay.SleepDuration) * time.Minute)
-	}
+func (d *Dependencies) initCron(ctx context.Context) {
+	_ = d.RecipeOfDaysCron(ctx)
 }

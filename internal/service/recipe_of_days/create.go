@@ -2,9 +2,6 @@ package recipeofdays
 
 import (
 	"context"
-	"fmt"
-
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
 )
 
 func (s *serv) Create(ctx context.Context) error {
@@ -20,7 +17,12 @@ func (s *serv) Create(ctx context.Context) error {
 		return err
 	}
 
-	fmt.Println("result:", result)
+	// parse recipe from openai.
+	parsedRecipe, err := s.parser.RecipeOfDays.ParseRecipe(string(result))
+	if err != nil {
+		return err
+	}
 
-	return s.recipeOfDaysRepository.Create(ctx, parser.ParsedRecipeOfDays{})
+	// create parsed recipe in database.
+	return s.recipeOfDaysRepository.Create(ctx, parsedRecipe)
 }

@@ -56,6 +56,8 @@ type ClientConfig struct {
 type WorkerConfig struct {
 	LifeHackOfTheDay struct {
 		SleepDuration int `yaml:"sleep_duration"`
+		Timeout       int `yaml:"timeout"`
+		MaxErrorCount int `yaml:"max_error_count"`
 	} `yaml:"life_hack_of_the_day"`
 }
 

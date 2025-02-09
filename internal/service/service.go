@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
+	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
@@ -50,6 +51,7 @@ type RecipeService interface {
 
 type RecipeOfDaysService interface {
 	Create(ctx context.Context) error
+	Get(ctx context.Context) (recipeofdays.Recipe, error)
 }
 
 type PaymentService interface {

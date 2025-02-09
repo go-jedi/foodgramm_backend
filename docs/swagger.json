@@ -522,6 +522,45 @@
                 }
             }
         },
+        "/v1/recipe_of_days": {
+            "get": {
+                "description": "Retrieve the current recipe of the day.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe of days"
+                ],
+                "summary": "Get Recipe of the Day",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/recipeofdays.Recipe"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/recipeofdays.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/subscription/exists/telegram/{telegramID}": {
             "get": {
                 "description": "Checks whether a subscription exists for a user with the specified Telegram ID.",
@@ -1489,6 +1528,81 @@
                     "type": "integer"
                 },
                 "telegram_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "recipeofdays.Content": {
+            "type": "object",
+            "properties": {
+                "bzhu": {
+                    "type": "string"
+                },
+                "calories": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ingredients": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "method_preparation": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "recipe_preparation": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "recipeofdays.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "recipeofdays.Recipe": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/recipeofdays.Content"
+                        }
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
                     "type": "string"
                 },
                 "updated_at": {
