@@ -44,9 +44,9 @@ worker:
     max_error_count: 3 # max error count
 
 postgres:
-  host: localhost
-  user: postgres
-  password: postgres
+  host: postgres
+  user: admin
+  password: test
   dbname: foodgrammm_db
   port: 5432
   sslmode: disable

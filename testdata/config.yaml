@@ -47,7 +47,7 @@ postgres:
   host: localhost
   user: admin
   password: test
-  dbname: app_db
+  dbname: foodgrammm_db
   port: 54321
   sslmode: disable
   pool_max_conns: 10
