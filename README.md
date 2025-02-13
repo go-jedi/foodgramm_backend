@@ -7,7 +7,7 @@ This API provides functionality for a Telegram web application, allowing users t
 ### Base URL
 The base URL for all API endpoints is:
 
-`http://localhost:50050/v1`
+`http://localhost:50050`
 
 ### Authentication
 Most endpoints require authentication via a Bearer token. The token should be included in the `Authorization` header as follows:
