@@ -3,7 +3,7 @@ package dependencies
 import (
 	"context"
 
-	recipeofdayscron "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/cron/recipe_of_days"
+	recipeofdayscron "github.com/go-jedi/foodgrammm-backend/internal/adapters/cron/recipe_of_days"
 	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
 	recipeOfDaysRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/recipe_of_days"
