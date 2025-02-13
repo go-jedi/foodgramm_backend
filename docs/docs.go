@@ -1280,6 +1280,50 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/ws/v1/payment/check/{telegramID}": {
+            "get": {
+                "description": "Establishes a WebSocket connection to check the payment status for a given Telegram ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Check payment status via WebSocket",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Telegram ID of the user",
+                        "name": "telegramID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request parameters",
+                        "schema": {
+                            "$ref": "#/definitions/payment.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/payment.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

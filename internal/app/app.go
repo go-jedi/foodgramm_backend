@@ -200,6 +200,7 @@ func (a *App) initDependencies(ctx context.Context) error {
 	a.dependencies = dependencies.NewDependencies(
 		ctx,
 		a.cfg.Cookie,
+		a.cfg.WebSocket,
 		a.cfg.Worker,
 		a.hs.Engine,
 		a.middleware,

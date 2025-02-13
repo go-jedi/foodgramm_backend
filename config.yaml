@@ -37,6 +37,10 @@ client:
   payment:
     url: https://payment.codewavestudio.ru
 
+websocket:
+  payment:
+    payment_ws_url: wss://payment.codewavestudio.ru/ws/check_status_payment
+
 worker:
   life_hack_of_the_day:
     sleep_duration: 1440 # minutes

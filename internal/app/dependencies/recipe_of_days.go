@@ -1,6 +1,9 @@
 package dependencies
 
 import (
+	"context"
+
+	recipeofdayscron "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/cron/recipe_of_days"
 	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
 	recipeOfDaysRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/recipe_of_days"
@@ -47,4 +50,17 @@ func (d *Dependencies) RecipeOfDaysHandler() *recipeofdays.Handler {
 	}
 
 	return d.recipeOfDaysHandler
+}
+
+func (d *Dependencies) RecipeOfDaysCron(ctx context.Context) *recipeofdayscron.Cron {
+	if d.recipeOfDaysCron == nil {
+		d.recipeOfDaysCron = recipeofdayscron.NewCron(
+			ctx,
+			d.RecipeOfDaysService(),
+			d.worker,
+			d.logger,
+		)
+	}
+
+	return d.recipeOfDaysCron
 }

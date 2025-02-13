@@ -56,6 +56,12 @@ type ClientConfig struct {
 	} `yaml:"payment"`
 }
 
+type WebSocketConfig struct {
+	Payment struct {
+		PaymentWsURL string `yaml:"payment_ws_url"`
+	} `yaml:"payment"`
+}
+
 type WorkerConfig struct {
 	LifeHackOfTheDay struct {
 		SleepDuration int `yaml:"sleep_duration"`
@@ -116,6 +122,7 @@ type Config struct {
 	UID        UIDConfig        `yaml:"uid"`
 	JWT        JWTConfig        `yaml:"jwt"`
 	Client     ClientConfig     `yaml:"client"`
+	WebSocket  WebSocketConfig  `yaml:"websocket"`
 	Worker     WorkerConfig     `yaml:"worker"`
 	Postgres   PostgresConfig   `yaml:"postgres"`
 	Redis      RedisConfig      `yaml:"redis"`

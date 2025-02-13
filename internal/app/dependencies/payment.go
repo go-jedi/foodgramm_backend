@@ -2,6 +2,7 @@ package dependencies
 
 import (
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/payment"
+	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/websocket/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/service"
 	paymentService "github.com/go-jedi/foodgrammm-backend/internal/service/payment"
 )
@@ -31,4 +32,20 @@ func (d *Dependencies) PaymentHandler() *payment.Handler {
 	}
 
 	return d.paymentHandler
+}
+
+func (d *Dependencies) PaymentWebSocket() *paymentwebsocket.WebSocketHandler {
+	if d.paymentWebSocketHandler == nil {
+		d.paymentWebSocketHandler = paymentwebsocket.NewWebSocketHandler(
+			d.PaymentService(),
+			d.cookie,
+			d.websocket,
+			d.middleware,
+			d.engine,
+			d.logger,
+			d.validator,
+		)
+	}
+
+	return d.paymentWebSocketHandler
 }
