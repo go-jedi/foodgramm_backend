@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/config"
 	recipeofdayscron "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/cron/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/auth"
+	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe"
 	recipeofdayshandler "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_of_days"
@@ -68,6 +69,10 @@ type Dependencies struct {
 	recipeOfDaysService    service.RecipeOfDaysService
 	recipeOfDaysHandler    *recipeofdayshandler.Handler
 
+	// payment
+	paymentService service.PaymentService
+	paymentHandler *payment.Handler
+
 	//	cron recipe of days
 	recipeOfDaysCron *recipeofdayscron.Cron
 }
@@ -115,6 +120,7 @@ func (d *Dependencies) initHandler() {
 	_ = d.RecipeHandler()
 	_ = d.SubscriptionHandler()
 	_ = d.RecipeOfDaysHandler()
+	_ = d.PaymentHandler()
 }
 
 func (d *Dependencies) initCron(ctx context.Context) {

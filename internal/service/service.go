@@ -55,6 +55,5 @@ type RecipeOfDaysService interface {
 }
 
 type PaymentService interface {
-	Create(ctx context.Context, dto payment.CreateDTO) error
-	CheckStatus(ctx context.Context, dto payment.CheckStatusDTO) error
+	Create(ctx context.Context, dto payment.CreateDTO) (string, error)
 }

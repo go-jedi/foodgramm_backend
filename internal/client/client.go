@@ -6,13 +6,15 @@ import (
 
 	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/go-jedi/foodgrammm-backend/internal/client/openai"
+	"github.com/go-jedi/foodgrammm-backend/internal/client/payment"
 )
 
 const defaultTimeoutReq = 15 // second
 
 // Client represents an HTTP client.
 type Client struct {
-	OpenAI *openai.Client
+	OpenAI  *openai.Client
+	Payment *payment.Client
 }
 
 // NewClient creates a new instance of HTTP client with a specified timeout.
@@ -28,6 +30,11 @@ func NewClient(cfg config.ClientConfig) (client *Client, err error) {
 	}
 
 	c.OpenAI, err = openai.NewOpenAI(cfg, httpClient)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Payment, err = payment.NewClient(cfg, httpClient)
 	if err != nil {
 		return nil, err
 	}

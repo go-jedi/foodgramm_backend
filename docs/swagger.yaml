@@ -80,6 +80,27 @@ definitions:
       refresh_token:
         type: string
     type: object
+  payment.CreateDTO:
+    properties:
+      telegram_id:
+        minLength: 1
+        type: string
+      type:
+        enum:
+        - rub
+        - stars
+        type: string
+    required:
+    - telegram_id
+    - type
+    type: object
+  payment.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
   product.AddExcludeProductsByTelegramIDDTO:
     properties:
       products:
@@ -520,6 +541,47 @@ paths:
       summary: Sign in user
       tags:
       - Authentication
+  /v1/payment/link:
+    post:
+      consumes:
+      - application/json
+      description: Creates a payment link based on the provided Telegram ID and payment
+        type.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Payment creation details
+        in: body
+        name: payment
+        required: true
+        schema:
+          $ref: '#/definitions/payment.CreateDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Payment link created successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payment.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/payment.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/payment.ErrorResponse'
+      summary: Create a payment link
+      tags:
+      - Payment
   /v1/product/exclude/telegram/{telegramID}:
     delete:
       consumes:

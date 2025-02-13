@@ -236,7 +236,7 @@ func (j *JWT) generateSecretKey(secretPath string) error {
 
 	j.secret = []byte(u)
 
-	const mode = 0600
+	const mode = 0o600
 	if err := os.WriteFile(secretPath, j.secret, os.FileMode(mode)); err != nil {
 		return err
 	}

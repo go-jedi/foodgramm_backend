@@ -22,18 +22,18 @@ func (h *Handler) update(c *gin.Context) {
 	var dto user.UpdateDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":  "failed to bind body",
-			"detail": err.Error(),
+		c.JSON(http.StatusBadRequest, user.ErrorResponse{
+			Error:  "failed to bind body",
+			Detail: err.Error(),
 		})
 		return
 	}
 
 	if err := h.validator.Struct(dto); err != nil {
 		h.logger.Error("failed to validate struct", "error", err)
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":  "failed to validate struct",
-			"detail": err.Error(),
+		c.JSON(http.StatusBadRequest, user.ErrorResponse{
+			Error:  "failed to validate struct",
+			Detail: err.Error(),
 		})
 		return
 	}
@@ -41,9 +41,9 @@ func (h *Handler) update(c *gin.Context) {
 	result, err := h.userService.Update(c.Request.Context(), dto)
 	if err != nil {
 		h.logger.Error("failed to update user", "error", err)
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error":  "failed to update user",
-			"detail": err.Error(),
+		c.JSON(http.StatusInternalServerError, user.ErrorResponse{
+			Error:  "failed to update user",
+			Detail: err.Error(),
 		})
 		return
 	}
