@@ -1275,4 +1275,34 @@ paths:
       summary: Get a user by Telegram ID
       tags:
       - User
+  /ws/v1/payment/check/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Establishes a WebSocket connection to check the payment status
+        for a given Telegram ID.
+      parameters:
+      - description: Telegram ID of the user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Invalid request parameters
+          schema:
+            $ref: '#/definitions/payment.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/payment.ErrorResponse'
+      summary: Check payment status via WebSocket
+      tags:
+      - Payment
 swagger: "2.0"

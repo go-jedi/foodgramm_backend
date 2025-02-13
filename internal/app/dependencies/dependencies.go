@@ -13,6 +13,7 @@ import (
 	recipeofdayshandler "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
+	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/websocket/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/client"
 	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
 	"github.com/go-jedi/foodgrammm-backend/internal/parser"
@@ -28,6 +29,7 @@ import (
 
 type Dependencies struct {
 	cookie     config.CookieConfig
+	websocket  config.WebSocketConfig
 	worker     config.WorkerConfig
 	engine     *gin.Engine
 	middleware *middleware.Middleware
@@ -73,13 +75,17 @@ type Dependencies struct {
 	paymentService service.PaymentService
 	paymentHandler *payment.Handler
 
-	//	cron recipe of days
+	// websocket
+	paymentWebSocketHandler *paymentwebsocket.WebSocketHandler
+
+	//	cron
 	recipeOfDaysCron *recipeofdayscron.Cron
 }
 
 func NewDependencies(
 	ctx context.Context,
 	cookie config.CookieConfig,
+	websocket config.WebSocketConfig,
 	worker config.WorkerConfig,
 	engine *gin.Engine,
 	middleware *middleware.Middleware,
@@ -94,6 +100,7 @@ func NewDependencies(
 ) *Dependencies {
 	d := &Dependencies{
 		cookie:     cookie,
+		websocket:  websocket,
 		worker:     worker,
 		engine:     engine,
 		middleware: middleware,
@@ -108,6 +115,7 @@ func NewDependencies(
 	}
 
 	d.initHandler()
+	d.initWebSocket()
 	d.initCron(ctx)
 
 	return d
@@ -121,6 +129,10 @@ func (d *Dependencies) initHandler() {
 	_ = d.SubscriptionHandler()
 	_ = d.RecipeOfDaysHandler()
 	_ = d.PaymentHandler()
+}
+
+func (d *Dependencies) initWebSocket() {
+	_ = d.PaymentWebSocket()
 }
 
 func (d *Dependencies) initCron(ctx context.Context) {
