@@ -44,10 +44,10 @@ worker:
     max_error_count: 3 # max error count
 
 postgres:
-  host: postgres
-  user: admin
-  password: test
-  dbname: app_db
+  host: localhost
+  user: postgres
+  password: postgres
+  dbname: foodgrammm_db
   port: 5432
   sslmode: disable
   pool_max_conns: 10
