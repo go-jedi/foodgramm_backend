@@ -51,6 +51,9 @@ type ClientConfig struct {
 	OpenAI     struct {
 		URL string `yaml:"url"`
 	} `yaml:"openai"`
+	Payment struct {
+		URL string `yaml:"url"`
+	} `yaml:"payment"`
 }
 
 type WorkerConfig struct {

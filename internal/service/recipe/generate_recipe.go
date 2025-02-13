@@ -11,9 +11,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
-var (
-	ErrUserNotSubscriptionOrFreeRecipes = errors.New("user does not have a subscription or free recipes")
-)
+var ErrUserNotSubscriptionOrFreeRecipes = errors.New("user does not have a subscription or free recipes")
 
 func (s *serv) GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO) (recipe.Recipes, error) {
 	// check user exists by telegram id.

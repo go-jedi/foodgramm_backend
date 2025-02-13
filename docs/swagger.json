@@ -186,6 +186,66 @@
                 }
             }
         },
+        "/v1/payment/link": {
+            "post": {
+                "description": "Creates a payment link based on the provided Telegram ID and payment type.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Create a payment link",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Payment creation details",
+                        "name": "payment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/payment.CreateDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Payment link created successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/payment.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/payment.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/payment.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/product/exclude/telegram/id": {
             "post": {
                 "description": "Add excluded products for a user by their unique Telegram ID.",
@@ -1331,6 +1391,37 @@
                     "type": "string"
                 },
                 "refresh_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "payment.CreateDTO": {
+            "type": "object",
+            "required": [
+                "telegram_id",
+                "type"
+            ],
+            "properties": {
+                "telegram_id": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "rub",
+                        "stars"
+                    ]
+                }
+            }
+        },
+        "payment.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string"
+                },
+                "error": {
                     "type": "string"
                 }
             }

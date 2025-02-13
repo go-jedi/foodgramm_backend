@@ -76,6 +76,7 @@ func (c *Client) joinURLs(api string) (string, error) {
 	return parsedBaseURL.ResolveReference(parsedPath).String(), nil
 }
 
+// Send data to openai service.
 func (c *Client) Send(ctx context.Context, data interface{}) ([]byte, error) {
 	const api = "/v1/openai/send"
 

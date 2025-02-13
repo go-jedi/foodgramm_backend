@@ -9,7 +9,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/pkg/validator"
 )
 
-type Handler struct {
+type WebSocket struct {
 	paymentService service.PaymentService
 	cookie         config.CookieConfig
 	middleware     *middleware.Middleware
@@ -17,15 +17,15 @@ type Handler struct {
 	validator      *validator.Validator
 }
 
-func NewHandler(
+func NewWebSocket(
 	paymentService service.PaymentService,
 	cookie config.CookieConfig,
 	middleware *middleware.Middleware,
 	engine *gin.Engine,
 	logger *logger.Logger,
 	validator *validator.Validator,
-) *Handler {
-	h := &Handler{
+) *WebSocket {
+	ws := &WebSocket{
 		paymentService: paymentService,
 		cookie:         cookie,
 		middleware:     middleware,
@@ -33,14 +33,14 @@ func NewHandler(
 		validator:      validator,
 	}
 
-	h.initRoutes(engine)
+	ws.initRoutes(engine)
 
-	return h
+	return ws
 }
 
-func (h *Handler) initRoutes(engine *gin.Engine) {
-	api := engine.Group("/v1/payment", h.middleware.Auth.AuthMiddleware)
+func (ws *WebSocket) initRoutes(engine *gin.Engine) {
+	api := engine.Group("ws/v1/payment", ws.middleware.Auth.AuthMiddleware)
 	{
-		api.POST("/link", h.create)
+		api.GET("/check/:telegramID", ws.check)
 	}
 }
