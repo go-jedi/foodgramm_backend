@@ -2,7 +2,7 @@ package dependencies
 
 import (
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/payment"
-	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/websocket/payment"
+	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/websocket/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/service"
 	paymentService "github.com/go-jedi/foodgrammm-backend/internal/service/payment"
 )

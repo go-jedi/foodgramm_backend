@@ -13,7 +13,7 @@ import (
 	recipeofdayshandler "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
-	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/websocket/payment"
+	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/websocket/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/client"
 	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
 	"github.com/go-jedi/foodgrammm-backend/internal/parser"
