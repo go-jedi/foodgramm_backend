@@ -22,6 +22,8 @@ import (
 // @Failure 500 {object} subscription.ErrorResponse "Internal server error"
 // @Router /v1/subscription/telegram/{telegramID} [get]
 func (h *Handler) getByTelegramID(c *gin.Context) {
+	h.logger.Debug("[getByTelegramID] execute handler")
+
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {
 		h.logger.Error("failed to get param telegramID", "error", apperrors.ErrParamIsRequired)
