@@ -17,6 +17,8 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user/all [get]
 func (h *Handler) all(c *gin.Context) {
+	h.logger.Debug("[all] execute handler")
+
 	result, err := h.userService.All(c.Request.Context())
 	if err != nil {
 		h.logger.Error("failed to get all users", "error", err)

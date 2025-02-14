@@ -10,6 +10,8 @@ import (
 )
 
 func (r *repo) GetByID(ctx context.Context, userID int64) (user.User, error) {
+	r.logger.Debug("[GetByID] execute repository")
+
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 

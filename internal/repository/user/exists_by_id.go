@@ -8,6 +8,8 @@ import (
 )
 
 func (r *repo) ExistsByID(ctx context.Context, userID int64) (bool, error) {
+	r.logger.Debug("[ExistsByID] execute repository")
+
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 

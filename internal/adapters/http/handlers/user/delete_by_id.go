@@ -21,6 +21,8 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user/id/{userID} [delete]
 func (h *Handler) deleteByID(c *gin.Context) {
+	h.logger.Debug("[deleteByID] execute handler")
+
 	userID := c.Param("userID")
 	if userID == "" {
 		h.logger.Error("failed to get param userID", "error", apperrors.ErrParamIsRequired)

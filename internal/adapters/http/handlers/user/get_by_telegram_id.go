@@ -20,6 +20,8 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user/telegram/{telegramID} [get]
 func (h *Handler) getByTelegramID(c *gin.Context) {
+	h.logger.Debug("[getByTelegramID] execute handler")
+
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {
 		h.logger.Error("failed to get param telegramID", "error", apperrors.ErrParamIsRequired)

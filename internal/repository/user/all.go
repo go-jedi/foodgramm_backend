@@ -10,6 +10,8 @@ import (
 )
 
 func (r *repo) All(ctx context.Context) ([]user.User, error) {
+	r.logger.Debug("[All] execute repository")
+
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 
