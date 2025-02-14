@@ -17,7 +17,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param telegramID path string true "Telegram ID of the user"
-// @Success 200 {object} bool
+// @Success 200 {object} object '{"result": true}'
 // @Failure 400 {object} payment.ErrorResponse "Invalid request parameters"
 // @Failure 500 {object} payment.ErrorResponse "Internal server error"
 // @Router /ws/v1/payment/check/{telegramID} [get]
@@ -60,7 +60,7 @@ func (wsh *WebSocketHandler) check(c *gin.Context) {
 		return
 	}
 
-	if err := conn.WriteMessage(websocket.TextMessage, []byte("true")); err != nil {
+	if err := conn.WriteMessage(websocket.TextMessage, []byte(`"{"result": true}"`)); err != nil {
 		wsh.logger.Error("failed to send receive response", "error", err)
 		return
 	}

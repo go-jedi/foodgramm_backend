@@ -1293,7 +1293,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: boolean
+            type: object
         "400":
           description: Invalid request parameters
           schema:
