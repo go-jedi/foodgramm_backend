@@ -37,7 +37,7 @@ func (d *Dependencies) PaymentHandler() *payment.Handler {
 func (d *Dependencies) PaymentWebSocket() *paymentwebsocket.WebSocketHandler {
 	if d.paymentWebSocketHandler == nil {
 		d.paymentWebSocketHandler = paymentwebsocket.NewWebSocketHandler(
-			d.PaymentService(),
+			d.SubscriptionService(),
 			d.cookie,
 			d.websocket,
 			d.middleware,

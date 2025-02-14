@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.subscription_create(_telegram_id TEXT) RETURNS subscriptions
+CREATE OR REPLACE FUNCTION public.subscription_create(_telegram_id TEXT) RETURNS void
     SECURITY DEFINER
     LANGUAGE plpgsql
 AS
@@ -28,7 +28,5 @@ BEGIN
         _sat,
         _exp
     );
-
-    RETURN _s;
 END;
 $$;

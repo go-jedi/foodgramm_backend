@@ -10,16 +10,16 @@ import (
 )
 
 type WebSocketHandler struct {
-	paymentService service.PaymentService
-	cookie         config.CookieConfig
-	websocket      config.WebSocketConfig
-	middleware     *middleware.Middleware
-	logger         *logger.Logger
-	validator      *validator.Validator
+	subscriptionService service.SubscriptionService
+	cookie              config.CookieConfig
+	websocket           config.WebSocketConfig
+	middleware          *middleware.Middleware
+	logger              *logger.Logger
+	validator           *validator.Validator
 }
 
 func NewWebSocketHandler(
-	paymentService service.PaymentService,
+	subscriptionService service.SubscriptionService,
 	cookie config.CookieConfig,
 	websocket config.WebSocketConfig,
 	middleware *middleware.Middleware,
@@ -28,12 +28,12 @@ func NewWebSocketHandler(
 	validator *validator.Validator,
 ) *WebSocketHandler {
 	h := &WebSocketHandler{
-		paymentService: paymentService,
-		cookie:         cookie,
-		websocket:      websocket,
-		middleware:     middleware,
-		logger:         logger,
-		validator:      validator,
+		subscriptionService: subscriptionService,
+		cookie:              cookie,
+		websocket:           websocket,
+		middleware:          middleware,
+		logger:              logger,
+		validator:           validator,
 	}
 
 	h.initRoutes(engine)

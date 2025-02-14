@@ -21,8 +21,8 @@
 - `migrate create -ext sql -dir migrations -seq recipe_of_days_table`
 
 #### execute:
-- `migrate -database postgresql://admin:test@localhost:54321/app_db?sslmode=disable -path migrations up`
-- `migrate -database postgresql://admin:test@localhost:54321/app_db?sslmode=disable -path migrations down`
+- `migrate -database postgresql://admin:test@localhost:54321/foodgrammm_db?sslmode=disable -path migrations up`
+- `migrate -database postgresql://admin:test@localhost:54321/foodgrammm_db?sslmode=disable -path migrations down`
 
 #### build application:
 - `go build -ldflags="-s -w" -trimpath -buildvcs=false -o app cmd/app/main.go`

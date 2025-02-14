@@ -39,6 +39,7 @@ type ProductService interface {
 }
 
 type SubscriptionService interface {
+	Create(ctx context.Context, telegramID string) error
 	GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error)
 	ExistsByTelegramID(ctx context.Context, telegramID string) (bool, error)
 }

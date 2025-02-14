@@ -55,14 +55,14 @@ func (wsh *WebSocketHandler) check(c *gin.Context) {
 	}
 	defer wsh.closeConnection(conn)
 
-	if err := wsh.connectToPaymentService(c.Request.Context(), fullURL, conn); err != nil {
+	if err := wsh.connectToPaymentService(c.Request.Context(), fullURL, telegramID, conn); err != nil {
 		wsh.logger.Error("failed to connect to payment service", "error", err)
 		return
 	}
 }
 
 // connectToPaymentService connect to payment service.
-func (wsh *WebSocketHandler) connectToPaymentService(ctx context.Context, url string, clientConn *websocket.Conn) error {
+func (wsh *WebSocketHandler) connectToPaymentService(ctx context.Context, url string, telegramID string, clientConn *websocket.Conn) error {
 	conn, resp, err := websocket.DefaultDialer.DialContext(ctx, url, nil)
 	if err != nil {
 		return err
@@ -81,10 +81,15 @@ func (wsh *WebSocketHandler) connectToPaymentService(ctx context.Context, url st
 		default:
 			_, p, err := conn.ReadMessage()
 			if err != nil {
+				wsh.logger.Error("failed to read message from payment service", "error", err)
 				return err
 			}
 
 			if string(p) == `"{\"result\": true}"` {
+				if err := wsh.subscriptionService.Create(ctx, telegramID); err != nil {
+					wsh.logger.Error("failed to create subscription user by telegram id", "error", err)
+					return err
+				}
 				if err := clientConn.WriteMessage(websocket.TextMessage, []byte(`{"result": true}`)); err != nil {
 					wsh.logger.Error("failed to send receive response to client", "error", err)
 					return err
