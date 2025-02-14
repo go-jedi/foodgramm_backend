@@ -10,6 +10,8 @@ import (
 )
 
 func (r *repo) GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error) {
+	r.logger.Debug("[GetRecipesByTelegramID] execute repository")
+
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 

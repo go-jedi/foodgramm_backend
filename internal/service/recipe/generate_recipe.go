@@ -14,6 +14,8 @@ import (
 var ErrUserNotSubscriptionOrFreeRecipes = errors.New("user does not have a subscription or free recipes")
 
 func (s *serv) GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO) (recipe.Recipes, error) {
+	s.logger.Debug("[GenerateRecipe] execute service")
+
 	// check user exists by telegram id.
 	ieu, err := s.userRepository.ExistsByTelegramID(ctx, dto.TelegramID)
 	if err != nil {

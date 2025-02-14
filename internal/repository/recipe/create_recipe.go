@@ -13,6 +13,8 @@ import (
 )
 
 func (r *repo) CreateRecipe(ctx context.Context, accessType subscription.AccessType, parsedData parser.ParsedRecipe) (recipe.Recipes, error) {
+	r.logger.Debug("[CreateRecipe] execute repository")
+
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 
