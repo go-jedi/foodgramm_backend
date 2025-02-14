@@ -60,7 +60,7 @@ func (wsh *WebSocketHandler) check(c *gin.Context) {
 		return
 	}
 
-	if err := conn.WriteMessage(websocket.TextMessage, []byte(`"{"result": true}"`)); err != nil {
+	if err := conn.WriteMessage(websocket.TextMessage, []byte(`{"result": true}`)); err != nil {
 		wsh.logger.Error("failed to send receive response", "error", err)
 		return
 	}
