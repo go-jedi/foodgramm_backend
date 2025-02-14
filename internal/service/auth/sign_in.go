@@ -8,6 +8,8 @@ import (
 )
 
 func (s *serv) SignIn(ctx context.Context, dto auth.SignInDTO) (auth.SignInResp, error) {
+	s.logger.Debug("[SignIn] execute service")
+
 	ie, err := s.userRepository.Exists(ctx, dto.TelegramID, dto.Username)
 	if err != nil {
 		return auth.SignInResp{}, err

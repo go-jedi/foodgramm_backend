@@ -21,7 +21,9 @@ import (
 // @Failure 400 {object} auth.ErrorResponse "Bad request error"
 // @Failure 500 {object} auth.ErrorResponse "Internal server error"
 // @Router /v1/auth/check [post]
-func (h *Handler) Check(c *gin.Context) {
+func (h *Handler) check(c *gin.Context) {
+	h.logger.Debug("[check] execute handler")
+
 	var dto auth.CheckDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)

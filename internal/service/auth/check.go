@@ -8,6 +8,8 @@ import (
 )
 
 func (s *serv) Check(ctx context.Context, dto auth.CheckDTO) (auth.CheckResponse, error) {
+	s.logger.Debug("[Check] execute service")
+
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, dto.TelegramID)
 	if err != nil {
 		return auth.CheckResponse{}, err
