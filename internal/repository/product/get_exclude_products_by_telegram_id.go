@@ -10,6 +10,8 @@ import (
 )
 
 func (r *repo) GetExcludeProductsByTelegramID(ctx context.Context, telegramID string) (product.UserExcludedProducts, error) {
+	r.logger.Debug("[GetExcludeProductsByTelegramID] execute repository")
+
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 
