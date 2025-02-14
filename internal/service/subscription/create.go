@@ -7,6 +7,8 @@ import (
 )
 
 func (s *serv) Create(ctx context.Context, telegramID string) error {
+	s.logger.Debug("[Create] execute service")
+
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, telegramID)
 	if err != nil {
 		return err
