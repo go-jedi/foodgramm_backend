@@ -8,6 +8,8 @@ import (
 )
 
 func (s *serv) GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error) {
+	s.logger.Debug("[GetFreeRecipesByTelegramID] execute service")
+
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, telegramID)
 	if err != nil {
 		return recipe.UserFreeRecipes{}, err
