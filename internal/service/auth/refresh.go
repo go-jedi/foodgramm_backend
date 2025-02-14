@@ -8,6 +8,8 @@ import (
 )
 
 func (s *serv) Refresh(ctx context.Context, dto auth.RefreshDTO) (auth.RefreshResponse, error) {
+	s.logger.Debug("[Refresh] execute service")
+
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, dto.TelegramID)
 	if err != nil {
 		return auth.RefreshResponse{}, err

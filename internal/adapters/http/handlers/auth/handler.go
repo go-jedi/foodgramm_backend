@@ -41,8 +41,8 @@ func NewHandler(
 func (h *Handler) initRoutes(engine *gin.Engine) {
 	api := engine.Group("/v1/auth")
 	{
-		api.POST("/signin", h.SignIn)
-		api.POST("/check", h.middleware.Auth.AuthMiddleware, h.Check)
-		api.POST("/refresh", h.middleware.Auth.AuthMiddleware, h.Refresh)
+		api.POST("/signin", h.signIn)
+		api.POST("/check", h.middleware.Auth.AuthMiddleware, h.check)
+		api.POST("/refresh", h.middleware.Auth.AuthMiddleware, h.refresh)
 	}
 }
