@@ -55,19 +55,14 @@ func (wsh *WebSocketHandler) check(c *gin.Context) {
 	}
 	defer wsh.closeConnection(conn)
 
-	if err := wsh.connectToPaymentService(c.Request.Context(), fullURL); err != nil {
+	if err := wsh.connectToPaymentService(c.Request.Context(), fullURL, conn); err != nil {
 		wsh.logger.Error("failed to connect to payment service", "error", err)
-		return
-	}
-
-	if err := conn.WriteMessage(websocket.TextMessage, []byte(`{"result": true}`)); err != nil {
-		wsh.logger.Error("failed to send receive response", "error", err)
 		return
 	}
 }
 
 // connectToPaymentService connect to payment service.
-func (wsh *WebSocketHandler) connectToPaymentService(ctx context.Context, url string) error {
+func (wsh *WebSocketHandler) connectToPaymentService(ctx context.Context, url string, clientConn *websocket.Conn) error {
 	conn, resp, err := websocket.DefaultDialer.DialContext(ctx, url, nil)
 	if err != nil {
 		return err
@@ -90,7 +85,16 @@ func (wsh *WebSocketHandler) connectToPaymentService(ctx context.Context, url st
 			}
 
 			if string(p) == `"{\"result\": true}"` {
+				if err := clientConn.WriteMessage(websocket.TextMessage, []byte(`{"result": true}`)); err != nil {
+					wsh.logger.Error("failed to send receive response to client", "error", err)
+					return err
+				}
 				return nil
+			} else {
+				if err := clientConn.WriteMessage(websocket.TextMessage, []byte(`{"result": false}`)); err != nil {
+					wsh.logger.Error("failed to send receive response to client", "error", err)
+					return err
+				}
 			}
 		}
 	}
