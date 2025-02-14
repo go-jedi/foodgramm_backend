@@ -49,5 +49,3 @@ type RecipeOfDaysRepository interface {
 	Create(ctx context.Context, data parser.ParsedRecipeOfDays) error
 	Get(ctx context.Context) (recipeofdays.Recipe, error)
 }
-
-type PaymentRepository interface{}
