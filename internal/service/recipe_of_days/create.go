@@ -5,6 +5,8 @@ import (
 )
 
 func (s *serv) Create(ctx context.Context) error {
+	s.logger.Debug("[Create] execute service")
+
 	// get template.
 	str, err := s.templates.RecipeOfDays.Generate()
 	if err != nil {

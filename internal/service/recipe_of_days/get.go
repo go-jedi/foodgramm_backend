@@ -7,5 +7,7 @@ import (
 )
 
 func (s *serv) Get(ctx context.Context) (recipeofdays.Recipe, error) {
+	s.logger.Debug("[Get] execute service")
+
 	return s.recipeOfDaysRepository.Get(ctx)
 }

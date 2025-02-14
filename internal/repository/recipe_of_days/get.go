@@ -10,6 +10,8 @@ import (
 )
 
 func (r *repo) Get(ctx context.Context) (recipeofdays.Recipe, error) {
+	r.logger.Debug("[Get] execute repository")
+
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 
