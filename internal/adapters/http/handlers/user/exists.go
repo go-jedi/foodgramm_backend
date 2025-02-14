@@ -18,6 +18,8 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user/exists [post]
 func (h *Handler) exists(c *gin.Context) {
+	h.logger.Debug("[exists] execute handler")
+
 	var dto user.ExistsDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)

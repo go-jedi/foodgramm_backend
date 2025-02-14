@@ -8,6 +8,8 @@ import (
 )
 
 func (r *repo) ExistsByTelegramID(ctx context.Context, telegramID string) (bool, error) {
+	r.logger.Debug("[ExistsByTelegramID] execute repository")
+
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
 

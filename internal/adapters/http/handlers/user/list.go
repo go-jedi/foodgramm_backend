@@ -19,6 +19,8 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user/list [post]
 func (h *Handler) list(c *gin.Context) {
+	h.logger.Debug("[list] execute handler")
+
 	var dto user.ListDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)

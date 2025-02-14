@@ -19,6 +19,8 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user [put]
 func (h *Handler) update(c *gin.Context) {
+	h.logger.Debug("[update] execute handler")
+
 	var dto user.UpdateDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {
 		h.logger.Error("failed to bind body", "error", err)

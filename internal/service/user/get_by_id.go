@@ -7,5 +7,7 @@ import (
 )
 
 func (s *serv) GetByID(ctx context.Context, userID int64) (user.User, error) {
+	s.logger.Debug("[GetByID] execute service")
+
 	return s.userRepository.GetByID(ctx, userID)
 }
