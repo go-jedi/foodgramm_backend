@@ -47,6 +47,7 @@ type SubscriptionService interface {
 type RecipeService interface {
 	GenerateRecipe(ctx context.Context, dto recipe.GenerateRecipeDTO) (recipe.Recipes, error)
 	GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error)
+	GetListRecipesByTelegramID(ctx context.Context, dto recipe.GetListRecipesByTelegramIDDTO) (recipe.GetListRecipesByTelegramIDResponse, error)
 	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 }
 

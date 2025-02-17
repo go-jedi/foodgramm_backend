@@ -527,6 +527,66 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/recipe/list": {
+            "post": {
+                "description": "Retrieves a paginated list of recipes associated with a specific Telegram ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe"
+                ],
+                "summary": "Get a list of recipes with pagination by Telegram ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Request body containing Telegram ID and pagination details",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/recipe.GetListRecipesByTelegramIDDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved the list of recipes",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.GetListRecipesByTelegramIDResponseSwagger"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request due to invalid input or validation failure",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User with the specified Telegram ID does not exist",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/recipe.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/recipe/telegram/{telegramID}": {
             "get": {
                 "description": "Retrieve recipes for a user by their Telegram ID",
@@ -1621,6 +1681,49 @@ const docTemplate = `{
                 "type": {
                     "type": "integer",
                     "maximum": 4
+                }
+            }
+        },
+        "recipe.GetListRecipesByTelegramIDDTO": {
+            "type": "object",
+            "required": [
+                "page",
+                "size",
+                "telegram_id"
+            ],
+            "properties": {
+                "page": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "telegram_id": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "recipe.GetListRecipesByTelegramIDResponseSwagger": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/recipe.Recipes"
+                    }
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "total_count": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
                 }
             }
         },

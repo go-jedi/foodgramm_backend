@@ -55,8 +55,8 @@ func (c *Client) init() error {
 // SetDefaultHeaders sets default headers for all requests.
 func (c *Client) SetDefaultHeaders(headers http.Header) {
 	for key, values := range headers {
-		for _, value := range values {
-			c.headers.Add(key, value)
+		for i := range values {
+			c.headers.Add(key, values[i])
 		}
 	}
 }

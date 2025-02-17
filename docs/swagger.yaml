@@ -202,6 +202,35 @@ definitions:
     - telegram_id
     - type
     type: object
+  recipe.GetListRecipesByTelegramIDDTO:
+    properties:
+      page:
+        type: integer
+      size:
+        type: integer
+      telegram_id:
+        minLength: 1
+        type: string
+    required:
+    - page
+    - size
+    - telegram_id
+    type: object
+  recipe.GetListRecipesByTelegramIDResponseSwagger:
+    properties:
+      current_page:
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/recipe.Recipes'
+        type: array
+      size:
+        type: integer
+      total_count:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
   recipe.Recipes:
     properties:
       content:
@@ -767,6 +796,47 @@ paths:
           schema:
             $ref: '#/definitions/recipe.ErrorResponse'
       summary: Generate a new recipe
+      tags:
+      - Recipe
+  /v1/recipe/list:
+    post:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of recipes associated with a specific
+        Telegram ID.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Request body containing Telegram ID and pagination details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/recipe.GetListRecipesByTelegramIDDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved the list of recipes
+          schema:
+            $ref: '#/definitions/recipe.GetListRecipesByTelegramIDResponseSwagger'
+        "400":
+          description: Bad request due to invalid input or validation failure
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+        "404":
+          description: User with the specified Telegram ID does not exist
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/recipe.ErrorResponse'
+      summary: Get a list of recipes with pagination by Telegram ID
       tags:
       - Recipe
   /v1/recipe/telegram/{telegramID}:
