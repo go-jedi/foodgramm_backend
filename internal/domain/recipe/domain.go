@@ -1,6 +1,7 @@
 package recipe
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -70,4 +71,33 @@ func (grd *GenerateRecipeDTO) SetDefaults() {
 		defaultValue := "нет"
 		grd.NonConsumableProducts = &defaultValue
 	}
+}
+
+//
+// GET LIST RECIPES BY TELEGRAM ID
+//
+
+// GetListRecipesByTelegramIDDTO represents the data required for pagination.
+type GetListRecipesByTelegramIDDTO struct {
+	TelegramID string `json:"telegram_id" validate:"required,min=1"`
+	Page       int    `json:"page" validate:"required,gt=0"`
+	Size       int    `json:"size" validate:"required,gt=0"`
+}
+
+// GetListRecipesByTelegramIDResponse represents the response for a list of recipes with pagination.
+type GetListRecipesByTelegramIDResponse struct {
+	TotalCount  int             `json:"total_count"`
+	TotalPages  int             `json:"total_pages"`
+	CurrentPage int             `json:"current_page"`
+	Size        int             `json:"size"`
+	Data        json.RawMessage `json:"data"`
+}
+
+// GetListRecipesByTelegramIDResponseSwagger represents the response for a list of recipes with pagination for swagger.
+type GetListRecipesByTelegramIDResponseSwagger struct {
+	TotalCount  int       `json:"total_count"`
+	TotalPages  int       `json:"total_pages"`
+	CurrentPage int       `json:"current_page"`
+	Size        int       `json:"size"`
+	Data        []Recipes `json:"data"`
 }

@@ -41,8 +41,8 @@ func (r *repo) List(ctx context.Context, dto user.ListDTO) (user.ListResponse, e
 		ctxTimeout, q,
 		dto.Size, dto.Page,
 	).Scan(
-		&lr.TotalCount, &lr.TotalPages, &lr.CurrentPage,
-		&lr.Size, &lr.Data,
+		&lr.TotalCount, &lr.TotalPages,
+		&lr.CurrentPage, &lr.Size, &lr.Data,
 	); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
 			r.logger.Error("request timed out while get list users", "err", err)

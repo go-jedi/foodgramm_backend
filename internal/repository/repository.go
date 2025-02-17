@@ -41,6 +41,7 @@ type SubscriptionRepository interface {
 type RecipeRepository interface {
 	CreateRecipe(ctx context.Context, accessType subscription.AccessType, data parser.ParsedRecipe) (recipe.Recipes, error)
 	GetRecipesByTelegramID(ctx context.Context, telegramID string) ([]recipe.Recipes, error)
+	GetListRecipesByTelegramID(ctx context.Context, dto recipe.GetListRecipesByTelegramIDDTO) (recipe.GetListRecipesByTelegramIDResponse, error)
 	GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error)
 	ExistsFreeRecipesByTelegramID(ctx context.Context, telegramID string) (bool, error)
 }
