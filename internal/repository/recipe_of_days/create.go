@@ -11,7 +11,7 @@ import (
 )
 
 func (r *repo) Create(ctx context.Context, data parser.ParsedRecipeOfDays) error {
-	r.logger.Debug("[Create] execute repository")
+	r.logger.Debug("[create recipe of the day] execute repository")
 
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()

@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS promo_codes(
     id SERIAL PRIMARY KEY, -- Уникальный идентификатор.
-    code TEXT NOT NULL UNIQUE, -- Сам промо-код.
+    code TEXT NOT NULL UNIQUE, -- Промо-код.
     discount_percent INTEGER NOT NULL, -- Процент скидки (например, 50 для 50%).
     max_uses_allowed INTEGER NOT NULL, -- Максимальное количество использований (-1 если без ограничений).
     amount_used INTEGER NOT NULL DEFAULT 0, -- Количество использований промокода.

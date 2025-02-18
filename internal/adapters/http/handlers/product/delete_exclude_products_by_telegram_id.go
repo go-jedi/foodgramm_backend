@@ -22,7 +22,7 @@ import (
 // @Failure      500 {object} product.ErrorResponse "Internal Server Error"
 // @Router       /v1/product/exclude/telegram/{telegramID} [delete]
 func (h *Handler) deleteExcludeProductsByTelegramID(c *gin.Context) {
-	h.logger.Debug("[deleteExcludeProductsByTelegramID] execute handler")
+	h.logger.Debug("[delete exclude products by telegram id] execute handler")
 
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {

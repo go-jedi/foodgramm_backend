@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-// @Summary Check payment status via WebSocket
+// @Summary Check payment status with WebSocket
 // @Description Establishes a WebSocket connection to check the payment status for a given Telegram ID.
 // @Tags Payment
 // @Accept json
@@ -22,6 +22,8 @@ import (
 // @Failure 500 {object} payment.ErrorResponse "Internal server error"
 // @Router /ws/v1/payment/check/{telegramID} [get]
 func (wsh *WebSocketHandler) check(c *gin.Context) {
+	wsh.logger.Debug("[check payment status] execute websocket")
+
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {
 		wsh.logger.Error("failed to get param telegramID", "error", apperrors.ErrParamIsRequired)

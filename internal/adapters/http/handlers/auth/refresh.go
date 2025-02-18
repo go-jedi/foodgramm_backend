@@ -22,7 +22,7 @@ import (
 // @Failure 500 {object} auth.ErrorResponse "Internal server error"
 // @Router /v1/auth/refresh [post]
 func (h *Handler) refresh(c *gin.Context) {
-	h.logger.Debug("[refresh] execute handler")
+	h.logger.Debug("[refresh user token] execute handler")
 
 	var dto auth.RefreshDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

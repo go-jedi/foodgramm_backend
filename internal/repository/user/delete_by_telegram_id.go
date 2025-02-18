@@ -10,7 +10,7 @@ import (
 )
 
 func (r *repo) DeleteByTelegramID(ctx context.Context, telegramID string) (string, error) {
-	r.logger.Debug("[DeleteByTelegramID] execute repository")
+	r.logger.Debug("[delete user by telegram id] execute repository")
 
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()

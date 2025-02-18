@@ -21,7 +21,7 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user/id/{userID} [get]
 func (h *Handler) getByID(c *gin.Context) {
-	h.logger.Debug("[getByID] execute handler")
+	h.logger.Debug("[get user by id] execute handler")
 
 	userID := c.Param("userID")
 	if userID == "" {

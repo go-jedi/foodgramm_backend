@@ -6,6 +6,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
 	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
@@ -58,4 +59,10 @@ type RecipeOfDaysService interface {
 
 type PaymentService interface {
 	Create(ctx context.Context, dto payment.CreateDTO) (string, error)
+}
+
+type PromoCodeService interface {
+	Create(ctx context.Context, dto promocode.CreateDTO) (promocode.PromoCode, error)
+	Apply(ctx context.Context, dto promocode.ApplyDTO) error
+	Check(ctx context.Context, dto promocode.CheckDTO) error
 }

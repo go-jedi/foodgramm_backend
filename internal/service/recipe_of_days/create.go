@@ -5,7 +5,7 @@ import (
 )
 
 func (s *serv) Create(ctx context.Context) error {
-	s.logger.Debug("[Create] execute service")
+	s.logger.Debug("[create recipe of the day] execute service")
 
 	// get template.
 	str, err := s.templates.RecipeOfDays.Generate()

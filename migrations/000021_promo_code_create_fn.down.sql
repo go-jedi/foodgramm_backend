@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS public.promo_code_create(JSON);

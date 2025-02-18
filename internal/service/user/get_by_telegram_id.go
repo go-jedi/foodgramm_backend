@@ -7,7 +7,7 @@ import (
 )
 
 func (s *serv) GetByTelegramID(ctx context.Context, telegramID string) (user.User, error) {
-	s.logger.Debug("[GetByTelegramID] execute service")
+	s.logger.Debug("[get user by telegram id] execute service")
 
 	return s.userRepository.GetByTelegramID(ctx, telegramID)
 }

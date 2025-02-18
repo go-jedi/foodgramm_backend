@@ -41,6 +41,8 @@ func NewCron(
 
 func (c *Cron) Start(ctx context.Context) {
 	for {
+		c.logger.Debug("[start recipe of days] execute cron")
+
 		if ctx.Err() != nil {
 			c.logger.Info("cron recipe of days job stopped", slog.String("reason", ctx.Err().Error()))
 			return

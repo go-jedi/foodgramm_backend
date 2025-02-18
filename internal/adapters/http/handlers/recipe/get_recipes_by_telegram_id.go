@@ -22,7 +22,7 @@ import (
 // @Failure 500 {object} recipe.ErrorResponse "Internal server error"
 // @Router /v1/recipe/telegram/{telegramID} [get]
 func (h *Handler) getRecipesByTelegramID(c *gin.Context) {
-	h.logger.Debug("[getRecipesByTelegramID] execute handler")
+	h.logger.Debug("[get recipes by telegram id] execute handler")
 
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {

@@ -19,7 +19,7 @@ import (
 // @Failure 500 {object} auth.ErrorResponse "Internal server error"
 // @Router /v1/auth/signin [post]
 func (h *Handler) signIn(c *gin.Context) {
-	h.logger.Debug("[signIn] execute handler")
+	h.logger.Debug("[sign in user] execute handler")
 
 	var dto auth.SignInDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

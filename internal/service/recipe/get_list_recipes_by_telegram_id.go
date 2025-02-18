@@ -8,7 +8,7 @@ import (
 )
 
 func (s *serv) GetListRecipesByTelegramID(ctx context.Context, dto recipe.GetListRecipesByTelegramIDDTO) (recipe.GetListRecipesByTelegramIDResponse, error) {
-	s.logger.Debug("[GetListRecipesByTelegramID] execute service")
+	s.logger.Debug("[get list recipes by telegram id] execute service")
 
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, dto.TelegramID)
 	if err != nil {

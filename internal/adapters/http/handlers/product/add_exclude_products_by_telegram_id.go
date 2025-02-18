@@ -21,7 +21,7 @@ import (
 // @Failure 500 {object} product.ErrorResponse
 // @Router /v1/product/exclude/telegram/id [post]
 func (h *Handler) addExcludeProductsByTelegramID(c *gin.Context) {
-	h.logger.Debug("[addExcludeProductsByTelegramID] execute handler")
+	h.logger.Debug("[add exclude products by telegram id] execute handler")
 
 	var dto product.AddExcludeProductsByTelegramIDDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

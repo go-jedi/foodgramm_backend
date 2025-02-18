@@ -17,7 +17,7 @@ import (
 // @Failure 500 {object} ErrorResponse
 // @Router /v1/recipe_of_days [get]
 func (h *Handler) get(c *gin.Context) {
-	h.logger.Debug("[get] execute handler")
+	h.logger.Debug("[get recipe of the day] execute handler")
 
 	result, err := h.recipeOfDaysService.Get(c.Request.Context())
 	if err != nil {

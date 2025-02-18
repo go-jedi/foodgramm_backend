@@ -140,6 +140,56 @@ definitions:
       user_id:
         type: integer
     type: object
+  promocode.CreateDTO:
+    properties:
+      code:
+        minLength: 1
+        type: string
+      discount_percent:
+        maximum: 100
+        type: integer
+      is_reusable:
+        type: boolean
+      max_uses_allowed:
+        minimum: -1
+        type: integer
+      valid_until:
+        type: string
+    required:
+    - code
+    - discount_percent
+    - max_uses_allowed
+    type: object
+  promocode.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
+  promocode.PromoCode:
+    properties:
+      amount_used:
+        type: integer
+      code:
+        type: string
+      created_at:
+        type: string
+      discount_percent:
+        type: integer
+      id:
+        type: integer
+      is_reusable:
+        type: boolean
+      max_uses_allowed:
+        type: integer
+      updated_at:
+        type: string
+      valid_from:
+        type: string
+      valid_until:
+        type: string
+    type: object
   recipe.Content:
     properties:
       bzhu:
@@ -722,6 +772,42 @@ paths:
       summary: Add Exclude Products by Telegram ID
       tags:
       - Product
+  /v1/promo_code:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new promo code with the provided details.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Promo code creation data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/promocode.CreateDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created promo code details
+          schema:
+            $ref: '#/definitions/promocode.PromoCode'
+        "400":
+          description: Bad request due to invalid input or validation failure
+          schema:
+            $ref: '#/definitions/promocode.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/promocode.ErrorResponse'
+      summary: Create a new promo code
+      tags:
+      - PromoCode
   /v1/recipe/free/telegram/{telegramID}:
     get:
       consumes:
@@ -1372,7 +1458,7 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/payment.ErrorResponse'
-      summary: Check payment status via WebSocket
+      summary: Check payment status with WebSocket
       tags:
       - Payment
 swagger: "2.0"
