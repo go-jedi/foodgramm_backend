@@ -10,7 +10,7 @@ import (
 )
 
 func (r *repo) GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error) {
-	r.logger.Debug("[GetByTelegramID] execute repository")
+	r.logger.Debug("[get subscription by telegram id] execute repository")
 
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()

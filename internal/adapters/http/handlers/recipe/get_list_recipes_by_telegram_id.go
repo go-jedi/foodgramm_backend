@@ -23,7 +23,7 @@ import (
 // @Failure 500 {object} recipe.ErrorResponse "Internal server error"
 // @Router /v1/recipe/list [post]
 func (h *Handler) getListRecipesByTelegramID(c *gin.Context) {
-	h.logger.Debug("[getListRecipesByTelegramID] execute handler")
+	h.logger.Debug("[get list recipes by telegram id] execute handler")
 
 	var dto recipe.GetListRecipesByTelegramIDDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

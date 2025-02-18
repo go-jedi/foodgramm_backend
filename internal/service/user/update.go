@@ -8,7 +8,7 @@ import (
 )
 
 func (s *serv) Update(ctx context.Context, dto user.UpdateDTO) (user.User, error) {
-	s.logger.Debug("[Update] execute service")
+	s.logger.Debug("[update user] execute service")
 
 	ie, err := s.userRepository.ExistsExceptCurrent(ctx, dto.ID, dto.TelegramID, dto.Username)
 	if err != nil {

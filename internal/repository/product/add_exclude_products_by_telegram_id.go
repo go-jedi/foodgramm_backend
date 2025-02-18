@@ -10,7 +10,7 @@ import (
 )
 
 func (r *repo) AddExcludeProductsByTelegramID(ctx context.Context, dto product.AddExcludeProductsByTelegramIDDTO) (product.UserExcludedProducts, error) {
-	r.logger.Debug("[AddExcludeProductsByTelegramID] execute repository")
+	r.logger.Debug("[add exclude products by telegram id] execute repository")
 
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()

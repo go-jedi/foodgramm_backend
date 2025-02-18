@@ -8,7 +8,7 @@ import (
 )
 
 func (s *serv) GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error) {
-	s.logger.Debug("[GetByTelegramID] execute service")
+	s.logger.Debug("[get subscription by telegram id] execute service")
 
 	uie, err := s.userRepository.ExistsByTelegramID(ctx, telegramID)
 	if err != nil {

@@ -9,7 +9,7 @@ import (
 )
 
 func (s *serv) Create(ctx context.Context, dto payment.CreateDTO) (string, error) {
-	s.logger.Debug("[Create] execute service")
+	s.logger.Debug("[create a payment link] execute service")
 
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, dto.TelegramID)
 	if err != nil {

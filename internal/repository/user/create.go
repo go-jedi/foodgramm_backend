@@ -11,7 +11,7 @@ import (
 )
 
 func (r *repo) Create(ctx context.Context, dto user.CreateDTO) (user.User, error) {
-	r.logger.Debug("[Create] execute repository")
+	r.logger.Debug("[create a new user] execute repository")
 
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()

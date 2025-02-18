@@ -8,7 +8,7 @@ import (
 )
 
 func (r *repo) ExistsFreeRecipesByTelegramID(ctx context.Context, telegramID string) (bool, error) {
-	r.logger.Debug("[ExistsFreeRecipesByTelegramID] execute repository")
+	r.logger.Debug("[exists free recipes by telegram id] execute repository")
 
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()

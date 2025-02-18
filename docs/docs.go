@@ -415,6 +415,60 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/promo_code": {
+            "post": {
+                "description": "Creates a new promo code with the provided details.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PromoCode"
+                ],
+                "summary": "Create a new promo code",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Promo code creation data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/promocode.CreateDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created promo code details",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.PromoCode"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request due to invalid input or validation failure",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/recipe/free/telegram/{telegramID}": {
             "get": {
                 "description": "This endpoint retrieves the free recipes information for a user identified by their Telegram ID.",
@@ -1353,7 +1407,7 @@ const docTemplate = `{
                 "tags": [
                     "Payment"
                 ],
-                "summary": "Check payment status via WebSocket",
+                "summary": "Check payment status with WebSocket",
                 "parameters": [
                     {
                         "type": "string",
@@ -1591,6 +1645,80 @@ const docTemplate = `{
                 },
                 "user_id": {
                     "type": "integer"
+                }
+            }
+        },
+        "promocode.CreateDTO": {
+            "type": "object",
+            "required": [
+                "code",
+                "discount_percent",
+                "max_uses_allowed"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "discount_percent": {
+                    "type": "integer",
+                    "maximum": 100
+                },
+                "is_reusable": {
+                    "type": "boolean"
+                },
+                "max_uses_allowed": {
+                    "type": "integer",
+                    "minimum": -1
+                },
+                "valid_until": {
+                    "type": "string"
+                }
+            }
+        },
+        "promocode.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "promocode.PromoCode": {
+            "type": "object",
+            "properties": {
+                "amount_used": {
+                    "type": "integer"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "discount_percent": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "is_reusable": {
+                    "type": "boolean"
+                },
+                "max_uses_allowed": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "valid_from": {
+                    "type": "string"
+                },
+                "valid_until": {
+                    "type": "string"
                 }
             }
         },

@@ -20,7 +20,7 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user/exists/id/{userID} [get]
 func (h *Handler) existsByID(c *gin.Context) {
-	h.logger.Debug("[existsByID] execute handler")
+	h.logger.Debug("[check user exists by id] execute handler")
 
 	userID := c.Param("userID")
 	if userID == "" {

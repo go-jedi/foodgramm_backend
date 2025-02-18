@@ -23,7 +23,7 @@ import (
 // @Failure 500 {object} recipe.ErrorResponse "Internal server error"
 // @Router /v1/recipe/generate [post]
 func (h *Handler) generateRecipe(c *gin.Context) {
-	h.logger.Debug("[generateRecipe] execute handler")
+	h.logger.Debug("[generate recipe] execute handler")
 
 	var dto recipe.GenerateRecipeDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

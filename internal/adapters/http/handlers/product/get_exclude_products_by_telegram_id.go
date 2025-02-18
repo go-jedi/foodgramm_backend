@@ -21,7 +21,7 @@ import (
 // @Failure 500 {object} product.ErrorResponse
 // @Router /v1/product/exclude/telegram/{telegramID} [get]
 func (h *Handler) getExcludeProductsByTelegramID(c *gin.Context) {
-	h.logger.Debug("[getExcludeProductsByTelegramID] execute handler")
+	h.logger.Debug("[get exclude products by telegram id] execute handler")
 
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {

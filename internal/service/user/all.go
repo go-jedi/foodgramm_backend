@@ -7,7 +7,7 @@ import (
 )
 
 func (s *serv) All(ctx context.Context) ([]user.User, error) {
-	s.logger.Debug("[All] execute service")
+	s.logger.Debug("[get all users] execute service")
 
 	return s.userRepository.All(ctx)
 }

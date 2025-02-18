@@ -8,7 +8,7 @@ import (
 )
 
 func (s *serv) DeleteExcludeProductsByTelegramID(ctx context.Context, telegramID string, prod string) (product.UserExcludedProducts, error) {
-	s.logger.Debug("[DeleteExcludeProductsByTelegramID] execute service")
+	s.logger.Debug("[delete exclude products by telegram id] execute service")
 
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, telegramID)
 	if err != nil {

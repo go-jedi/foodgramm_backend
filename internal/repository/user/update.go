@@ -10,7 +10,7 @@ import (
 )
 
 func (r *repo) Update(ctx context.Context, dto user.UpdateDTO) (user.User, error) {
-	r.logger.Debug("[Update] execute repository")
+	r.logger.Debug("[update user] execute repository")
 
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()

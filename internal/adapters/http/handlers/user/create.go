@@ -21,7 +21,7 @@ import (
 // @Failure 500 {object} user.ErrorResponse
 // @Router /v1/user [post]
 func (h *Handler) create(c *gin.Context) {
-	h.logger.Debug("[create] execute handler")
+	h.logger.Debug("[create a new user] execute handler")
 
 	var dto user.CreateDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

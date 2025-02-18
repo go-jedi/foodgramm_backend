@@ -7,7 +7,7 @@ import (
 )
 
 func (s *serv) Create(ctx context.Context, telegramID string) error {
-	s.logger.Debug("[Create] execute service")
+	s.logger.Debug("[create subscription] execute service")
 
 	ie, err := s.userRepository.ExistsByTelegramID(ctx, telegramID)
 	if err != nil {

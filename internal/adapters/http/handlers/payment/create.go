@@ -22,7 +22,7 @@ import (
 // @Failure 500 {object} payment.ErrorResponse
 // @Router /v1/payment/link [post]
 func (h *Handler) create(c *gin.Context) {
-	h.logger.Debug("[create] execute handler")
+	h.logger.Debug("[create a payment link] execute handler")
 
 	var dto payment.CreateDTO
 	if err := c.ShouldBindJSON(&dto); err != nil {

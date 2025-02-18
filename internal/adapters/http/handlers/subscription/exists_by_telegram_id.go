@@ -22,7 +22,7 @@ import (
 // @Failure 500 {object} subscription.ErrorResponse "Internal server error"
 // @Router /v1/subscription/exists/telegram/{telegramID} [get]
 func (h *Handler) existsByTelegramID(c *gin.Context) {
-	h.logger.Debug("[existsByTelegramID] execute handler")
+	h.logger.Debug("[check exists subscription by telegram id] execute handler")
 
 	telegramID := c.Param("telegramID")
 	if telegramID == "" {

@@ -8,7 +8,7 @@ import (
 )
 
 func (s *serv) Create(ctx context.Context, dto user.CreateDTO) (user.User, error) {
-	s.logger.Debug("[Create] execute service")
+	s.logger.Debug("[create a new user] execute service")
 
 	ie, err := s.userRepository.Exists(ctx, dto.TelegramID, dto.Username)
 	if err != nil {
