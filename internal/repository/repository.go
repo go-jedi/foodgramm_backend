@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
 	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
@@ -49,4 +50,10 @@ type RecipeRepository interface {
 type RecipeOfDaysRepository interface {
 	Create(ctx context.Context, data parser.ParsedRecipeOfDays) error
 	Get(ctx context.Context) (recipeofdays.Recipe, error)
+}
+
+type PromoCodeRepository interface {
+	Create(ctx context.Context, dto promocode.CreateDTO) error
+	Apply(ctx context.Context, telegramID string) error
+	Check(ctx context.Context, telegramID string) error
 }

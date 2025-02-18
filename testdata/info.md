@@ -19,6 +19,8 @@
 - `migrate create -ext sql -dir migrations -seq subscriptions_get_by_telegram_id_fn`
 - `migrate create -ext sql -dir migrations -seq recipe_create_fn`
 - `migrate create -ext sql -dir migrations -seq recipe_of_days_table`
+- `migrate create -ext sql -dir migrations -seq promo_codes_table`
+- `migrate create -ext sql -dir migrations -seq promo_code_uses_table`
 
 #### execute:
 - `migrate -database postgresql://admin:test@localhost:54321/foodgrammm_db?sslmode=disable -path migrations up`

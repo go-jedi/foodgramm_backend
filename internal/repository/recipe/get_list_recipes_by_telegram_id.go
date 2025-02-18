@@ -27,7 +27,7 @@ func (r *repo) GetListRecipesByTelegramID(ctx context.Context, dto recipe.GetLis
 			SELECT *
 			FROM recipes
 			WHERE telegram_id = $1
-			ORDER BY id
+			ORDER BY id DESC
 			LIMIT $2 OFFSET ($3 - 1) * $2
 		)
 		SELECT
