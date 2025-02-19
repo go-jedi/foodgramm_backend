@@ -8,7 +8,7 @@ import (
 )
 
 func (r *repo) ExistsExceptCurrent(ctx context.Context, id int64, telegramID string, username string) (bool, error) {
-	r.logger.Debug("[check exists user except current] execute repository")
+	r.logger.Debug("[check user exists except current] execute repository")
 
 	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
 	defer cancel()
