@@ -11,7 +11,7 @@ import (
 
 // @Summary Apply a promo code
 // @Description Applies a promo code for a user with the provided details.
-// @Tags PromoCode
+// @Tags Promo code
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Authorization token" default(Bearer <token>)

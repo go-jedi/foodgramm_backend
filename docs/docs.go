@@ -425,7 +425,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "PromoCode"
+                    "Promo code"
                 ],
                 "summary": "Create a new promo code",
                 "parameters": [
@@ -479,7 +479,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "PromoCode"
+                    "Promo code"
                 ],
                 "summary": "Apply a promo code",
                 "parameters": [
@@ -539,7 +539,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "PromoCode"
+                    "Promo code"
                 ],
                 "summary": "Check if a promo code is valid for a user",
                 "parameters": [

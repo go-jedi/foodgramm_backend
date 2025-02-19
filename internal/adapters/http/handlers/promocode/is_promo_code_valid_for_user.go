@@ -11,7 +11,7 @@ import (
 
 // @Summary Check if a promo code is valid for a user
 // @Description Checks if a promo code is valid for the specified user.
-// @Tags PromoCode
+// @Tags Promo code
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Authorization token" default(Bearer <token>)

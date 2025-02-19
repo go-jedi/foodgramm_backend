@@ -838,7 +838,7 @@ paths:
             $ref: '#/definitions/promocode.ErrorResponse'
       summary: Create a new promo code
       tags:
-      - PromoCode
+      - Promo code
   /v1/promo_code/apply:
     post:
       consumes:
@@ -878,7 +878,7 @@ paths:
             $ref: '#/definitions/promocode.ErrorResponse'
       summary: Apply a promo code
       tags:
-      - PromoCode
+      - Promo code
   /v1/promo_code/validate:
     post:
       consumes:
@@ -919,7 +919,7 @@ paths:
             $ref: '#/definitions/promocode.ErrorResponse'
       summary: Check if a promo code is valid for a user
       tags:
-      - PromoCode
+      - Promo code
   /v1/recipe/free/telegram/{telegramID}:
     get:
       consumes:
