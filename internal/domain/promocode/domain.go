@@ -33,16 +33,23 @@ type CreateDTO struct {
 // APPLY
 //
 
+// ApplyDTO represents the data required to apply promo code dto.
 type ApplyDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 	Code       string `json:"code" validate:"required,min=1"`
 }
 
+// ApplyResponse represents the data required to apply promo code response.
+type ApplyResponse struct {
+	TelegramID      string `json:"telegram_id"`
+	DiscountPercent int    `json:"discount_percent"`
+}
+
 //
-// CHECK
+// IS PROMO CODE VALID FOR USER
 //
 
-type CheckDTO struct {
+type IsPromoCodeValidForUserDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 	Code       string `json:"code" validate:"required,min=1"`
 }

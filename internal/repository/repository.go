@@ -54,6 +54,8 @@ type RecipeOfDaysRepository interface {
 
 type PromoCodeRepository interface {
 	Create(ctx context.Context, dto promocode.CreateDTO) (promocode.PromoCode, error)
-	Apply(ctx context.Context, dto promocode.ApplyDTO) error
-	Check(ctx context.Context, dto promocode.CheckDTO) error
+	Apply(ctx context.Context, dto promocode.ApplyDTO) (promocode.ApplyResponse, error)
+	CheckPromoCodeAvailability(ctx context.Context, code string) (bool, error)
+	IsPromoCodeValidForUser(ctx context.Context, code string, telegramID string) (bool, error)
+	Exists(ctx context.Context, code string) (bool, error)
 }

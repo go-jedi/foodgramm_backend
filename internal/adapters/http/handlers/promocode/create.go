@@ -1,10 +1,12 @@
 package promocode
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
+	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
 )
 
 // @Summary Create a new promo code
@@ -42,6 +44,14 @@ func (h *Handler) create(c *gin.Context) {
 
 	result, err := h.promoCodeService.Create(c.Request.Context(), dto)
 	if err != nil {
+		if errors.Is(err, apperrors.ErrPromoCodeAlreadyExists) {
+			c.JSON(http.StatusNotFound, promocode.ErrorResponse{
+				Error:  "promo code already exists",
+				Detail: err.Error(),
+			})
+			return
+		}
+
 		h.logger.Error("failed to create promo code", "error", err)
 		c.JSON(http.StatusInternalServerError, promocode.ErrorResponse{
 			Error:  "failed to create promo code",

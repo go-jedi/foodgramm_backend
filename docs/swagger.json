@@ -463,6 +463,126 @@
                 }
             }
         },
+        "/v1/promo_code/apply": {
+            "post": {
+                "description": "Applies a promo code for a user with the provided details.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PromoCode"
+                ],
+                "summary": "Apply a promo code",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Promo code application data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ApplyDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successfully applied promo code details",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ApplyResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request due to invalid input or validation failure",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User does not exist or promo code is not valid for the user",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/promo_code/validate": {
+            "post": {
+                "description": "Checks if a promo code is valid for the specified user.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PromoCode"
+                ],
+                "summary": "Check if a promo code is valid for a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Promo code validation data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/promocode.IsPromoCodeValidForUserDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns true if the promo code is valid for the user, otherwise false",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request due to invalid input or validation failure",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User does not exist",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/promocode.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/recipe/free/telegram/{telegramID}": {
             "get": {
                 "description": "This endpoint retrieves the free recipes information for a user identified by their Telegram ID.",
@@ -1642,6 +1762,34 @@
                 }
             }
         },
+        "promocode.ApplyDTO": {
+            "type": "object",
+            "required": [
+                "code",
+                "telegram_id"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "telegram_id": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "promocode.ApplyResponse": {
+            "type": "object",
+            "properties": {
+                "discount_percent": {
+                    "type": "integer"
+                },
+                "telegram_id": {
+                    "type": "string"
+                }
+            }
+        },
         "promocode.CreateDTO": {
             "type": "object",
             "required": [
@@ -1678,6 +1826,23 @@
                 },
                 "error": {
                     "type": "string"
+                }
+            }
+        },
+        "promocode.IsPromoCodeValidForUserDTO": {
+            "type": "object",
+            "required": [
+                "code",
+                "telegram_id"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "telegram_id": {
+                    "type": "string",
+                    "minLength": 1
                 }
             }
         },

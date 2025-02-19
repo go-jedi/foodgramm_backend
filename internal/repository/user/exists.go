@@ -24,7 +24,10 @@ func (r *repo) Exists(ctx context.Context, telegramID string, username string) (
 		);
 	`
 
-	if err := r.db.Pool.QueryRow(ctxTimeout, q, telegramID, username).Scan(&ie); err != nil {
+	if err := r.db.Pool.QueryRow(
+		ctxTimeout, q,
+		telegramID, username,
+	).Scan(&ie); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
 			r.logger.Error("request timed out while check exists user", "err", err)
 			return false, fmt.Errorf("the request timed out: %w", err)
