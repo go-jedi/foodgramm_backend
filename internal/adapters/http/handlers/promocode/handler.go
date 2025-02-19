@@ -42,5 +42,7 @@ func (h *Handler) initRoutes(engine *gin.Engine) {
 	api := engine.Group("/v1/promo_code", h.middleware.Auth.AuthMiddleware)
 	{
 		api.POST("", h.create)
+		api.POST("/validate", h.isPromoCodeValidForUser)
+		api.POST("/apply", h.apply)
 	}
 }

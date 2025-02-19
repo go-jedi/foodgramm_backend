@@ -63,6 +63,6 @@ type PaymentService interface {
 
 type PromoCodeService interface {
 	Create(ctx context.Context, dto promocode.CreateDTO) (promocode.PromoCode, error)
-	Apply(ctx context.Context, dto promocode.ApplyDTO) error
-	Check(ctx context.Context, dto promocode.CheckDTO) error
+	Apply(ctx context.Context, dto promocode.ApplyDTO) (promocode.ApplyResponse, error)
+	IsPromoCodeValidForUser(ctx context.Context, dto promocode.IsPromoCodeValidForUserDTO) (bool, error)
 }

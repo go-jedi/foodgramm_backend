@@ -140,6 +140,25 @@ definitions:
       user_id:
         type: integer
     type: object
+  promocode.ApplyDTO:
+    properties:
+      code:
+        minLength: 1
+        type: string
+      telegram_id:
+        minLength: 1
+        type: string
+    required:
+    - code
+    - telegram_id
+    type: object
+  promocode.ApplyResponse:
+    properties:
+      discount_percent:
+        type: integer
+      telegram_id:
+        type: string
+    type: object
   promocode.CreateDTO:
     properties:
       code:
@@ -166,6 +185,18 @@ definitions:
         type: string
       error:
         type: string
+    type: object
+  promocode.IsPromoCodeValidForUserDTO:
+    properties:
+      code:
+        minLength: 1
+        type: string
+      telegram_id:
+        minLength: 1
+        type: string
+    required:
+    - code
+    - telegram_id
     type: object
   promocode.PromoCode:
     properties:
@@ -806,6 +837,87 @@ paths:
           schema:
             $ref: '#/definitions/promocode.ErrorResponse'
       summary: Create a new promo code
+      tags:
+      - PromoCode
+  /v1/promo_code/apply:
+    post:
+      consumes:
+      - application/json
+      description: Applies a promo code for a user with the provided details.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Promo code application data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/promocode.ApplyDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully applied promo code details
+          schema:
+            $ref: '#/definitions/promocode.ApplyResponse'
+        "400":
+          description: Bad request due to invalid input or validation failure
+          schema:
+            $ref: '#/definitions/promocode.ErrorResponse'
+        "404":
+          description: User does not exist or promo code is not valid for the user
+          schema:
+            $ref: '#/definitions/promocode.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/promocode.ErrorResponse'
+      summary: Apply a promo code
+      tags:
+      - PromoCode
+  /v1/promo_code/validate:
+    post:
+      consumes:
+      - application/json
+      description: Checks if a promo code is valid for the specified user.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Promo code validation data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/promocode.IsPromoCodeValidForUserDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns true if the promo code is valid for the user, otherwise
+            false
+          schema:
+            type: boolean
+        "400":
+          description: Bad request due to invalid input or validation failure
+          schema:
+            $ref: '#/definitions/promocode.ErrorResponse'
+        "404":
+          description: User does not exist
+          schema:
+            $ref: '#/definitions/promocode.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/promocode.ErrorResponse'
+      summary: Check if a promo code is valid for a user
       tags:
       - PromoCode
   /v1/recipe/free/telegram/{telegramID}:
