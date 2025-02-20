@@ -39,5 +39,6 @@ func (s *serv) prepareDataToRequest(data payment.CreateDTO) (payment.GetLinkBody
 	return payment.GetLinkBody{
 		TelegramID: bi,
 		Type:       data.Type,
+		Price:      data.Price,
 	}, nil
 }
