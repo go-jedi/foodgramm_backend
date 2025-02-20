@@ -1682,10 +1682,14 @@ const docTemplate = `{
         "payment.CreateDTO": {
             "type": "object",
             "required": [
+                "price",
                 "telegram_id",
                 "type"
             ],
             "properties": {
+                "price": {
+                    "type": "integer"
+                },
                 "telegram_id": {
                     "type": "string",
                     "minLength": 1

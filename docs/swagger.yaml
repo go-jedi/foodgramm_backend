@@ -82,6 +82,8 @@ definitions:
     type: object
   payment.CreateDTO:
     properties:
+      price:
+        type: integer
       telegram_id:
         minLength: 1
         type: string
@@ -91,6 +93,7 @@ definitions:
         - stars
         type: string
     required:
+    - price
     - telegram_id
     - type
     type: object
