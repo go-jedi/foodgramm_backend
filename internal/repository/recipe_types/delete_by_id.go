@@ -1,7 +1,41 @@
 package recipetypes
 
-import "context"
+import (
+	"context"
+	"errors"
+	"fmt"
+	"time"
 
-func (r *repo) DeleteByID(_ context.Context, _ int64) (int64, error) {
-	return 0, nil
+	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+)
+
+func (r *repo) DeleteByID(ctx context.Context, recipeTypeID int64) (int64, error) {
+	r.logger.Debug("[delete recipe type by id] execute repository")
+
+	ctxTimeout, cancel := context.WithTimeout(ctx, time.Duration(r.db.QueryTimeout)*time.Second)
+	defer cancel()
+
+	q := `
+		DELETE FROM recipe_types
+		WHERE id = $1;
+	`
+
+	commandTag, err := r.db.Pool.Exec(
+		ctxTimeout, q,
+		recipeTypeID,
+	)
+	if err != nil {
+		if errors.Is(err, context.DeadlineExceeded) {
+			r.logger.Error("request timed out while delete recipe type by id", "err", err)
+			return 0, fmt.Errorf("the request timed out: %w", err)
+		}
+		r.logger.Error("failed to delete recipe type by id", "err", err)
+		return 0, fmt.Errorf("could not delete recipe type by id: %w", err)
+	}
+
+	if commandTag.RowsAffected() == 0 {
+		return 0, apperrors.ErrNoRowsWereAffected
+	}
+
+	return recipeTypeID, nil
 }
