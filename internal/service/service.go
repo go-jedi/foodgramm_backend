@@ -9,6 +9,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
 	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_of_days"
+	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_types"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
 )
@@ -23,6 +24,7 @@ type UserService interface {
 	Create(ctx context.Context, dto user.CreateDTO) (user.User, error)
 	All(ctx context.Context) ([]user.User, error)
 	List(ctx context.Context, dto user.ListDTO) (user.ListResponse, error)
+	GetUserCount(ctx context.Context) (int64, error)
 	GetByID(ctx context.Context, userID int64) (user.User, error)
 	GetByTelegramID(ctx context.Context, telegramID string) (user.User, error)
 	Exists(ctx context.Context, telegramID string, username string) (bool, error)
@@ -55,6 +57,14 @@ type RecipeService interface {
 type RecipeOfDaysService interface {
 	Create(ctx context.Context) error
 	Get(ctx context.Context) (recipeofdays.Recipe, error)
+}
+
+type RecipeTypesService interface {
+	Create(ctx context.Context, dto recipetypes.CreateDTO) (recipetypes.RecipeTypes, error)
+	List(ctx context.Context) ([]recipetypes.RecipeTypes, error)
+	GetByID(ctx context.Context, recipeTypeID int64) (recipetypes.RecipeTypes, error)
+	Update(ctx context.Context, dto recipetypes.UpdateDTO) (recipetypes.RecipeTypes, error)
+	DeleteByID(ctx context.Context, recipeTypeID int64) (int64, error)
 }
 
 type PaymentService interface {
