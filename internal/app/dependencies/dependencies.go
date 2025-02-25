@@ -12,6 +12,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/promocode"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe"
 	recipeofdayshandler "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_of_days"
+	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_types"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
 	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/websocket/payment"
@@ -71,6 +72,11 @@ type Dependencies struct {
 	recipeOfDaysRepository repository.RecipeOfDaysRepository
 	recipeOfDaysService    service.RecipeOfDaysService
 	recipeOfDaysHandler    *recipeofdayshandler.Handler
+
+	// recipe types
+	recipeTypesRepository repository.RecipeTypesRepository
+	recipeTypesService    service.RecipeTypesService
+	recipeTypesHandler    *recipetypes.Handler
 
 	// payment
 	paymentService service.PaymentService
@@ -134,6 +140,7 @@ func (d *Dependencies) initHandler() {
 	_ = d.RecipeHandler()
 	_ = d.SubscriptionHandler()
 	_ = d.RecipeOfDaysHandler()
+	_ = d.RecipeTypesHandler()
 	_ = d.PaymentHandler()
 	_ = d.PromoCodeHandler()
 }

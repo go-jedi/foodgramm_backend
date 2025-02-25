@@ -56,9 +56,10 @@ type RecipeOfDaysRepository interface {
 
 type RecipeTypesRepository interface {
 	Create(ctx context.Context, dto recipetypes.CreateDTO) (recipetypes.RecipeTypes, error)
-	List(ctx context.Context) ([]recipetypes.RecipeTypes, error)
+	All(ctx context.Context) ([]recipetypes.RecipeTypes, error)
 	GetByID(ctx context.Context, recipeTypeID int64) (recipetypes.RecipeTypes, error)
 	Exists(ctx context.Context, title string) (bool, error)
+	ExistsExceptCurrent(ctx context.Context, recipeTypeID int64, title string) (bool, error)
 	Update(ctx context.Context, dto recipetypes.UpdateDTO) (recipetypes.RecipeTypes, error)
 	DeleteByID(ctx context.Context, recipeTypeID int64) (int64, error)
 }

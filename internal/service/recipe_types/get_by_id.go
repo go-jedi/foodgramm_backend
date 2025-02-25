@@ -7,5 +7,7 @@ import (
 )
 
 func (s *serv) GetByID(ctx context.Context, recipeTypeID int64) (recipetypes.RecipeTypes, error) {
+	s.logger.Debug("[get recipe type by id] execute service")
+
 	return s.recipeTypesRepository.GetByID(ctx, recipeTypeID)
 }

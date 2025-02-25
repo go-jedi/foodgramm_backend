@@ -405,6 +405,43 @@ definitions:
       updated_at:
         type: string
     type: object
+  recipetypes.CreateDTO:
+    properties:
+      title:
+        minLength: 1
+        type: string
+    required:
+    - title
+    type: object
+  recipetypes.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
+  recipetypes.RecipeTypes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  recipetypes.UpdateDTO:
+    properties:
+      id:
+        type: integer
+      title:
+        minLength: 1
+        type: string
+    required:
+    - id
+    - title
+    type: object
   subscription.ErrorResponse:
     properties:
       detail:
@@ -1107,6 +1144,172 @@ paths:
       summary: Get Recipe of the Day
       tags:
       - Recipe of days
+  /v1/recipe_types:
+    post:
+      consumes:
+      - application/json
+      description: Create a new recipe type with the provided details.
+      parameters:
+      - description: Recipe type data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/recipetypes.CreateDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/recipetypes.RecipeTypes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+      summary: Create a new recipe type
+      tags:
+      - Recipe types
+    put:
+      consumes:
+      - application/json
+      description: Update a recipe type information.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Recipe type update data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/recipetypes.UpdateDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated recipe type details
+          schema:
+            $ref: '#/definitions/recipetypes.RecipeTypes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+      summary: Update a recipe type
+      tags:
+      - Recipe types
+  /v1/recipe_types/all:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all recipe types.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/recipetypes.RecipeTypes'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+      summary: Get all recipe types
+      tags:
+      - Recipe types
+  /v1/recipe_types/id/{recipeTypeID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a recipe type by their unique identifier.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Recipe type ID
+        in: path
+        name: recipeTypeID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ID of the deleted recipe type
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+      summary: Delete a recipe type by ID
+      tags:
+      - Recipe types
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a recipe type by their unique identifier.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Recipe type ID
+        in: path
+        name: recipeTypeID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Recipe type details
+          schema:
+            $ref: '#/definitions/recipetypes.RecipeTypes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/recipetypes.ErrorResponse'
+      summary: Get a recipe type by ID
+      tags:
+      - Recipe types
   /v1/subscription/exists/telegram/{telegramID}:
     get:
       consumes:
