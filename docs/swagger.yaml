@@ -1284,6 +1284,32 @@ paths:
       summary: Get all users
       tags:
       - User
+  /v1/user/count:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve the total number of users.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns the total number of users
+          schema:
+            type: integer
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: Get user count
+      tags:
+      - User
   /v1/user/exists:
     post:
       consumes:
