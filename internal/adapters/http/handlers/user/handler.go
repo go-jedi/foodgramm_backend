@@ -47,6 +47,7 @@ func (h *Handler) initRoutes(engine *gin.Engine) {
 		api.GET("/exists/id/:userID", h.existsByID)
 		api.GET("/exists/telegram/:telegramID", h.existsByTelegramID)
 		api.GET("/all", h.middleware.Auth.AuthMiddleware, h.all)
+		api.GET("/count", h.getUserCount)
 		api.GET("/id/:userID", h.middleware.Auth.AuthMiddleware, h.getByID)
 		api.GET("/telegram/:telegramID", h.middleware.Auth.AuthMiddleware, h.getByTelegramID)
 		api.PUT("", h.middleware.Auth.AuthMiddleware, h.update)

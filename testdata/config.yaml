@@ -33,7 +33,7 @@ jwt:
 client:
   timeout_req: 60 # second
   openai:
-    url: https://food-gpt.foodgrammbot.ru
+    url: https://food-gpt.codewavestudio.ru
   payment:
     url: https://payment.foodgrammbot.ru
 
