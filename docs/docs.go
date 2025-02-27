@@ -822,6 +822,204 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/recipe_event": {
+            "post": {
+                "description": "Create a new recipe event with the provided details.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe event"
+                ],
+                "summary": "Create a new recipe event",
+                "parameters": [
+                    {
+                        "description": "Recipe event data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.CreateDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.Recipe"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.ErrorResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/recipe_event/all": {
+            "get": {
+                "description": "Retrieve a list of all recipe's event.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe event"
+                ],
+                "summary": "Get all recipes event",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/recipeevent.Recipe"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/recipe_event/all/type/{typeID}": {
+            "get": {
+                "description": "Retrieve a list of all recipe's event by type id.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe event"
+                ],
+                "summary": "Get all recipes event by type id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Type ID",
+                        "name": "typeID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recipes event details",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.Recipe"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/recipe_event/id/{recipeID}": {
+            "delete": {
+                "description": "Delete a recipe event by their unique identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe event"
+                ],
+                "summary": "Delete a recipe event by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Recipe event ID",
+                        "name": "recipeID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ID of the deleted recipe event",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/recipeevent.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/recipe_of_days": {
             "get": {
                 "description": "Retrieve the current recipe of the day.",
@@ -2360,6 +2558,127 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "type": "string"
+                }
+            }
+        },
+        "recipeevent.Content": {
+            "type": "object",
+            "properties": {
+                "bzhu": {
+                    "type": "string"
+                },
+                "calories": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ingredients": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "method_preparation": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "recipe_preparation": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "recipeevent.CreateDTO": {
+            "type": "object",
+            "required": [
+                "title",
+                "type_id"
+            ],
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/recipeevent.Content"
+                        }
+                    }
+                },
+                "title": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "type_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "recipeevent.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "recipeevent.Recipe": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/recipeevent.Content"
+                        }
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type_id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "recipeevent.UpdateDTO": {
+            "type": "object",
+            "required": [
+                "id",
+                "title",
+                "type_id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "type_id": {
+                    "type": "integer"
                 }
             }
         },

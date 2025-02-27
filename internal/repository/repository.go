@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
+	recipeevent "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_event"
 	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_of_days"
 	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_types"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
@@ -59,12 +60,20 @@ type RecipeTypesRepository interface {
 	All(ctx context.Context) ([]recipetypes.RecipeTypes, error)
 	GetByID(ctx context.Context, recipeTypeID int64) (recipetypes.RecipeTypes, error)
 	Exists(ctx context.Context, title string) (bool, error)
+	ExistsByRecipeTypeID(ctx context.Context, recipeTypeID int64) (bool, error)
 	ExistsExceptCurrent(ctx context.Context, recipeTypeID int64, title string) (bool, error)
 	Update(ctx context.Context, dto recipetypes.UpdateDTO) (recipetypes.RecipeTypes, error)
 	DeleteByID(ctx context.Context, recipeTypeID int64) (int64, error)
 }
 
-type RecipeEventRepository interface{}
+type RecipeEventRepository interface {
+	Create(ctx context.Context, dto recipeevent.CreateDTO) (recipeevent.Recipe, error)
+	All(ctx context.Context) ([]recipeevent.Recipe, error)
+	AllByTypeID(ctx context.Context, typeID int64) ([]recipeevent.Recipe, error)
+	GetByID(ctx context.Context, recipeID int64) (recipeevent.Recipe, error)
+	Update(ctx context.Context, dto recipeevent.UpdateDTO) (recipeevent.Recipe, error)
+	DeleteByID(ctx context.Context, recipeID int64) (int64, error)
+}
 
 type PromoCodeRepository interface {
 	Create(ctx context.Context, dto promocode.CreateDTO) (promocode.PromoCode, error)
