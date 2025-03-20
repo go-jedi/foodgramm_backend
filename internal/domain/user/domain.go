@@ -25,7 +25,7 @@ type User struct {
 type CreateDTO struct {
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 	Username   string `json:"username" validate:"omitempty,min=1"`
-	FirstName  string `json:"first_name" validate:"required,min=1"`
+	FirstName  string `json:"first_name" validate:"omitempty,min=1"`
 	LastName   string `json:"last_name" validate:"omitempty,min=1"`
 }
 
@@ -76,6 +76,6 @@ type UpdateDTO struct {
 	ID         int64  `json:"id" validate:"required,gt=0"`
 	TelegramID string `json:"telegram_id" validate:"required,min=1"`
 	Username   string `json:"username" validate:"omitempty,min=1"`
-	FirstName  string `json:"first_name" validate:"required,min=1"`
+	FirstName  string `json:"first_name" validate:"omitempty,min=1"`
 	LastName   string `json:"last_name" validate:"omitempty,min=1"`
 }

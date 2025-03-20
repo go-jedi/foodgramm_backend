@@ -25,6 +25,7 @@
 - `migrate create -ext sql -dir migrations -seq promo_code_apply_fn`
 - `migrate create -ext sql -dir migrations -seq recipe_types_table`
 - `migrate create -ext sql -dir migrations -seq event_recipes_table`
+- `migrate create -ext sql -dir migrations -seq first_name_delete_not_null_users_table`
 
 #### execute:
 - `migrate -database postgresql://admin:test@localhost:54321/foodgrammm_db?sslmode=disable -path migrations up`
