@@ -1,4 +1,4 @@
-package openai
+package recipescraper
 
 import (
 	"bytes"
@@ -11,6 +11,8 @@ import (
 	"net/url"
 
 	"github.com/go-jedi/foodgrammm-backend/config"
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
+	recipescraper "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_scraper"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -22,6 +24,7 @@ var (
 	ErrFailedToCreateRequest    = errors.New("failed to create request")
 	ErrFailedToReadResponseBody = errors.New("failed to read response body")
 	ErrFailedToMarshalData      = errors.New("failed to marshal data")
+	ErrFailedToUnMarshalData    = errors.New("failed to unmarshal data")
 	ErrFailedToSendRequest      = errors.New("failed to send request")
 )
 
@@ -34,7 +37,7 @@ type Client struct {
 func New(cfg config.ClientConfig, httpClient *http.Client) (*Client, error) {
 	c := &Client{
 		httpClient: httpClient,
-		url:        cfg.OpenAI.URL,
+		url:        cfg.RecipeScraper.URL,
 	}
 
 	if err := c.init(); err != nil {
@@ -76,30 +79,29 @@ func (c *Client) joinURLs(api string) (string, error) {
 	return parsedBaseURL.ResolveReference(parsedPath).String(), nil
 }
 
-// Send data to openai service.
-func (c *Client) Send(ctx context.Context, data interface{}) ([]byte, error) {
-	const api = "/v1/openai/send"
+func (c *Client) Get(ctx context.Context, data recipescraper.GetBody) (parser.ParsedRecipe, error) {
+	const api = "/v1/menu/get"
 
 	fullURL, err := c.joinURLs(api)
 	if err != nil {
-		return nil, err
+		return parser.ParsedRecipe{}, err
 	}
 
 	jsonData, err := jsoniter.Marshal(data)
 	if err != nil {
-		return nil, fmt.Errorf("%w: %v", ErrFailedToMarshalData, err)
+		return parser.ParsedRecipe{}, fmt.Errorf("%w: %v", ErrFailedToMarshalData, err)
 	}
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, fullURL, bytes.NewBuffer(jsonData))
 	if err != nil {
-		return nil, fmt.Errorf("%w: %v", ErrFailedToCreateRequest, err)
+		return parser.ParsedRecipe{}, fmt.Errorf("%w: %v", ErrFailedToCreateRequest, err)
 	}
 
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("%w: %v", ErrFailedToSendRequest, err)
+		return parser.ParsedRecipe{}, fmt.Errorf("%w: %v", ErrFailedToSendRequest, err)
 	}
 	defer func() {
 		if err := resp.Body.Close(); err != nil {
@@ -109,12 +111,17 @@ func (c *Client) Send(ctx context.Context, data interface{}) ([]byte, error) {
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("%w: %v", ErrFailedToReadResponseBody, err)
+		return parser.ParsedRecipe{}, fmt.Errorf("%w: %v", ErrFailedToReadResponseBody, err)
 	}
 
 	if resp.StatusCode >= http.StatusBadRequest {
-		return nil, fmt.Errorf("%w: %d, response: %s", ErrUnexpectedStatusCode, resp.StatusCode, body)
+		return parser.ParsedRecipe{}, fmt.Errorf("%w: %d, response: %s", ErrUnexpectedStatusCode, resp.StatusCode, body)
 	}
 
-	return body, nil
+	var gr parser.ParsedRecipe
+	if err := jsoniter.Unmarshal(body, &gr); err != nil {
+		return parser.ParsedRecipe{}, fmt.Errorf("%w: %v", ErrFailedToUnMarshalData, err)
+	}
+
+	return gr, nil
 }

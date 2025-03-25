@@ -36,6 +36,8 @@ client:
     url: https://food-gpt.foodgrammbot.ru
   payment:
     url: https://payment.foodgrammbot.ru
+  recipe_scraper:
+    url: http://localhost:50052
 
 websocket:
   payment:

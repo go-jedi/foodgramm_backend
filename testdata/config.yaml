@@ -36,6 +36,8 @@ client:
     url: https://food-gpt.codewavestudio.ru
   payment:
     url: https://payment.foodgrammbot.ru
+  recipe_scraper:
+    url: http://localhost:50052
 
 websocket:
   payment:
@@ -52,7 +54,7 @@ postgres:
   user: admin
   password: test
   dbname: foodgrammm_db
-  port: 54321
+  port: 54320
   sslmode: disable
   pool_max_conns: 10
   migrations_dir: file://migrations
