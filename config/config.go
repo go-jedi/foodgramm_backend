@@ -54,6 +54,9 @@ type ClientConfig struct {
 	Payment struct {
 		URL string `yaml:"url"`
 	} `yaml:"payment"`
+	RecipeScraper struct {
+		URL string `yaml:"url"`
+	} `yaml:"recipe_scraper"`
 }
 
 type WebSocketConfig struct {

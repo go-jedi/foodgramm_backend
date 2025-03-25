@@ -33,7 +33,7 @@ type Client struct {
 	url        string
 }
 
-func NewClient(cfg config.ClientConfig, httpClient *http.Client) (*Client, error) {
+func New(cfg config.ClientConfig, httpClient *http.Client) (*Client, error) {
 	c := &Client{
 		httpClient: httpClient,
 		url:        cfg.Payment.URL,
