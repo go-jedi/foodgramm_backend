@@ -20,7 +20,8 @@ func (r *repo) Create(ctx context.Context, dto user.CreateDTO) (user.User, error
 
 	rawData, err := jsoniter.Marshal(dto)
 	if err != nil {
-		return user.User{}, err
+		r.logger.Error("failed to marshal user data", "err", err)
+		return user.User{}, fmt.Errorf("could not marshal user data: %w", err)
 	}
 
 	var nu user.User
