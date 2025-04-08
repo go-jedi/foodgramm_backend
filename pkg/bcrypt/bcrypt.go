@@ -20,6 +20,15 @@ var (
 	errInvalidCost = errors.New("invalid cost value")
 )
 
+// IBcrypt defines the interface for the bcrypt.
+//
+//go:generate mockery --name=IBcrypt --output=mocks --case=underscore
+type IBcrypt interface {
+	GenerateHash(password string) (string, error)
+	CompareHashAndPassword(hashedPassword string, password string) error
+	IsBcryptHash(in string) bool
+}
+
 type Bcrypt struct {
 	cost int
 }

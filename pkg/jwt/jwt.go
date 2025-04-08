@@ -24,6 +24,15 @@ var (
 	ErrTokenTelegramID    = errors.New("unexpected token telegram id")
 )
 
+// IJWT defines the interface for the jwt.
+//
+//go:generate mockery --name=IJWT --output=mocks --case=underscore
+type IJWT interface {
+	Generate(telegramID string) (GenerateResp, error)
+	Verify(telegramID string, token string) (VerifyResp, error)
+	ParseToken(token string) (VerifyResp, error)
+}
+
 type tokenClaims struct {
 	TelegramID string `json:"telegram_id"`
 	jwt.RegisteredClaims
