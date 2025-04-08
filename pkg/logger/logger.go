@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"context"
 	"io"
 	"log/slog"
 	"os"
@@ -9,11 +10,32 @@ import (
 	"github.com/natefinch/lumberjack"
 )
 
+const fileNameDefault = "logs/app.log"
+
+// ILogger defines the interface for the logger.
+//
+//go:generate mockery --name=ILogger --output=mocks --case=underscore
+type ILogger interface {
+	Debug(msg string, args ...any)
+	DebugContext(ctx context.Context, msg string, args ...any)
+	Info(msg string, args ...any)
+	InfoContext(ctx context.Context, msg string, args ...any)
+	Warn(msg string, args ...any)
+	WarnContext(ctx context.Context, msg string, args ...any)
+	Error(msg string, args ...any)
+	ErrorContext(ctx context.Context, msg string, args ...any)
+}
+
+// Logger is a wrapper around slog.Logger that implements ILogger.
 type Logger struct {
 	*slog.Logger
 }
 
-func NewLogger(cfg config.LoggerConfig) *Logger {
+// Make sure Logger implements ILogger.
+var _ ILogger = (*Logger)(nil)
+
+// New creates a new Logger instance with the given configuration.
+func New(cfg config.LoggerConfig) *Logger {
 	ho := &slog.HandlerOptions{}
 
 	levelMapping := map[string]slog.Level{
@@ -31,14 +53,13 @@ func NewLogger(cfg config.LoggerConfig) *Logger {
 
 	ho.AddSource = cfg.AddSource
 
-	var h slog.Handler = slog.NewTextHandler(os.Stdout, ho)
-
-	if cfg.IsJSON {
-		h = slog.NewJSONHandler(os.Stdout, ho)
-	}
-
+	var output io.Writer = os.Stdout
 	if cfg.SetFile {
-		mw := io.MultiWriter(
+		if cfg.FileName == "" {
+			cfg.FileName = fileNameDefault
+		}
+
+		output = io.MultiWriter(
 			os.Stdout,
 			&lumberjack.Logger{
 				Filename:   cfg.FileName,
@@ -47,17 +68,16 @@ func NewLogger(cfg config.LoggerConfig) *Logger {
 				MaxAge:     cfg.MaxAge,
 			},
 		)
-
-		if cfg.IsJSON {
-			h = slog.NewJSONHandler(mw, ho)
-		} else {
-			h = slog.NewTextHandler(mw, ho)
-		}
 	}
 
-	logger := slog.New(h)
+	var h slog.Handler
+	if cfg.IsJSON {
+		h = slog.NewJSONHandler(output, ho)
+	} else {
+		h = slog.NewTextHandler(output, ho)
+	}
 
 	return &Logger{
-		logger,
+		Logger: slog.New(h),
 	}
 }

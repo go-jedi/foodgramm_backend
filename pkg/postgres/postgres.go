@@ -10,13 +10,27 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 const defaultQueryTimeout = 2000000000
 
+// IPool defines the interface for the pgxpool.Pool.
+//
+//go:generate mockery --name=IPool --output=mocks --case=underscore
+type IPool interface {
+	Exec(ctx context.Context, sql string, arguments ...any) (pgconn.CommandTag, error)
+	Query(ctx context.Context, sql string, args ...any) (pgx.Rows, error)
+	QueryRow(ctx context.Context, sql string, args ...any) pgx.Row
+	Begin(ctx context.Context) (pgx.Tx, error)
+	BeginTx(ctx context.Context, txOptions pgx.TxOptions) (pgx.Tx, error)
+	Ping(ctx context.Context) error
+}
+
 type Postgres struct {
-	Pool         *pgxpool.Pool
+	Pool         IPool
 	QueryTimeout int64
 
 	host          string
@@ -37,7 +51,7 @@ func (p *Postgres) init() error {
 	return nil
 }
 
-func NewPostgres(ctx context.Context, cfg config.PostgresConfig) (*Postgres, error) {
+func New(ctx context.Context, cfg config.PostgresConfig) (*Postgres, error) {
 	p := &Postgres{
 		QueryTimeout:  cfg.QueryTimeout,
 		host:          cfg.Host,

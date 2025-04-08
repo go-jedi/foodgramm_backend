@@ -19,6 +19,14 @@ var (
 	ErrCharacterSetContainsNonPrintableASCII = errors.New("character set contains non-printable ASCII characters")
 )
 
+// IUID defines the interface for the uid.
+//
+//go:generate mockery --name=IUID --output=mocks --case=underscore
+type IUID interface {
+	Generate() (string, error)
+	Validate(id string) bool
+}
+
 type UID struct {
 	charSet []rune
 	length  int

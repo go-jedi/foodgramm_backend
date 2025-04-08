@@ -91,13 +91,13 @@ func (a *App) initConfig(_ context.Context) (err error) {
 
 // initLogger initialize logger.
 func (a *App) initLogger(_ context.Context) error {
-	a.logger = logger.NewLogger(a.cfg.Logger)
+	a.logger = logger.New(a.cfg.Logger)
 	return nil
 }
 
 // initValidator initialize validator.
 func (a *App) initValidator(_ context.Context) error {
-	a.validator = validator.NewValidator()
+	a.validator = validator.New()
 	return nil
 }
 
@@ -160,7 +160,7 @@ func (a *App) initClient(_ context.Context) (err error) {
 
 // initPostgres initialize postgres.
 func (a *App) initPostgres(ctx context.Context) (err error) {
-	a.db, err = postgres.NewPostgres(ctx, a.cfg.Postgres)
+	a.db, err = postgres.New(ctx, a.cfg.Postgres)
 	if err != nil {
 		return err
 	}
