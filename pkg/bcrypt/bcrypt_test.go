@@ -8,7 +8,7 @@ import (
 
 // TestNewBcrypt tests the NewBcrypt function.
 func TestNewBcrypt(t *testing.T) {
-	bcryptInstance, err := NewBcrypt()
+	bcryptInstance, err := New()
 	if err != nil {
 		t.Fatalf("expected no error, got: %v", err)
 	}
@@ -48,7 +48,7 @@ func TestNewBcryptWithCostInvalid(t *testing.T) {
 
 // TestGenerateHash tests the GenerateHash function.
 func TestGenerateHash(t *testing.T) {
-	bcryptInstance, err := NewBcrypt()
+	bcryptInstance, err := New()
 	if err != nil {
 		t.Fatalf("expected no error, got: %v", err)
 	}
@@ -66,7 +66,7 @@ func TestGenerateHash(t *testing.T) {
 
 // TestCompareHashAndPasswordCorrect tests the CompareHashAndPassword function with a correct password.
 func TestCompareHashAndPasswordCorrect(t *testing.T) {
-	bcryptInstance, err := NewBcrypt()
+	bcryptInstance, err := New()
 	if err != nil {
 		t.Fatalf("expected no error, got: %v", err)
 	}
@@ -84,7 +84,7 @@ func TestCompareHashAndPasswordCorrect(t *testing.T) {
 
 // TestCompareHashAndPasswordIncorrect tests the CompareHashAndPassword function with an incorrect password.
 func TestCompareHashAndPasswordIncorrect(t *testing.T) {
-	bcryptInstance, err := NewBcrypt()
+	bcryptInstance, err := New()
 	if err != nil {
 		t.Fatalf("expected no error, got: %v", err)
 	}
@@ -103,7 +103,7 @@ func TestCompareHashAndPasswordIncorrect(t *testing.T) {
 
 // TestIsBcryptHashValid tests the IsBcryptHash function with a valid bcrypt hash.
 func TestIsBcryptHashValid(t *testing.T) {
-	bcryptInstance, err := NewBcrypt()
+	bcryptInstance, err := New()
 	if err != nil {
 		t.Fatalf("expected no error, got: %v", err)
 	}
@@ -131,7 +131,7 @@ func TestIsBcryptHashInvalid(t *testing.T) {
 
 // BenchmarkGenerateHash benchmarks the GenerateHash function.
 func BenchmarkGenerateHash(b *testing.B) {
-	bcryptInstance, err := NewBcrypt()
+	bcryptInstance, err := New()
 	if err != nil {
 		b.Fatalf("expected no error, got: %v", err)
 	}
@@ -147,7 +147,7 @@ func BenchmarkGenerateHash(b *testing.B) {
 
 // BenchmarkCompareHashAndPasswordCorrect benchmarks the CompareHashAndPassword function with a correct password.
 func BenchmarkCompareHashAndPasswordCorrect(b *testing.B) {
-	bcryptInstance, err := NewBcrypt()
+	bcryptInstance, err := New()
 	if err != nil {
 		b.Fatalf("expected no error, got: %v", err)
 	}
@@ -168,7 +168,7 @@ func BenchmarkCompareHashAndPasswordCorrect(b *testing.B) {
 
 // BenchmarkCompareHashAndPasswordIncorrect benchmarks the CompareHashAndPassword function with an incorrect password.
 func BenchmarkCompareHashAndPasswordIncorrect(b *testing.B) {
-	bcryptInstance, err := NewBcrypt()
+	bcryptInstance, err := New()
 	if err != nil {
 		b.Fatalf("expected no error, got: %v", err)
 	}

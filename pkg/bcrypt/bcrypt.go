@@ -33,8 +33,8 @@ type Bcrypt struct {
 	cost int
 }
 
-// NewBcrypt creates a new Bcrypt instance with the default cost.
-func NewBcrypt() (*Bcrypt, error) {
+// New creates a new Bcrypt instance with the default cost.
+func New() (*Bcrypt, error) {
 	b := &Bcrypt{
 		cost: defaultCost,
 	}

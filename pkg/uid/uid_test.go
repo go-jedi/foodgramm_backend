@@ -7,7 +7,7 @@ import (
 
 // TestNewUID_DefaultValues tests that NewUID sets default values when no options are provided.
 func TestNewUID_DefaultValues(t *testing.T) {
-	u, err := NewUID(Option{})
+	u, err := New(Option{})
 	if err != nil {
 		t.Fatalf("expected no error, got: %v", err)
 	}
@@ -26,7 +26,7 @@ func TestNewUID_CustomValues(t *testing.T) {
 	customCharSet := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	customLength := 10
 
-	u, err := NewUID(Option{Chars: customCharSet, Count: customLength})
+	u, err := New(Option{Chars: customCharSet, Count: customLength})
 	if err != nil {
 		t.Fatalf("expected no error, got: %v", err)
 	}
@@ -57,7 +57,7 @@ func TestNewUID_InvalidOption(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		_, err := NewUID(test.option)
+		_, err := New(test.option)
 		if err == nil {
 			t.Errorf("expected error %v, got nil", test.wantErr)
 		} else if err.Error() != test.wantErr.Error() {
@@ -68,7 +68,7 @@ func TestNewUID_InvalidOption(t *testing.T) {
 
 // TestGenerate tests that Generate produces a valid UID.
 func TestGenerate(t *testing.T) {
-	u, err := NewUID(Option{})
+	u, err := New(Option{})
 	if err != nil {
 		t.Fatalf("expected no error, got: %v", err)
 	}
@@ -122,7 +122,7 @@ func TestValidate(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		u, err := NewUID(test.options)
+		u, err := New(test.options)
 		if err != nil {
 			t.Log(test.options)
 			t.Fatalf("expected no error, got: %v", err)
@@ -136,7 +136,7 @@ func TestValidate(t *testing.T) {
 
 // BenchmarkGenerateDefault tests the performance of Generate method with default settings.
 func BenchmarkGenerateDefault(b *testing.B) {
-	uid, err := NewUID(Option{})
+	uid, err := New(Option{})
 	if err != nil {
 		b.Fatalf("failed to create UID instance: %v", err)
 	}
@@ -155,7 +155,7 @@ func BenchmarkGenerateCustom(b *testing.B) {
 	customCharset := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 	customLength := 20
 
-	uid, err := NewUID(Option{Chars: customCharset, Count: customLength})
+	uid, err := New(Option{Chars: customCharset, Count: customLength})
 	if err != nil {
 		b.Fatalf("failed to create UID instance: %v", err)
 	}
@@ -171,7 +171,7 @@ func BenchmarkGenerateCustom(b *testing.B) {
 
 // BenchmarkValidateDefault tests the performance of Validate method with default settings.
 func BenchmarkValidateDefault(b *testing.B) {
-	uid, err := NewUID(Option{})
+	uid, err := New(Option{})
 	if err != nil {
 		b.Fatalf("failed to create UID instance: %v", err)
 	}
@@ -192,7 +192,7 @@ func BenchmarkValidateCustom(b *testing.B) {
 	customCharset := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 	customLength := 20
 
-	uid, err := NewUID(Option{Chars: customCharset, Count: customLength})
+	uid, err := New(Option{Chars: customCharset, Count: customLength})
 	if err != nil {
 		b.Fatalf("failed to create UID instance: %v", err)
 	}

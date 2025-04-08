@@ -60,7 +60,7 @@ func (hs *HTTPServer) init() error {
 	return nil
 }
 
-func NewHTTPServer(cfg config.HTTPServerConfig) (*HTTPServer, error) {
+func New(cfg config.HTTPServerConfig) (*HTTPServer, error) {
 	hs := &HTTPServer{
 		host:    cfg.Host,
 		port:    cfg.Port,

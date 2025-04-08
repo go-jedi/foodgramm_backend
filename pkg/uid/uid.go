@@ -32,8 +32,8 @@ type UID struct {
 	length  int
 }
 
-// NewUID creates a new uid instance with the given parameters or default values.
-func NewUID(opt Option) (*UID, error) {
+// New creates a new uid instance with the given parameters or default values.
+func New(opt Option) (*UID, error) {
 	if err := ValidateOption(opt); err != nil {
 		return nil, err
 	}

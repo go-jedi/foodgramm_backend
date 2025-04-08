@@ -16,7 +16,7 @@ type Redis struct {
 	db             *postgres.Postgres
 }
 
-func NewRedis(ctx context.Context, cfg config.RedisConfig, db *postgres.Postgres) (*Redis, error) {
+func New(ctx context.Context, cfg config.RedisConfig, db *postgres.Postgres) (*Redis, error) {
 	r := &Redis{
 		durCacheUpdate: cfg.DurCacheUpdate,
 		db:             db,

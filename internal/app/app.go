@@ -113,7 +113,7 @@ func (a *App) initBcrypt(_ context.Context) (err error) {
 
 // initUID initialize uid.
 func (a *App) initUID(_ context.Context) (err error) {
-	a.uid, err = uid.NewUID(uid.Option{
+	a.uid, err = uid.New(uid.Option{
 		Chars: a.cfg.UID.Chars,
 		Count: a.cfg.UID.Count,
 	})
@@ -126,7 +126,7 @@ func (a *App) initUID(_ context.Context) (err error) {
 
 // initJWT initialize jwt.
 func (a *App) initJWT(_ context.Context) (err error) {
-	a.jwt, err = jwt.NewJWT(a.cfg.JWT, a.uid)
+	a.jwt, err = jwt.New(a.cfg.JWT, a.uid)
 	if err != nil {
 		return err
 	}
@@ -170,7 +170,7 @@ func (a *App) initPostgres(ctx context.Context) (err error) {
 
 // initRedis initialize redis.
 func (a *App) initRedis(ctx context.Context) (err error) {
-	a.cache, err = redis.NewRedis(ctx, a.cfg.Redis, a.db)
+	a.cache, err = redis.New(ctx, a.cfg.Redis, a.db)
 	if err != nil {
 		return err
 	}
@@ -180,7 +180,7 @@ func (a *App) initRedis(ctx context.Context) (err error) {
 
 // initHTTPServer initialize http server.
 func (a *App) initHTTPServer(_ context.Context) (err error) {
-	a.hs, err = httpserver.NewHTTPServer(a.cfg.HTTPServer)
+	a.hs, err = httpserver.New(a.cfg.HTTPServer)
 	if err != nil {
 		return err
 	}

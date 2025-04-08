@@ -35,7 +35,7 @@ func newTestHTTPServer() *HTTPServer {
 		},
 	}
 
-	hs, err := NewHTTPServer(cfg)
+	hs, err := New(cfg)
 	if err != nil {
 		log.Fatalf("failed to create HTTP server: %v", err)
 	}

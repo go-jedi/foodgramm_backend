@@ -51,7 +51,7 @@ type JWT struct {
 	refreshExpAt int
 }
 
-func NewJWT(cfg config.JWTConfig, uid *uid.UID) (*JWT, error) {
+func New(cfg config.JWTConfig, uid *uid.UID) (*JWT, error) {
 	j := &JWT{
 		uid:           uid,
 		secretHashLen: cfg.SecretHashLen,
