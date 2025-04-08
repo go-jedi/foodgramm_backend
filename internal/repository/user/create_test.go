@@ -55,14 +55,14 @@ func TestCreate(t *testing.T) {
 
 	tests := []struct {
 		name               string
-		mockPoolBehavior   func(m *poolsmocks.IPool, row *poolsmocks.MockRow)
+		mockPoolBehavior   func(m *poolsmocks.IPool, row *poolsmocks.RowMock)
 		mockLoggerBehavior func(m *loggermocks.ILogger)
 		in                 in
 		want               want
 	}{
 		{
 			name: "ok",
-			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.MockRow) {
+			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.RowMock) {
 				rawData, _ := jsoniter.Marshal(dto)
 
 				row.On("Scan",
@@ -116,7 +116,7 @@ func TestCreate(t *testing.T) {
 		},
 		{
 			name: "timeout error",
-			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.MockRow) {
+			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.RowMock) {
 				rawData, _ := jsoniter.Marshal(dto)
 
 				m.On("QueryRow",
@@ -150,7 +150,7 @@ func TestCreate(t *testing.T) {
 		},
 		{
 			name: "database error",
-			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.MockRow) {
+			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.RowMock) {
 				rawData, _ := jsoniter.Marshal(dto)
 
 				m.On("QueryRow",
