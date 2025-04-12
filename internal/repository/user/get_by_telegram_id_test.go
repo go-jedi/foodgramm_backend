@@ -11,15 +11,14 @@ import (
 	loggermocks "github.com/go-jedi/foodgrammm-backend/pkg/logger/mocks"
 	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
 	poolsmocks "github.com/go-jedi/foodgrammm-backend/pkg/postgres/mocks"
-	jsoniter "github.com/json-iterator/go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
 
-func TestCreate(t *testing.T) {
+func TestGetByTelegramID(t *testing.T) {
 	type in struct {
-		ctx context.Context
-		dto user.CreateDTO
+		ctx        context.Context
+		telegramID string
 	}
 
 	type want struct {
@@ -30,25 +29,14 @@ func TestCreate(t *testing.T) {
 	var (
 		ctx        = context.TODO()
 		telegramID = gofakeit.UUID()
-		username   = gofakeit.Username()
-		firstname  = gofakeit.FirstName()
-		lastname   = gofakeit.LastName()
-		createdAt  = time.Now()
-		updatedAt  = time.Now()
-		dto        = user.CreateDTO{
-			TelegramID: telegramID,
-			Username:   username,
-			FirstName:  firstname,
-			LastName:   lastname,
-		}
-		testUser = user.User{
+		testUser   = user.User{
 			ID:         gofakeit.Int64(),
 			TelegramID: telegramID,
-			Username:   username,
-			FirstName:  firstname,
-			LastName:   lastname,
-			CreatedAt:  createdAt,
-			UpdatedAt:  updatedAt,
+			Username:   gofakeit.Username(),
+			FirstName:  gofakeit.FirstName(),
+			LastName:   gofakeit.LastName(),
+			CreatedAt:  gofakeit.Date(),
+			UpdatedAt:  gofakeit.Date(),
 		}
 		queryTimeout = int64(2)
 	)
@@ -63,12 +51,10 @@ func TestCreate(t *testing.T) {
 		{
 			name: "ok",
 			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.RowMock) {
-				rawData, _ := jsoniter.Marshal(dto)
-
 				m.On("QueryRow",
 					mock.Anything,
-					`SELECT * FROM public.user_create($1);`,
-					rawData,
+					mock.Anything,
+					telegramID,
 				).Return(row)
 
 				row.On("Scan",
@@ -83,31 +69,31 @@ func TestCreate(t *testing.T) {
 					id := args.Get(0).(*int64)
 					*id = testUser.ID
 
-					tgID := args.Get(1).(*string)
-					*tgID = testUser.TelegramID
+					telegramID := args.Get(1).(*string)
+					*telegramID = testUser.TelegramID
 
-					un := args.Get(2).(*string)
-					*un = testUser.Username
+					username := args.Get(2).(*string)
+					*username = testUser.Username
 
-					fn := args.Get(3).(*string)
-					*fn = testUser.FirstName
+					firstName := args.Get(3).(*string)
+					*firstName = testUser.FirstName
 
-					ln := args.Get(4).(*string)
-					*ln = testUser.LastName
+					lastName := args.Get(4).(*string)
+					*lastName = testUser.LastName
 
-					ca := args.Get(5).(*time.Time)
-					*ca = testUser.CreatedAt
+					createdAt := args.Get(5).(*time.Time)
+					*createdAt = testUser.CreatedAt
 
-					ua := args.Get(6).(*time.Time)
-					*ua = testUser.UpdatedAt
+					updatedAt := args.Get(6).(*time.Time)
+					*updatedAt = testUser.UpdatedAt
 				}).Return(nil)
 			},
 			mockLoggerBehavior: func(m *loggermocks.ILogger) {
-				m.On("Debug", "[create a new user] execute repository")
+				m.On("Debug", "[get user by telegram id] execute repository")
 			},
 			in: in{
-				ctx: ctx,
-				dto: dto,
+				ctx:        ctx,
+				telegramID: telegramID,
 			},
 			want: want{
 				user: testUser,
@@ -117,12 +103,10 @@ func TestCreate(t *testing.T) {
 		{
 			name: "timeout error",
 			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.RowMock) {
-				rawData, _ := jsoniter.Marshal(dto)
-
 				m.On("QueryRow",
 					mock.Anything,
-					`SELECT * FROM public.user_create($1);`,
-					rawData,
+					mock.Anything,
+					telegramID,
 				).Return(row)
 
 				row.On("Scan",
@@ -133,30 +117,49 @@ func TestCreate(t *testing.T) {
 					mock.AnythingOfType("*string"),
 					mock.AnythingOfType("*time.Time"),
 					mock.AnythingOfType("*time.Time"),
-				).Return(context.DeadlineExceeded)
+				).Run(func(args mock.Arguments) {
+					id := args.Get(0).(*int64)
+					*id = testUser.ID
+
+					telegramID := args.Get(1).(*string)
+					*telegramID = testUser.TelegramID
+
+					username := args.Get(2).(*string)
+					*username = testUser.Username
+
+					firstName := args.Get(3).(*string)
+					*firstName = testUser.FirstName
+
+					lastName := args.Get(4).(*string)
+					*lastName = testUser.LastName
+
+					createdAt := args.Get(5).(*time.Time)
+					*createdAt = testUser.CreatedAt
+
+					updatedAt := args.Get(6).(*time.Time)
+					*updatedAt = testUser.UpdatedAt
+				}).Return(context.DeadlineExceeded)
 			},
 			mockLoggerBehavior: func(m *loggermocks.ILogger) {
-				m.On("Debug", "[create a new user] execute repository")
-				m.On("Error", "request timed out while creating the user", "err", context.DeadlineExceeded)
+				m.On("Debug", "[get user by telegram id] execute repository")
+				m.On("Error", "request timed out while get user by telegram id", "err", context.DeadlineExceeded)
 			},
 			in: in{
-				ctx: ctx,
-				dto: dto,
+				ctx:        ctx,
+				telegramID: telegramID,
 			},
 			want: want{
 				user: user.User{},
-				err:  errors.New("the request timed out"),
+				err:  errors.New("the request timed out: context deadline exceeded"),
 			},
 		},
 		{
 			name: "database error",
 			mockPoolBehavior: func(m *poolsmocks.IPool, row *poolsmocks.RowMock) {
-				rawData, _ := jsoniter.Marshal(dto)
-
 				m.On("QueryRow",
 					mock.Anything,
-					`SELECT * FROM public.user_create($1);`,
-					rawData,
+					mock.Anything,
+					telegramID,
 				).Return(row)
 
 				row.On("Scan",
@@ -167,19 +170,40 @@ func TestCreate(t *testing.T) {
 					mock.AnythingOfType("*string"),
 					mock.AnythingOfType("*time.Time"),
 					mock.AnythingOfType("*time.Time"),
-				).Return(errors.New("database error"))
+				).Run(func(args mock.Arguments) {
+					id := args.Get(0).(*int64)
+					*id = testUser.ID
+
+					telegramID := args.Get(1).(*string)
+					*telegramID = testUser.TelegramID
+
+					username := args.Get(2).(*string)
+					*username = testUser.Username
+
+					firstName := args.Get(3).(*string)
+					*firstName = testUser.FirstName
+
+					lastName := args.Get(4).(*string)
+					*lastName = testUser.LastName
+
+					createdAt := args.Get(5).(*time.Time)
+					*createdAt = testUser.CreatedAt
+
+					updatedAt := args.Get(6).(*time.Time)
+					*updatedAt = testUser.UpdatedAt
+				}).Return(errors.New("database error"))
 			},
 			mockLoggerBehavior: func(m *loggermocks.ILogger) {
-				m.On("Debug", "[create a new user] execute repository")
-				m.On("Error", "failed to create user", "err", errors.New("database error"))
+				m.On("Debug", "[get user by telegram id] execute repository")
+				m.On("Error", "failed to get user by telegram id", "err", errors.New("database error"))
 			},
 			in: in{
-				ctx: ctx,
-				dto: dto,
+				ctx:        ctx,
+				telegramID: telegramID,
 			},
 			want: want{
 				user: user.User{},
-				err:  errors.New("could not create user: database error"),
+				err:  errors.New("could not get user by telegram id: database error"),
 			},
 		},
 	}
@@ -204,7 +228,7 @@ func TestCreate(t *testing.T) {
 
 			repository := NewRepository(mockLogger, pg)
 
-			result, err := repository.Create(test.in.ctx, test.in.dto)
+			result, err := repository.GetByTelegramID(test.in.ctx, test.in.telegramID)
 
 			if test.want.err != nil {
 				assert.Error(t, err)
