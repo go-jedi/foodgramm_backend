@@ -27,6 +27,11 @@ var (
 	ErrFailedToSendRequest      = errors.New("failed to send request")
 )
 
+//go:generate mockery --name=IClient --output=mocks --case=underscore
+type IClient interface {
+	GetLink(ctx context.Context, data payment.GetLinkBody) (string, error)
+}
+
 type Client struct {
 	httpClient *http.Client
 	headers    http.Header

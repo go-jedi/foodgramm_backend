@@ -22,6 +22,11 @@ type GenerateRecipe struct {
 	AvailableProducts     []string `json:"available_products"`
 }
 
+//go:generate mockery --name=ITemplate --output=mocks --case=underscore
+type ITemplate interface {
+	Generate(data GenerateRecipe) (string, error)
+}
+
 type Template struct {
 	temps map[int]templateFunc
 }
