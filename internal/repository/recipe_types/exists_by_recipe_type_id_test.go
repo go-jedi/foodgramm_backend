@@ -1,4 +1,4 @@
-package user
+package recipetypes
 
 import (
 	"context"
@@ -13,12 +13,10 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-func TestExistsExceptCurrent(t *testing.T) {
+func TestExistsByRecipeTypeID(t *testing.T) {
 	type in struct {
-		ctx        context.Context
-		id         int64
-		telegramID string
-		username   string
+		ctx          context.Context
+		recipeTypeID int64
 	}
 
 	type want struct {
@@ -28,9 +26,7 @@ func TestExistsExceptCurrent(t *testing.T) {
 
 	var (
 		ctx          = context.TODO()
-		id           = gofakeit.Int64()
-		telegramID   = gofakeit.UUID()
-		username     = gofakeit.Username()
+		recipeTypeID = gofakeit.Int64()
 		exists       = gofakeit.Bool()
 		queryTimeout = int64(2)
 	)
@@ -48,9 +44,7 @@ func TestExistsExceptCurrent(t *testing.T) {
 				m.On("QueryRow",
 					mock.Anything,
 					mock.Anything,
-					id,
-					telegramID,
-					username,
+					recipeTypeID,
 				).Return(row)
 
 				row.On("Scan",
@@ -61,13 +55,11 @@ func TestExistsExceptCurrent(t *testing.T) {
 				}).Return(nil)
 			},
 			mockLoggerBehavior: func(m *loggermocks.ILogger) {
-				m.On("Debug", "[check user exists except current] execute repository")
+				m.On("Debug", "[check a recipe type exists by recipe type id] execute repository")
 			},
 			in: in{
-				ctx:        ctx,
-				id:         id,
-				telegramID: telegramID,
-				username:   username,
+				ctx:          ctx,
+				recipeTypeID: recipeTypeID,
 			},
 			want: want{
 				exists: exists,
@@ -80,9 +72,7 @@ func TestExistsExceptCurrent(t *testing.T) {
 				m.On("QueryRow",
 					mock.Anything,
 					mock.Anything,
-					id,
-					telegramID,
-					username,
+					recipeTypeID,
 				).Return(row)
 
 				row.On("Scan",
@@ -93,14 +83,12 @@ func TestExistsExceptCurrent(t *testing.T) {
 				}).Return(context.DeadlineExceeded)
 			},
 			mockLoggerBehavior: func(m *loggermocks.ILogger) {
-				m.On("Debug", "[check user exists except current] execute repository")
-				m.On("Error", "request timed out while check exists user except current", "err", context.DeadlineExceeded)
+				m.On("Debug", "[check a recipe type exists by recipe type id] execute repository")
+				m.On("Error", "request timed out while check exists recipe type by recipe type id", "err", context.DeadlineExceeded)
 			},
 			in: in{
-				ctx:        ctx,
-				id:         id,
-				telegramID: telegramID,
-				username:   username,
+				ctx:          ctx,
+				recipeTypeID: recipeTypeID,
 			},
 			want: want{
 				exists: false,
@@ -113,9 +101,7 @@ func TestExistsExceptCurrent(t *testing.T) {
 				m.On("QueryRow",
 					mock.Anything,
 					mock.Anything,
-					id,
-					telegramID,
-					username,
+					recipeTypeID,
 				).Return(row)
 
 				row.On("Scan",
@@ -126,18 +112,16 @@ func TestExistsExceptCurrent(t *testing.T) {
 				}).Return(errors.New("database error"))
 			},
 			mockLoggerBehavior: func(m *loggermocks.ILogger) {
-				m.On("Debug", "[check user exists except current] execute repository")
-				m.On("Error", "failed to check exists user except current", "err", errors.New("database error"))
+				m.On("Debug", "[check a recipe type exists by recipe type id] execute repository")
+				m.On("Error", "failed to check exists recipe type by recipe type id", "err", errors.New("database error"))
 			},
 			in: in{
-				ctx:        ctx,
-				id:         id,
-				telegramID: telegramID,
-				username:   username,
+				ctx:          ctx,
+				recipeTypeID: recipeTypeID,
 			},
 			want: want{
 				exists: false,
-				err:    errors.New("could not check exists user except current: database error"),
+				err:    errors.New("could not check exists recipe type by recipe type id: database error"),
 			},
 		},
 	}
@@ -162,7 +146,7 @@ func TestExistsExceptCurrent(t *testing.T) {
 
 			repository := NewRepository(mockLogger, pg)
 
-			result, err := repository.ExistsExceptCurrent(ctx, id, telegramID, username)
+			result, err := repository.ExistsByRecipeTypeID(test.in.ctx, test.in.recipeTypeID)
 
 			if test.want.err != nil {
 				assert.Error(t, err)
