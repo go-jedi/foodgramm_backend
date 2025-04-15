@@ -28,6 +28,11 @@ var (
 	ErrFailedToSendRequest      = errors.New("failed to send request")
 )
 
+//go:generate mockery --name=IClient --output=mocks --case=underscore
+type IClient interface {
+	Get(ctx context.Context, data recipescraper.GetBody) (parser.ParsedRecipe, error)
+}
+
 type Client struct {
 	httpClient *http.Client
 	headers    http.Header

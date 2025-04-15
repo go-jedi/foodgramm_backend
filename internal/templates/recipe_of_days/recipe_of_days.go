@@ -2,6 +2,11 @@ package recipeofdays
 
 import "github.com/go-jedi/foodgrammm-backend/internal/domain/templates"
 
+//go:generate mockery --name=ITemplate --output=mocks --case=underscore
+type ITemplate interface {
+	Generate() (templates.ApplyDataToTemplateResponse, error)
+}
+
 type Template struct{}
 
 func NewTemplate() *Template {

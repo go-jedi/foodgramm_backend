@@ -30,6 +30,11 @@ const (
 	bzhuTitle               = "БЖУ:"
 )
 
+//go:generate mockery --name=IParser --output=mocks --case=underscore
+type IParser interface {
+	ParseRecipe(telegramID string, input string) (parser.ParsedRecipe, error)
+}
+
 type Parser struct {
 	contents            [][]parser.Content
 	currentContent      parser.Content

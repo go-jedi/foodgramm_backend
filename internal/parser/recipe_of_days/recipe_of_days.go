@@ -23,6 +23,11 @@ const (
 	bzhuTitle              = "БЖУ:"
 )
 
+//go:generate mockery --name=IParser --output=mocks --case=underscore
+type IParser interface {
+	ParseRecipe(input string) (parser.ParsedRecipeOfDays, error)
+}
+
 type Parser struct {
 	contents            [][]parser.Content
 	currentContent      parser.Content
