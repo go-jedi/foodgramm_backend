@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: recipe-scraper
+  name: foodgrammm-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: recipe-scraper
+      app: foodgrammm-backend
   template:
     metadata:
       labels:
-        app: recipe-scraper
+        app: foodgrammm-backend
     spec:
       containers:
         - name: foodgrammm-backend
