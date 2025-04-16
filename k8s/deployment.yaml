@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-scraper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-scraper
+  template:
+    metadata:
+      labels:
+        app: recipe-scraper
+    spec:
+      containers:
+        - name: foodgrammm-backend
+          image: gojedi/foodgrammm-backend:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 50050
