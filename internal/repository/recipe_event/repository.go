@@ -7,12 +7,12 @@ import (
 )
 
 type repo struct {
-	logger *logger.Logger
+	logger logger.ILogger
 	db     *postgres.Postgres
 }
 
 func NewRepository(
-	l *logger.Logger,
+	l logger.ILogger,
 	p *postgres.Postgres,
 ) repository.RecipeEventRepository {
 	return &repo{
