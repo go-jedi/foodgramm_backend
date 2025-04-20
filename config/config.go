@@ -111,6 +111,15 @@ type CorsConfig struct {
 	AllowPrivateNetwork bool     `yaml:"allow_private_network"`
 }
 
+type FileServerConfig struct {
+	URL          string `yaml:"url"`
+	Dir          string `yaml:"dir"`
+	MaxFileSize  int64  `yaml:"max_file_size"`
+	ImageQuality int    `yaml:"image_quality"`
+	DirPerm      uint32 `yaml:"dir_perm"`
+	FilePerm     uint32 `yaml:"file_perm"`
+}
+
 type HTTPServerConfig struct {
 	Host    string     `yaml:"host"`
 	Port    int        `yaml:"port"`
@@ -129,6 +138,7 @@ type Config struct {
 	Worker     WorkerConfig     `yaml:"worker"`
 	Postgres   PostgresConfig   `yaml:"postgres"`
 	Redis      RedisConfig      `yaml:"redis"`
+	FileServer FileServerConfig `yaml:"file_server"`
 	HTTPServer HTTPServerConfig `yaml:"httpserver"`
 }
 

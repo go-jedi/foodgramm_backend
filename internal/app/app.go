@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/go-jedi/foodgrammm-backend/internal/app/dependencies"
@@ -10,6 +11,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/parser"
 	"github.com/go-jedi/foodgrammm-backend/internal/templates"
 	"github.com/go-jedi/foodgrammm-backend/pkg/bcrypt"
+	fileserver "github.com/go-jedi/foodgrammm-backend/pkg/file_server"
 	"github.com/go-jedi/foodgrammm-backend/pkg/httpserver"
 	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
@@ -30,6 +32,7 @@ type App struct {
 	parser       *parser.Parser
 	client       *client.Client
 	hs           *httpserver.HTTPServer
+	fileServer   *fileserver.FileServer
 	middleware   *middleware.Middleware
 	db           *postgres.Postgres
 	cache        *redis.Redis
@@ -66,6 +69,7 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initPostgres,
 		a.initRedis,
 		a.initHTTPServer,
+		a.initFileServer,
 		a.initMiddleware,
 		a.initDependencies,
 	}
@@ -188,6 +192,15 @@ func (a *App) initHTTPServer(_ context.Context) (err error) {
 	return
 }
 
+// initFileServer initialize file server.
+func (a *App) initFileServer(_ context.Context) error {
+	a.fileServer = fileserver.New(a.cfg.FileServer)
+
+	a.hs.Engine.StaticFS(a.cfg.FileServer.URL, http.Dir(a.cfg.FileServer.Dir))
+
+	return nil
+}
+
 // initMiddleware initialize middleware.
 func (a *App) initMiddleware(_ context.Context) error {
 	a.middleware = middleware.NewMiddleware(a.jwt)
@@ -203,6 +216,7 @@ func (a *App) initDependencies(ctx context.Context) error {
 		a.cfg.WebSocket,
 		a.cfg.Worker,
 		a.hs.Engine,
+		a.fileServer,
 		a.middleware,
 		a.logger,
 		a.validator,

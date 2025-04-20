@@ -25,7 +25,7 @@ uid:
   count: 32
 
 jwt:
-  secret_path: testdata/file_server/jwt/.secret # path to file with secret key
+  secret_path: testdata/jwt/.secret # path to file with secret key
   secret_hash_len: 30
   access_exp_at: 30 # minutes
   refresh_exp_at: 60 # days
@@ -74,6 +74,14 @@ redis:
   min_retry_backoff: 8 # millisecond
   max_retry_backoff: 512 # millisecond
   dur_cache_update: 60 # minutes
+
+file_server:
+  url: /files
+  dir: testdata/file_server
+  max_file_size: 10485760 # 10 MB
+  image_quality: 30
+  dir_perm: 0755
+  file_perm: 0644
 
 httpserver:
   host: 127.0.0.1

@@ -7,6 +7,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/config"
 	recipeofdayscron "github.com/go-jedi/foodgrammm-backend/internal/adapters/cron/recipe_of_days"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/auth"
+	clientassets "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/client_assets"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/promocode"
@@ -23,6 +24,7 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
 	"github.com/go-jedi/foodgrammm-backend/internal/service"
 	"github.com/go-jedi/foodgrammm-backend/internal/templates"
+	fileserver "github.com/go-jedi/foodgrammm-backend/pkg/file_server"
 	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
 	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
 	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
@@ -35,6 +37,7 @@ type Dependencies struct {
 	websocket  config.WebSocketConfig
 	worker     config.WorkerConfig
 	engine     *gin.Engine
+	fileServer *fileserver.FileServer
 	middleware *middleware.Middleware
 	logger     *logger.Logger
 	validator  *validator.Validator
@@ -93,6 +96,11 @@ type Dependencies struct {
 	promoCodeService    service.PromoCodeService
 	promoCodeHandler    *promocode.Handler
 
+	// client assets
+	clientAssetsRepository repository.ClientAssetsRepository
+	clientAssetsService    service.ClientAssetsService
+	clientAssetsHandler    *clientassets.Handler
+
 	// websocket
 	paymentWebSocketHandler *paymentwebsocket.WebSocketHandler
 
@@ -106,6 +114,7 @@ func NewDependencies(
 	websocket config.WebSocketConfig,
 	worker config.WorkerConfig,
 	engine *gin.Engine,
+	fileServer *fileserver.FileServer,
 	middleware *middleware.Middleware,
 	logger *logger.Logger,
 	validator *validator.Validator,
@@ -121,6 +130,7 @@ func NewDependencies(
 		websocket:  websocket,
 		worker:     worker,
 		engine:     engine,
+		fileServer: fileServer,
 		middleware: middleware,
 		logger:     logger,
 		validator:  validator,
@@ -150,6 +160,7 @@ func (d *Dependencies) initHandler() {
 	_ = d.RecipeEventHandler()
 	_ = d.PaymentHandler()
 	_ = d.PromoCodeHandler()
+	_ = d.ClientAssetsHandler()
 }
 
 func (d *Dependencies) initWebSocket() {
