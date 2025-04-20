@@ -66,7 +66,6 @@ definitions:
         minLength: 1
         type: string
     required:
-    - first_name
     - telegram_id
     type: object
   auth.SignInResp:
@@ -78,6 +77,36 @@ definitions:
       refresh_exp_at:
         type: string
       refresh_token:
+        type: string
+    type: object
+  clientassets.ClientAssets:
+    properties:
+      client_path_file:
+        type: string
+      created_at:
+        type: string
+      extension:
+        type: string
+      id:
+        type: integer
+      name_file:
+        type: string
+      old_extension:
+        type: string
+      old_name_file:
+        type: string
+      quality:
+        type: integer
+      server_path_file:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  clientassets.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
         type: string
     type: object
   payment.CreateDTO:
@@ -562,7 +591,6 @@ definitions:
         minLength: 1
         type: string
     required:
-    - first_name
     - telegram_id
     type: object
   user.ErrorResponse:
@@ -625,7 +653,6 @@ definitions:
         minLength: 1
         type: string
     required:
-    - first_name
     - id
     - telegram_id
     type: object
@@ -772,6 +799,69 @@ paths:
       summary: Sign in user
       tags:
       - Authentication
+  /v1/client_assets:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload a new client asset file (image) to the server
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 'Image file to upload (supported types: PNG, JPEG)'
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully uploaded file, returns file identifier/location
+          schema:
+            type: string
+        "400":
+          description: Bad request if no file provided or unsupported file type
+          schema:
+            $ref: '#/definitions/clientassets.ErrorResponse'
+        "500":
+          description: Internal server error if file processing fails
+          schema:
+            $ref: '#/definitions/clientassets.ErrorResponse'
+      summary: Upload client asset
+      tags:
+      - Client Assets
+  /v1/client_assets/all:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all client assets from the system
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/clientassets.ClientAssets'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/clientassets.ErrorResponse'
+      summary: Get all client assets
+      tags:
+      - Client Assets
   /v1/payment/link:
     post:
       consumes:

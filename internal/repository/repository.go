@@ -3,6 +3,8 @@ package repository
 import (
 	"context"
 
+	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
+	fileserver "github.com/go-jedi/foodgrammm-backend/internal/domain/file_server"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
@@ -89,4 +91,10 @@ type PromoCodeRepository interface {
 	CheckPromoCodeAvailability(ctx context.Context, code string) (bool, error)
 	IsPromoCodeValidForUser(ctx context.Context, code string, telegramID string) (bool, error)
 	Exists(ctx context.Context, code string) (bool, error)
+}
+
+//go:generate mockery --name=ClientAssetsRepository --output=mocks --case=underscore
+type ClientAssetsRepository interface {
+	Create(ctx context.Context, data fileserver.UploadAndConvertToWebpResponse) (clientassets.ClientAssets, error)
+	All(ctx context.Context) ([]clientassets.ClientAssets, error)
 }

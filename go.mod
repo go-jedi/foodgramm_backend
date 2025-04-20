@@ -9,7 +9,9 @@ require (
 	github.com/go-playground/validator/v10 v10.26.0
 	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/golang-migrate/migrate/v4 v4.18.2
+	github.com/google/uuid v1.6.0
 	github.com/gorilla/websocket v1.5.3
+	github.com/h2non/bimg v1.1.9
 	github.com/jackc/pgx/v5 v5.7.4
 	github.com/json-iterator/go v1.1.12
 	github.com/natefinch/lumberjack v2.0.0+incompatible
@@ -31,7 +33,7 @@ require (
 	github.com/cloudwego/base64x v0.1.5 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/gabriel-vasile/mimetype v1.4.8 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
 	github.com/go-openapi/jsonpointer v0.21.1 // indirect
 	github.com/go-openapi/jsonreference v0.21.0 // indirect

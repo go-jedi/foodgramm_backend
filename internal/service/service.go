@@ -2,8 +2,10 @@ package service
 
 import (
 	"context"
+	"mime/multipart"
 
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
+	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
@@ -95,4 +97,10 @@ type PromoCodeService interface {
 	Create(ctx context.Context, dto promocode.CreateDTO) (promocode.PromoCode, error)
 	Apply(ctx context.Context, dto promocode.ApplyDTO) (promocode.ApplyResponse, error)
 	IsPromoCodeValidForUser(ctx context.Context, dto promocode.IsPromoCodeValidForUserDTO) (bool, error)
+}
+
+//go:generate mockery --name=ClientAssetsService --output=mocks --case=underscore
+type ClientAssetsService interface {
+	Create(ctx context.Context, file *multipart.FileHeader) (clientassets.ClientAssets, error)
+	All(ctx context.Context) ([]clientassets.ClientAssets, error)
 }

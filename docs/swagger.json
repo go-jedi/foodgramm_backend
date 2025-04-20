@@ -186,6 +186,100 @@
                 }
             }
         },
+        "/v1/client_assets": {
+            "post": {
+                "description": "Upload a new client asset file (image) to the server",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Client Assets"
+                ],
+                "summary": "Upload client asset",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "Image file to upload (supported types: PNG, JPEG)",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully uploaded file, returns file identifier/location",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request if no file provided or unsupported file type",
+                        "schema": {
+                            "$ref": "#/definitions/clientassets.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error if file processing fails",
+                        "schema": {
+                            "$ref": "#/definitions/clientassets.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/client_assets/all": {
+            "get": {
+                "description": "Retrieve a list of all client assets from the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Client Assets"
+                ],
+                "summary": "Get all client assets",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003ctoken\u003e",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/clientassets.ClientAssets"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/clientassets.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/payment/link": {
             "post": {
                 "description": "Creates a payment link based on the provided Telegram ID and payment type.",
@@ -2119,7 +2213,6 @@
         "auth.SignInDTO": {
             "type": "object",
             "required": [
-                "first_name",
                 "telegram_id"
             ],
             "properties": {
@@ -2154,6 +2247,52 @@
                     "type": "string"
                 },
                 "refresh_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "clientassets.ClientAssets": {
+            "type": "object",
+            "properties": {
+                "client_path_file": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "extension": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name_file": {
+                    "type": "string"
+                },
+                "old_extension": {
+                    "type": "string"
+                },
+                "old_name_file": {
+                    "type": "string"
+                },
+                "quality": {
+                    "type": "integer"
+                },
+                "server_path_file": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "clientassets.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string"
+                },
+                "error": {
                     "type": "string"
                 }
             }
@@ -2858,7 +2997,6 @@
         "user.CreateDTO": {
             "type": "object",
             "required": [
-                "first_name",
                 "telegram_id"
             ],
             "properties": {
@@ -2948,7 +3086,6 @@
         "user.UpdateDTO": {
             "type": "object",
             "required": [
-                "first_name",
                 "id",
                 "telegram_id"
             ],

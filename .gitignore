@@ -4,4 +4,4 @@ bin
 tmp
 .env
 .secret
-testdata/file_server/jwt/.secret
+testdata/jwt/.secret

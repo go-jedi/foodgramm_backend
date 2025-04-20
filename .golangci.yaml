@@ -60,6 +60,7 @@ issues:
     - Comment should end in a period
     - lines are duplicate
     - File is not `gofumpt`-ed
+    - File is not properly formatted
 #    - Magic number
 #    - G306
 #    - fiber (typecheck)
