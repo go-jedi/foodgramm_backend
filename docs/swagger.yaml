@@ -819,10 +819,10 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: Successfully uploaded file, returns file identifier/location
+        "201":
+          description: Successfully uploaded file, returns file information
           schema:
-            type: string
+            $ref: '#/definitions/clientassets.ClientAssets'
         "400":
           description: Bad request if no file provided or unsupported file type
           schema:

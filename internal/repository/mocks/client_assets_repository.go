@@ -48,22 +48,22 @@ func (_m *ClientAssetsRepository) All(ctx context.Context) ([]clientassets.Clien
 }
 
 // Create provides a mock function with given fields: ctx, data
-func (_m *ClientAssetsRepository) Create(ctx context.Context, data fileserver.UploadAndConvertToWebpResponse) (string, error) {
+func (_m *ClientAssetsRepository) Create(ctx context.Context, data fileserver.UploadAndConvertToWebpResponse) (clientassets.ClientAssets, error) {
 	ret := _m.Called(ctx, data)
 
 	if len(ret) == 0 {
 		panic("no return value specified for Create")
 	}
 
-	var r0 string
+	var r0 clientassets.ClientAssets
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, fileserver.UploadAndConvertToWebpResponse) (string, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, fileserver.UploadAndConvertToWebpResponse) (clientassets.ClientAssets, error)); ok {
 		return rf(ctx, data)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, fileserver.UploadAndConvertToWebpResponse) string); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, fileserver.UploadAndConvertToWebpResponse) clientassets.ClientAssets); ok {
 		r0 = rf(ctx, data)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(clientassets.ClientAssets)
 	}
 
 	if rf, ok := ret.Get(1).(func(context.Context, fileserver.UploadAndConvertToWebpResponse) error); ok {

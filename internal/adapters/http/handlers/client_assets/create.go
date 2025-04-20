@@ -17,7 +17,7 @@ import (
 // @Produce json
 // @Param Authorization header string true "Authorization token" default(Bearer <token>)
 // @Param file formData file true "Image file to upload (supported types: PNG, JPEG)"
-// @Success 200 {string} string "Successfully uploaded file, returns file identifier/location"
+// @Success 201 {object} clientassets.ClientAssets "Successfully uploaded file, returns file information"
 // @Failure 400 {object} clientassets.ErrorResponse "Bad request if no file provided or unsupported file type"
 // @Failure 500 {object} clientassets.ErrorResponse "Internal server error if file processing fails"
 // @Router /v1/client_assets [post]
@@ -54,5 +54,5 @@ func (h *Handler) create(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, result)
+	c.JSON(http.StatusCreated, result)
 }

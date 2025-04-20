@@ -48,22 +48,22 @@ func (_m *ClientAssetsService) All(ctx context.Context) ([]clientassets.ClientAs
 }
 
 // Create provides a mock function with given fields: ctx, file
-func (_m *ClientAssetsService) Create(ctx context.Context, file *multipart.FileHeader) (string, error) {
+func (_m *ClientAssetsService) Create(ctx context.Context, file *multipart.FileHeader) (clientassets.ClientAssets, error) {
 	ret := _m.Called(ctx, file)
 
 	if len(ret) == 0 {
 		panic("no return value specified for Create")
 	}
 
-	var r0 string
+	var r0 clientassets.ClientAssets
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, *multipart.FileHeader) (string, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *multipart.FileHeader) (clientassets.ClientAssets, error)); ok {
 		return rf(ctx, file)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, *multipart.FileHeader) string); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *multipart.FileHeader) clientassets.ClientAssets); ok {
 		r0 = rf(ctx, file)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(clientassets.ClientAssets)
 	}
 
 	if rf, ok := ret.Get(1).(func(context.Context, *multipart.FileHeader) error); ok {
