@@ -2087,11 +2087,6 @@ paths:
         name: Authorization
         required: true
         type: string
-      - description: Telegram ID of the user to unblock
-        in: path
-        name: telegramID
-        required: true
-        type: string
       - description: Telegram ID of the admin user
         in: path
         name: telegramID

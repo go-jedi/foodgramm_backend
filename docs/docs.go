@@ -2025,13 +2025,6 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Telegram ID of the user to unblock",
-                        "name": "telegramID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
                         "description": "Telegram ID of the admin user",
                         "name": "telegramID",
                         "in": "path",

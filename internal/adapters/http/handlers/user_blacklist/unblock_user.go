@@ -15,7 +15,6 @@ import (
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Authorization token" default(Bearer <token>)
-// @Param telegramID path string true "Telegram ID of the user to unblock"
 // @Param telegramID path string true "Telegram ID of the admin user"
 // @Success 200 {string} string "User unblocked successfully"
 // @Failure 400 {object} userblacklist.ErrorResponse
