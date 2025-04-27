@@ -1,4 +1,4 @@
-package clientassets
+package admin
 
 import (
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
@@ -14,7 +14,7 @@ type repo struct {
 func NewRepository(
 	l logger.ILogger,
 	p *postgres.Postgres,
-) repository.ClientAssetsRepository {
+) repository.AdminRepository {
 	return &repo{
 		logger: l,
 		db:     p,

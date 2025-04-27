@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-jedi/foodgrammm-backend/config"
 	recipeofdayscron "github.com/go-jedi/foodgrammm-backend/internal/adapters/cron/recipe_of_days"
+	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/admin"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/auth"
 	clientassets "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/client_assets"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/payment"
@@ -17,6 +18,7 @@ import (
 	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_types"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user"
+	userblacklist "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user_blacklist"
 	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/websocket/payment"
 	"github.com/go-jedi/foodgrammm-backend/internal/client"
 	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
@@ -101,6 +103,16 @@ type Dependencies struct {
 	clientAssetsService    service.ClientAssetsService
 	clientAssetsHandler    *clientassets.Handler
 
+	// admin
+	adminRepository repository.AdminRepository
+	adminService    service.AdminService
+	adminHandler    *admin.Handler
+
+	// user blackList
+	userBlackListRepository repository.UserBlackListRepository
+	userBlackListService    service.UserBlackListService
+	userBlackListHandler    *userblacklist.Handler
+
 	// websocket
 	paymentWebSocketHandler *paymentwebsocket.WebSocketHandler
 
@@ -115,7 +127,6 @@ func NewDependencies(
 	worker config.WorkerConfig,
 	engine *gin.Engine,
 	fileServer *fileserver.FileServer,
-	middleware *middleware.Middleware,
 	logger *logger.Logger,
 	validator *validator.Validator,
 	jwt *jwt.JWT,
@@ -131,7 +142,6 @@ func NewDependencies(
 		worker:     worker,
 		engine:     engine,
 		fileServer: fileServer,
-		middleware: middleware,
 		logger:     logger,
 		validator:  validator,
 		jwt:        jwt,
@@ -142,6 +152,7 @@ func NewDependencies(
 		cache:      cache,
 	}
 
+	d.initMiddleware()
 	d.initHandler()
 	d.initWebSocket()
 	d.initCron(ctx)
@@ -149,6 +160,15 @@ func NewDependencies(
 	return d
 }
 
+// initMiddleware initialize middlewares.
+func (d *Dependencies) initMiddleware() {
+	d.middleware = middleware.New(
+		d.AdminService(),
+		d.jwt,
+	)
+}
+
+// initHandler initialize handlers.
 func (d *Dependencies) initHandler() {
 	_ = d.AuthHandler()
 	_ = d.UserHandler()
@@ -161,12 +181,16 @@ func (d *Dependencies) initHandler() {
 	_ = d.PaymentHandler()
 	_ = d.PromoCodeHandler()
 	_ = d.ClientAssetsHandler()
+	_ = d.AdminHandler()
+	_ = d.UserBlackListHandler()
 }
 
+// initWebSocket initialize web sockets.
 func (d *Dependencies) initWebSocket() {
 	_ = d.PaymentWebSocket()
 }
 
+// initCron initialize crons.
 func (d *Dependencies) initCron(ctx context.Context) {
 	_ = d.RecipeOfDaysCron(ctx)
 }

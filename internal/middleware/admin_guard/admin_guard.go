@@ -1,4 +1,4 @@
-package middleware
+package adminguard
 
 import (
 	"errors"
@@ -6,34 +6,36 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-jedi/foodgrammm-backend/internal/service"
 	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
 )
 
 const (
 	authorizationHeader = "Authorization"
 	authorizationType   = "Bearer"
-	telegramIDCtx       = "telegramID"
 )
 
 var (
 	ErrEmptyAuthorizationHeader   = errors.New("empty authorization header")
 	ErrInvalidAuthorizationHeader = errors.New("invalid authorization header")
 	ErrTokenIsEmpty               = errors.New("token is empty")
+	ErrAccessDenied               = errors.New("access denied: you do not have permission to perform this action")
 )
 
-type AuthMiddleware struct {
-	jwt *jwt.JWT
+type Middleware struct {
+	adminService service.AdminService
+	jwt          *jwt.JWT
 }
 
-func NewAuthMiddleware(jwt *jwt.JWT) *AuthMiddleware {
-	return &AuthMiddleware{
-		jwt: jwt,
+func New(adminService service.AdminService, jwt *jwt.JWT) *Middleware {
+	return &Middleware{
+		adminService: adminService,
+		jwt:          jwt,
 	}
 }
 
-// AuthMiddleware check authenticate user.
-func (am *AuthMiddleware) AuthMiddleware(c *gin.Context) {
-	token, err := am.extractTokenFromHeader(c)
+func (m *Middleware) AdminGuardMiddleware(c *gin.Context) {
+	token, err := m.extractTokenFromHeader(c)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"status":  http.StatusUnauthorized,
@@ -42,30 +44,37 @@ func (am *AuthMiddleware) AuthMiddleware(c *gin.Context) {
 		return
 	}
 
-	vr, err := am.jwt.ParseToken(token)
+	vr, err := m.jwt.ParseToken(token)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"status":  http.StatusUnauthorized,
-			"message": err,
+			"message": err.Error(),
 		})
 		return
 	}
 
-	c.Set(telegramIDCtx, vr.TelegramID)
-}
-
-// GetTelegramIDFromContext get telegram id from context.
-func (am *AuthMiddleware) GetTelegramIDFromContext(c *gin.Context) (string, bool) {
-	if value, exists := c.Get(telegramIDCtx); exists {
-		if telegramID, ok := value.(string); ok {
-			return telegramID, true
-		}
+	ie, err := m.adminService.ExistsByTelegramID(c.Request.Context(), vr.TelegramID)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"status":  http.StatusInternalServerError,
+			"message": "internal server error",
+		})
+		return
 	}
-	return "", false
+
+	if !ie {
+		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+			"status":  http.StatusForbidden,
+			"message": ErrAccessDenied.Error(),
+		})
+		return
+	}
+
+	c.Next()
 }
 
 // extractTokenFromHeader extract token.
-func (am *AuthMiddleware) extractTokenFromHeader(c *gin.Context) (string, error) {
+func (m *Middleware) extractTokenFromHeader(c *gin.Context) (string, error) {
 	header := c.GetHeader(authorizationHeader)
 	if header == "" {
 		return "", ErrEmptyAuthorizationHeader
