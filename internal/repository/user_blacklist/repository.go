@@ -1,4 +1,4 @@
-package clientassets
+package userblacklist
 
 import (
 	"github.com/go-jedi/foodgrammm-backend/internal/repository"
@@ -14,7 +14,7 @@ type repo struct {
 func NewRepository(
 	l logger.ILogger,
 	p *postgres.Postgres,
-) repository.ClientAssetsRepository {
+) repository.UserBlackListRepository {
 	return &repo{
 		logger: l,
 		db:     p,

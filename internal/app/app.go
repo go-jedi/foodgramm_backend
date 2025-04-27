@@ -7,7 +7,6 @@ import (
 	"github.com/go-jedi/foodgrammm-backend/config"
 	"github.com/go-jedi/foodgrammm-backend/internal/app/dependencies"
 	"github.com/go-jedi/foodgrammm-backend/internal/client"
-	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
 	"github.com/go-jedi/foodgrammm-backend/internal/parser"
 	"github.com/go-jedi/foodgrammm-backend/internal/templates"
 	"github.com/go-jedi/foodgrammm-backend/pkg/bcrypt"
@@ -33,7 +32,6 @@ type App struct {
 	client       *client.Client
 	hs           *httpserver.HTTPServer
 	fileServer   *fileserver.FileServer
-	middleware   *middleware.Middleware
 	db           *postgres.Postgres
 	cache        *redis.Redis
 	dependencies *dependencies.Dependencies
@@ -70,7 +68,6 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initRedis,
 		a.initHTTPServer,
 		a.initFileServer,
-		a.initMiddleware,
 		a.initDependencies,
 	}
 
@@ -201,13 +198,6 @@ func (a *App) initFileServer(_ context.Context) error {
 	return nil
 }
 
-// initMiddleware initialize middleware.
-func (a *App) initMiddleware(_ context.Context) error {
-	a.middleware = middleware.NewMiddleware(a.jwt)
-
-	return nil
-}
-
 // initDependencies initialize dependencies.
 func (a *App) initDependencies(ctx context.Context) error {
 	a.dependencies = dependencies.NewDependencies(
@@ -217,7 +207,6 @@ func (a *App) initDependencies(ctx context.Context) error {
 		a.cfg.Worker,
 		a.hs.Engine,
 		a.fileServer,
-		a.middleware,
 		a.logger,
 		a.validator,
 		a.jwt,

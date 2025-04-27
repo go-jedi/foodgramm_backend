@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 
+	"github.com/go-jedi/foodgrammm-backend/internal/domain/admin"
 	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
 	fileserver "github.com/go-jedi/foodgrammm-backend/internal/domain/file_server"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
@@ -14,6 +15,7 @@ import (
 	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_types"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
 	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
+	userblacklist "github.com/go-jedi/foodgrammm-backend/internal/domain/user_blacklist"
 )
 
 //go:generate mockery --name=UserRepository --output=mocks --case=underscore
@@ -97,4 +99,18 @@ type PromoCodeRepository interface {
 type ClientAssetsRepository interface {
 	Create(ctx context.Context, data fileserver.UploadAndConvertToWebpResponse) (clientassets.ClientAssets, error)
 	All(ctx context.Context) ([]clientassets.ClientAssets, error)
+}
+
+//go:generate mockery --name=AdminRepository --output=mocks --case=underscore
+type AdminRepository interface {
+	AddAdminUser(ctx context.Context, telegramID string) (admin.Admin, error)
+	ExistsByTelegramID(ctx context.Context, telegramID string) (bool, error)
+}
+
+//go:generate mockery --name=UserBlackListRepository --output=mocks --case=underscore
+type UserBlackListRepository interface {
+	BlockUser(ctx context.Context, dto userblacklist.BlockUserDTO, bannedByTelegramID string) (userblacklist.UsersBlackList, error)
+	UnblockUser(ctx context.Context, telegramID string) (string, error)
+	AllBannedUsers(ctx context.Context) ([]userblacklist.UsersBlackList, error)
+	Exists(ctx context.Context, telegramID string) (bool, error)
 }

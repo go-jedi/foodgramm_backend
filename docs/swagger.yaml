@@ -1,5 +1,23 @@
 basePath: /v1
 definitions:
+  admin.Admin:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      telegram_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  admin.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
   auth.CheckDTO:
     properties:
       telegram_id:
@@ -673,6 +691,42 @@ definitions:
       username:
         type: string
     type: object
+  userblacklist.BlockUserDTO:
+    properties:
+      ban_reason:
+        minLength: 1
+        type: string
+      telegram_id:
+        minLength: 1
+        type: string
+    required:
+    - ban_reason
+    - telegram_id
+    type: object
+  userblacklist.ErrorResponse:
+    properties:
+      detail:
+        type: string
+      error:
+        type: string
+    type: object
+  userblacklist.UsersBlackList:
+    properties:
+      ban_reason:
+        type: string
+      ban_timestamp:
+        type: string
+      banned_by_telegram_id:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      telegram_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
 host: localhost:50050
 info:
   contact: {}
@@ -695,6 +749,98 @@ paths:
       summary: Ping
       tags:
       - Health
+  /v1/admin/add/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Add a new admin user with the provided telegram ID. Accessible
+        only to administrators.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the admin user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin.Admin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+      summary: Add a new admin user
+      tags:
+      - Admin
+  /v1/admin/exists/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Check if an admin exists with the provided Telegram ID. Accessible
+        only to administrators.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the user to check
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/admin.ErrorResponse'
+      summary: Check if an admin exists by Telegram ID
+      tags:
+      - Admin
   /v1/auth/check:
     post:
       consumes:
@@ -1790,6 +1936,197 @@ paths:
       summary: Get all users
       tags:
       - User
+  /v1/user/blacklist/all:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all banned users. Accessible only to administrators.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the admin user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of all banned users
+          schema:
+            items:
+              $ref: '#/definitions/userblacklist.UsersBlackList'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+      summary: Get all banned users
+      tags:
+      - UserBlacklist
+  /v1/user/blacklist/block:
+    post:
+      consumes:
+      - application/json
+      description: Block a user with the provided details. Accessible only to administrators.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the admin user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      - description: Block user data
+        in: body
+        name: blockUser
+        required: true
+        schema:
+          $ref: '#/definitions/userblacklist.BlockUserDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/userblacklist.UsersBlackList'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+      summary: Block a user
+      tags:
+      - UserBlacklist
+  /v1/user/blacklist/exists/{telegramID}:
+    get:
+      consumes:
+      - application/json
+      description: Check if a user exists in the blacklist with the provided Telegram
+        ID. Accessible only to administrators.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the user to check
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Indicates if the user exists in the blacklist
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+      summary: Check if a user exists in the blacklist by Telegram ID
+      tags:
+      - UserBlacklist
+  /v1/user/blacklist/unblock/{telegramID}:
+    delete:
+      consumes:
+      - application/json
+      description: Unblock a user with the provided Telegram ID. Accessible only to
+        administrators.
+      parameters:
+      - default: Bearer <token>
+        description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Telegram ID of the user to unblock
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      - description: Telegram ID of the admin user
+        in: path
+        name: telegramID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User unblocked successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/userblacklist.ErrorResponse'
+      summary: Unblock a user
+      tags:
+      - UserBlacklist
   /v1/user/count:
     get:
       consumes:

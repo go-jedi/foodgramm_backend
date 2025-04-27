@@ -27,10 +27,12 @@
 - `migrate create -ext sql -dir migrations -seq event_recipes_table`
 - `migrate create -ext sql -dir migrations -seq first_name_delete_not_null_users_table`
 - `migrate create -ext sql -dir migrations -seq client_assets_table`
+- `migrate create -ext sql -dir migrations -seq users_blacklist`
+- `migrate create -ext sql -dir migrations -seq admins`
 
 #### execute:
-- `migrate -database postgresql://admin:test@localhost:54321/foodgrammm_db?sslmode=disable -path migrations up`
-- `migrate -database postgresql://admin:test@localhost:54321/foodgrammm_db?sslmode=disable -path migrations down`
+- `migrate -database postgresql://admin:test@localhost:54320/foodgrammm_db?sslmode=disable -path migrations up`
+- `migrate -database postgresql://admin:test@localhost:54320/foodgrammm_db?sslmode=disable -path migrations down`
 
 #### build application:
 - `go build -ldflags="-s -w" -trimpath -buildvcs=false -o app cmd/app/main.go`

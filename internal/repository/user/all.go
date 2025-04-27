@@ -18,7 +18,7 @@ func (r *repo) All(ctx context.Context) ([]user.User, error) {
 	q := `
 		SELECT *
 		FROM users
-		ORDER BY id
+		ORDER BY id;
 	`
 
 	rows, err := r.db.Pool.Query(ctxTimeout, q)
