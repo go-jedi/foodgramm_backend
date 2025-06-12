@@ -7,8 +7,8 @@ RUN apk add --no-cache \
     g++ \
     musl-dev
 
-WORKDIR /github.com/go-jedi/foodgrammm-backend/app
-COPY . /github.com/go-jedi/foodgrammm-backend/app
+WORKDIR /github.com/go-jedi/foodgramm_backend/app
+COPY . /github.com/go-jedi/foodgramm_backend/app
 
 RUN go mod download
 RUN go build -ldflags="-s -w" -trimpath -buildvcs=false -o .bin/app cmd/app/main.go
@@ -19,7 +19,7 @@ FROM alpine:latest
 RUN apk add --no-cache vips
 
 WORKDIR /root/
-COPY --from=builder /github.com/go-jedi/foodgrammm-backend/app/.bin/app .
+COPY --from=builder /github.com/go-jedi/foodgramm_backend/app/.bin/app .
 COPY config.yaml /root/
 COPY migrations /root/migrations
 

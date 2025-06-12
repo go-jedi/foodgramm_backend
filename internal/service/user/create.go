@@ -3,8 +3,8 @@ package user
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/user"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) Create(ctx context.Context, dto user.CreateDTO) (user.User, error) {

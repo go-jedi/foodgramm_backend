@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	promocode "github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
+	promocode "github.com/go-jedi/foodgramm_backend/internal/domain/promocode"
 	mock "github.com/stretchr/testify/mock"
 )
 

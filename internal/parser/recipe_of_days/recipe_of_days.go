@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/parser"
 )
 
 var ErrNoRecipeFound = errors.New("recipe not found")

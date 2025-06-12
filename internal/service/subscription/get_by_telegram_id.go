@@ -3,8 +3,8 @@ package subscription
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/subscription"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error) {

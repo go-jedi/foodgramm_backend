@@ -3,19 +3,19 @@ package repository
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/admin"
-	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
-	fileserver "github.com/go-jedi/foodgrammm-backend/internal/domain/file_server"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
-	recipeevent "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_event"
-	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_of_days"
-	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_types"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
-	userblacklist "github.com/go-jedi/foodgrammm-backend/internal/domain/user_blacklist"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/admin"
+	clientassets "github.com/go-jedi/foodgramm_backend/internal/domain/client_assets"
+	fileserver "github.com/go-jedi/foodgramm_backend/internal/domain/file_server"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/parser"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/product"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/promocode"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/recipe"
+	recipeevent "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_event"
+	recipeofdays "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_of_days"
+	recipetypes "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_types"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/subscription"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/user"
+	userblacklist "github.com/go-jedi/foodgramm_backend/internal/domain/user_blacklist"
 )
 
 //go:generate mockery --name=UserRepository --output=mocks --case=underscore

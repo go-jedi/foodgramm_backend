@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
-	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
+	"github.com/go-jedi/foodgramm_backend/config"
+	"github.com/go-jedi/foodgramm_backend/pkg/postgres"
 	"github.com/redis/go-redis/v9"
 )
 

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	userblacklist "github.com/go-jedi/foodgrammm-backend/internal/domain/user_blacklist"
+	userblacklist "github.com/go-jedi/foodgramm_backend/internal/domain/user_blacklist"
 )
 
 // @Summary Get all banned users

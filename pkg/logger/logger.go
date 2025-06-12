@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
+	"github.com/go-jedi/foodgramm_backend/config"
 	"github.com/natefinch/lumberjack"
 )
 

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	recipeevent "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_event"
+	recipeevent "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_event"
 )
 
 func (r *repo) Create(ctx context.Context, dto recipeevent.CreateDTO) (recipeevent.Recipe, error) {

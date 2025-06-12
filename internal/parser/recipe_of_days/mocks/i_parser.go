@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	parser "github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
+	parser "github.com/go-jedi/foodgramm_backend/internal/domain/parser"
 	mock "github.com/stretchr/testify/mock"
 )
 

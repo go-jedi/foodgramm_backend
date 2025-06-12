@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/auth"
 )
 
 // SignIn

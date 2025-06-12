@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/templates"
-	recipetemplate "github.com/go-jedi/foodgrammm-backend/internal/templates/recipe"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/recipe"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/subscription"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/templates"
+	recipetemplate "github.com/go-jedi/foodgramm_backend/internal/templates/recipe"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 var ErrUserNotSubscriptionOrFreeRecipes = errors.New("user does not have a subscription or free recipes")

@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_of_days"
+	recipeofdays "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_of_days"
 	mock "github.com/stretchr/testify/mock"
 )
 

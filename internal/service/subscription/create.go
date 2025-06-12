@@ -3,7 +3,7 @@ package subscription
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) Create(ctx context.Context, telegramID string) error {

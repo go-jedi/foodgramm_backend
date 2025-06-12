@@ -1,9 +1,9 @@
 package dependencies
 
 import (
-	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/auth"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	authService "github.com/go-jedi/foodgrammm-backend/internal/service/auth"
+	"github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/auth"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	authService "github.com/go-jedi/foodgramm_backend/internal/service/auth"
 )
 
 func (d *Dependencies) AuthService() service.AuthService {

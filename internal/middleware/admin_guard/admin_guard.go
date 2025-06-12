@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	"github.com/go-jedi/foodgramm_backend/pkg/jwt"
 )
 
 const (

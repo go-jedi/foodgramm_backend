@@ -1,11 +1,11 @@
 package dependencies
 
 import (
-	userBlackListHandler "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/user_blacklist"
-	"github.com/go-jedi/foodgrammm-backend/internal/repository"
-	userBlackListRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/user_blacklist"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	userBlackListService "github.com/go-jedi/foodgrammm-backend/internal/service/user_blacklist"
+	userBlackListHandler "github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/user_blacklist"
+	"github.com/go-jedi/foodgramm_backend/internal/repository"
+	userBlackListRepository "github.com/go-jedi/foodgramm_backend/internal/repository/user_blacklist"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	userBlackListService "github.com/go-jedi/foodgramm_backend/internal/service/user_blacklist"
 )
 
 func (d *Dependencies) UserBlackListRepository() repository.UserBlackListRepository {

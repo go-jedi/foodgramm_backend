@@ -1,11 +1,11 @@
 package dependencies
 
 import (
-	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe"
-	"github.com/go-jedi/foodgrammm-backend/internal/repository"
-	recipeRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/recipe"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	recipeService "github.com/go-jedi/foodgrammm-backend/internal/service/recipe"
+	"github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/recipe"
+	"github.com/go-jedi/foodgramm_backend/internal/repository"
+	recipeRepository "github.com/go-jedi/foodgramm_backend/internal/repository/recipe"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	recipeService "github.com/go-jedi/foodgramm_backend/internal/service/recipe"
 )
 
 func (d *Dependencies) RecipeRepository() repository.RecipeRepository {

@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
-	"github.com/go-jedi/foodgrammm-backend/pkg/uid"
+	"github.com/go-jedi/foodgramm_backend/config"
+	"github.com/go-jedi/foodgramm_backend/pkg/uid"
 	"github.com/golang-jwt/jwt/v5"
 )
 

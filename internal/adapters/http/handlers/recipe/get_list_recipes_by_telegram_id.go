@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/recipe"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 // GetListRecipesByTelegramID

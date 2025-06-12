@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (r *repo) Create(ctx context.Context, telegramID string) error {

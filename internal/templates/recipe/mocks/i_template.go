@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	recipe "github.com/go-jedi/foodgrammm-backend/internal/templates/recipe"
+	recipe "github.com/go-jedi/foodgramm_backend/internal/templates/recipe"
 	mock "github.com/stretchr/testify/mock"
 )
 

@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/app"
+	"github.com/go-jedi/foodgramm_backend/internal/app"
 )
 
 // @title API application for telegram web apps application foodgrammm

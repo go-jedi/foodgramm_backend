@@ -12,8 +12,8 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/go-jedi/foodgrammm-backend/config"
-	_ "github.com/go-jedi/foodgrammm-backend/docs"
+	"github.com/go-jedi/foodgramm_backend/config"
+	_ "github.com/go-jedi/foodgramm_backend/docs"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )

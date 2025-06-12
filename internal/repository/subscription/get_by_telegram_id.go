@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/subscription"
 )
 
 func (r *repo) GetByTelegramID(ctx context.Context, telegramID string) (subscription.Subscription, error) {

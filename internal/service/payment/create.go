@@ -3,9 +3,9 @@ package payment
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
-	"github.com/go-jedi/foodgrammm-backend/pkg/utils"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/payment"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/pkg/utils"
 )
 
 func (s *serv) Create(ctx context.Context, dto payment.CreateDTO) (string, error) {

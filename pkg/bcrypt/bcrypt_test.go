@@ -3,7 +3,7 @@ package bcrypt
 import (
 	"testing"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
+	"github.com/go-jedi/foodgramm_backend/config"
 )
 
 // TestNewBcrypt tests the NewBcrypt function.

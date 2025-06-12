@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	userblacklist "github.com/go-jedi/foodgrammm-backend/internal/domain/user_blacklist"
+	userblacklist "github.com/go-jedi/foodgramm_backend/internal/domain/user_blacklist"
 )
 
 func (r *repo) BlockUser(ctx context.Context, dto userblacklist.BlockUserDTO, bannedByTelegramID string) (userblacklist.UsersBlackList, error) {

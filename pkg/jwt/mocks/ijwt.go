@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	jwt "github.com/go-jedi/foodgrammm-backend/pkg/jwt"
+	jwt "github.com/go-jedi/foodgramm_backend/pkg/jwt"
 	mock "github.com/stretchr/testify/mock"
 )
 

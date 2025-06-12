@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
+	"github.com/go-jedi/foodgramm_backend/config"
 	"golang.org/x/crypto/bcrypt"
 )
 

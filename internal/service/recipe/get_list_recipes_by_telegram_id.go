@@ -3,8 +3,8 @@ package recipe
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/recipe"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) GetListRecipesByTelegramID(ctx context.Context, dto recipe.GetListRecipesByTelegramIDDTO) (recipe.GetListRecipesByTelegramIDResponse, error) {

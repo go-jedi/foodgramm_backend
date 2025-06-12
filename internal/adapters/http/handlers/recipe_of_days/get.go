@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_of_days"
+	recipeofdays "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_of_days"
 )
 
 // @Summary Get Recipe of the Day

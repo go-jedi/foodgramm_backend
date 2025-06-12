@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/user"
 	jsoniter "github.com/json-iterator/go"
 )
 

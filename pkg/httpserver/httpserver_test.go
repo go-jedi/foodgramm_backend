@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-jedi/foodgrammm-backend/config"
+	"github.com/go-jedi/foodgramm_backend/config"
 )
 
 func newTestHTTPServer() *HTTPServer {

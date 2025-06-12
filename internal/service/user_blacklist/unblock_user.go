@@ -3,7 +3,7 @@ package userblacklist
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) UnblockUser(ctx context.Context, telegramID string) (string, error) {

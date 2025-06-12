@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
-	fileserver "github.com/go-jedi/foodgrammm-backend/internal/domain/file_server"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	clientassets "github.com/go-jedi/foodgramm_backend/internal/domain/client_assets"
+	fileserver "github.com/go-jedi/foodgramm_backend/internal/domain/file_server"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 // @Summary Upload client asset

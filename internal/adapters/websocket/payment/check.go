@@ -6,8 +6,8 @@ import (
 	"net/url"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/payment"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 	"github.com/gorilla/websocket"
 )
 

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/parser"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (r *repo) Create(ctx context.Context, data parser.ParsedRecipeOfDays) error {

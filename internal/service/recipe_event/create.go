@@ -3,8 +3,8 @@ package recipeevent
 import (
 	"context"
 
-	recipeevent "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_event"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	recipeevent "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_event"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) Create(ctx context.Context, dto recipeevent.CreateDTO) (recipeevent.Recipe, error) {

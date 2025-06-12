@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
+	clientassets "github.com/go-jedi/foodgramm_backend/internal/domain/client_assets"
 )
 
 // @Summary Get all client assets

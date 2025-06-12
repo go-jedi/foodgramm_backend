@@ -6,12 +6,12 @@ import (
 	"testing"
 
 	"github.com/brianvoe/gofakeit/v7"
-	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
-	fileserver "github.com/go-jedi/foodgrammm-backend/internal/domain/file_server"
-	fileservermocks "github.com/go-jedi/foodgrammm-backend/pkg/file_server/mocks"
-	loggermocks "github.com/go-jedi/foodgrammm-backend/pkg/logger/mocks"
-	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
-	poolsmocks "github.com/go-jedi/foodgrammm-backend/pkg/postgres/mocks"
+	clientassets "github.com/go-jedi/foodgramm_backend/internal/domain/client_assets"
+	fileserver "github.com/go-jedi/foodgramm_backend/internal/domain/file_server"
+	fileservermocks "github.com/go-jedi/foodgramm_backend/pkg/file_server/mocks"
+	loggermocks "github.com/go-jedi/foodgramm_backend/pkg/logger/mocks"
+	"github.com/go-jedi/foodgramm_backend/pkg/postgres"
+	poolsmocks "github.com/go-jedi/foodgramm_backend/pkg/postgres/mocks"
 )
 
 func TestCreate(t *testing.T) {

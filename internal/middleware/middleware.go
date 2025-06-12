@@ -3,10 +3,10 @@ package middleware
 import (
 	"log"
 
-	adminguard "github.com/go-jedi/foodgrammm-backend/internal/middleware/admin_guard"
-	"github.com/go-jedi/foodgrammm-backend/internal/middleware/auth"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	"github.com/go-jedi/foodgrammm-backend/pkg/jwt"
+	adminguard "github.com/go-jedi/foodgramm_backend/internal/middleware/admin_guard"
+	"github.com/go-jedi/foodgramm_backend/internal/middleware/auth"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	"github.com/go-jedi/foodgramm_backend/pkg/jwt"
 )
 
 type Middleware struct {

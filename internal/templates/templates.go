@@ -1,8 +1,8 @@
 package templates
 
 import (
-	"github.com/go-jedi/foodgrammm-backend/internal/templates/recipe"
-	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/templates/recipe_of_days"
+	"github.com/go-jedi/foodgramm_backend/internal/templates/recipe"
+	recipeofdays "github.com/go-jedi/foodgramm_backend/internal/templates/recipe_of_days"
 )
 
 type Templates struct {

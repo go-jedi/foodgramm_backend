@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	payment "github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
+	payment "github.com/go-jedi/foodgramm_backend/internal/domain/payment"
 	mock "github.com/stretchr/testify/mock"
 )
 

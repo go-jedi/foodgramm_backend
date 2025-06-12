@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
-	fileserver "github.com/go-jedi/foodgrammm-backend/internal/domain/file_server"
+	clientassets "github.com/go-jedi/foodgramm_backend/internal/domain/client_assets"
+	fileserver "github.com/go-jedi/foodgramm_backend/internal/domain/file_server"
 )
 
 func (r *repo) Create(ctx context.Context, data fileserver.UploadAndConvertToWebpResponse) (clientassets.ClientAssets, error) {

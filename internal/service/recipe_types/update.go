@@ -3,8 +3,8 @@ package recipetypes
 import (
 	"context"
 
-	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_types"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	recipetypes "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_types"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) Update(ctx context.Context, dto recipetypes.UpdateDTO) (recipetypes.RecipeTypes, error) {

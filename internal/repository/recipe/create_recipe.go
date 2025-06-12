@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/subscription"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/parser"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/recipe"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/subscription"
 	jsoniter "github.com/json-iterator/go"
 )
 

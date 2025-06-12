@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	recipeevent "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_event"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	recipeevent "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_event"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 // @Summary Get a recipe event by ID

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/user"
 )
 
 func (r *repo) Update(ctx context.Context, dto user.UpdateDTO) (user.User, error) {

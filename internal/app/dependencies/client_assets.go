@@ -1,11 +1,11 @@
 package dependencies
 
 import (
-	clientassets "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/client_assets"
-	"github.com/go-jedi/foodgrammm-backend/internal/repository"
-	clientAssetsRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/client_assets"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	clientAssetsService "github.com/go-jedi/foodgrammm-backend/internal/service/client_assets"
+	clientassets "github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/client_assets"
+	"github.com/go-jedi/foodgramm_backend/internal/repository"
+	clientAssetsRepository "github.com/go-jedi/foodgramm_backend/internal/repository/client_assets"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	clientAssetsService "github.com/go-jedi/foodgramm_backend/internal/service/client_assets"
 )
 
 func (d *Dependencies) ClientAssetsRepository() repository.ClientAssetsRepository {

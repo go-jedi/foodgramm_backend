@@ -1,11 +1,11 @@
 package dependencies
 
 import (
-	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/admin"
-	"github.com/go-jedi/foodgrammm-backend/internal/repository"
-	adminRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/admin"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	adminService "github.com/go-jedi/foodgrammm-backend/internal/service/admin"
+	"github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/admin"
+	"github.com/go-jedi/foodgramm_backend/internal/repository"
+	adminRepository "github.com/go-jedi/foodgramm_backend/internal/repository/admin"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	adminService "github.com/go-jedi/foodgramm_backend/internal/service/admin"
 )
 
 func (d *Dependencies) AdminRepository() repository.AdminRepository {

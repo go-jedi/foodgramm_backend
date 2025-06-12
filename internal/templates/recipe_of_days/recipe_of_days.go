@@ -1,6 +1,6 @@
 package recipeofdays
 
-import "github.com/go-jedi/foodgrammm-backend/internal/domain/templates"
+import "github.com/go-jedi/foodgramm_backend/internal/domain/templates"
 
 //go:generate mockery --name=ITemplate --output=mocks --case=underscore
 type ITemplate interface {

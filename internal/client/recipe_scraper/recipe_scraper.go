@@ -10,9 +10,9 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/parser"
-	recipescraper "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_scraper"
+	"github.com/go-jedi/foodgramm_backend/config"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/parser"
+	recipescraper "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_scraper"
 	jsoniter "github.com/json-iterator/go"
 )
 

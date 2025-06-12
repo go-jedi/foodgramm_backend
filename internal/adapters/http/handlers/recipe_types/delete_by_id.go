@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_types"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	recipetypes "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_types"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 // @Summary Delete a recipe type by ID

@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	auth "github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
+	auth "github.com/go-jedi/foodgramm_backend/internal/domain/auth"
 
 	mock "github.com/stretchr/testify/mock"
 )

@@ -3,8 +3,8 @@ package auth
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/auth"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/user"
 )
 
 func (s *serv) SignIn(ctx context.Context, dto auth.SignInDTO) (auth.SignInResp, error) {

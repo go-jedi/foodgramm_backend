@@ -1,11 +1,11 @@
 package dependencies
 
 import (
-	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/subscription"
-	"github.com/go-jedi/foodgrammm-backend/internal/repository"
-	subscriptionRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/subscription"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	subscriptionService "github.com/go-jedi/foodgrammm-backend/internal/service/subscription"
+	"github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/subscription"
+	"github.com/go-jedi/foodgramm_backend/internal/repository"
+	subscriptionRepository "github.com/go-jedi/foodgramm_backend/internal/repository/subscription"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	subscriptionService "github.com/go-jedi/foodgramm_backend/internal/service/subscription"
 )
 
 func (d *Dependencies) SubscriptionRepository() repository.SubscriptionRepository {

@@ -12,9 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
-	fileserver "github.com/go-jedi/foodgrammm-backend/internal/domain/file_server"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/config"
+	fileserver "github.com/go-jedi/foodgramm_backend/internal/domain/file_server"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 	"github.com/google/uuid"
 	"github.com/h2non/bimg"
 )

@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	userblacklist "github.com/go-jedi/foodgrammm-backend/internal/domain/user_blacklist"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	userblacklist "github.com/go-jedi/foodgramm_backend/internal/domain/user_blacklist"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 // @Summary Check if a user exists in the blacklist by Telegram ID

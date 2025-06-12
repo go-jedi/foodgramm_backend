@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/brianvoe/gofakeit/v7"
-	loggermocks "github.com/go-jedi/foodgrammm-backend/pkg/logger/mocks"
-	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
-	poolsmocks "github.com/go-jedi/foodgrammm-backend/pkg/postgres/mocks"
+	loggermocks "github.com/go-jedi/foodgramm_backend/pkg/logger/mocks"
+	"github.com/go-jedi/foodgramm_backend/pkg/postgres"
+	poolsmocks "github.com/go-jedi/foodgramm_backend/pkg/postgres/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

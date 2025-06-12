@@ -3,12 +3,12 @@ package dependencies
 import (
 	"context"
 
-	recipeofdayscron "github.com/go-jedi/foodgrammm-backend/internal/adapters/cron/recipe_of_days"
-	recipeofdays "github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/recipe_of_days"
-	"github.com/go-jedi/foodgrammm-backend/internal/repository"
-	recipeOfDaysRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/recipe_of_days"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	recipeOfDaysService "github.com/go-jedi/foodgrammm-backend/internal/service/recipe_of_days"
+	recipeofdayscron "github.com/go-jedi/foodgramm_backend/internal/adapters/cron/recipe_of_days"
+	recipeofdays "github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/recipe_of_days"
+	"github.com/go-jedi/foodgramm_backend/internal/repository"
+	recipeOfDaysRepository "github.com/go-jedi/foodgramm_backend/internal/repository/recipe_of_days"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	recipeOfDaysService "github.com/go-jedi/foodgramm_backend/internal/service/recipe_of_days"
 )
 
 func (d *Dependencies) RecipeOfDaysRepository() repository.RecipeOfDaysRepository {

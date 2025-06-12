@@ -2,11 +2,11 @@ package recipetypes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/go-jedi/foodgrammm-backend/config"
-	"github.com/go-jedi/foodgrammm-backend/internal/middleware"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
-	"github.com/go-jedi/foodgrammm-backend/pkg/validator"
+	"github.com/go-jedi/foodgramm_backend/config"
+	"github.com/go-jedi/foodgramm_backend/internal/middleware"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	"github.com/go-jedi/foodgramm_backend/pkg/logger"
+	"github.com/go-jedi/foodgramm_backend/pkg/validator"
 )
 
 type Handler struct {

@@ -3,8 +3,8 @@ package admin
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/admin"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/admin"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) AddAdminUser(ctx context.Context, telegramID string) (admin.Admin, error) {

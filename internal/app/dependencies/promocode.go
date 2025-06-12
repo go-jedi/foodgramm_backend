@@ -1,11 +1,11 @@
 package dependencies
 
 import (
-	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/promocode"
-	"github.com/go-jedi/foodgrammm-backend/internal/repository"
-	promoCodeRepository "github.com/go-jedi/foodgrammm-backend/internal/repository/promocode"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	promoCodeService "github.com/go-jedi/foodgrammm-backend/internal/service/promocode"
+	"github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/promocode"
+	"github.com/go-jedi/foodgramm_backend/internal/repository"
+	promoCodeRepository "github.com/go-jedi/foodgramm_backend/internal/repository/promocode"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	promoCodeService "github.com/go-jedi/foodgramm_backend/internal/service/promocode"
 )
 
 func (d *Dependencies) PromoCodeRepository() repository.PromoCodeRepository {

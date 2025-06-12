@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	recipeevent "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_event"
+	recipeevent "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_event"
 )
 
 // @Summary Create a new recipe event

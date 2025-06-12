@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	recipetypes "github.com/go-jedi/foodgrammm-backend/internal/domain/recipe_types"
+	recipetypes "github.com/go-jedi/foodgramm_backend/internal/domain/recipe_types"
 )
 
 // @Summary Get all recipe types

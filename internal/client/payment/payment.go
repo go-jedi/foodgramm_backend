@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/payment"
+	"github.com/go-jedi/foodgramm_backend/config"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/payment"
 	jsoniter "github.com/json-iterator/go"
 )
 

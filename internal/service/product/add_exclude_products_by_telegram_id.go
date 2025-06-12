@@ -3,9 +3,9 @@ package product
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/product"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
-	"github.com/go-jedi/foodgrammm-backend/pkg/utils"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/product"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/pkg/utils"
 )
 
 func (s *serv) AddExcludeProductsByTelegramID(ctx context.Context, dto product.AddExcludeProductsByTelegramIDDTO) (product.UserExcludedProducts, error) {

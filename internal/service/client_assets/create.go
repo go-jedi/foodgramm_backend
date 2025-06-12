@@ -5,7 +5,7 @@ import (
 	"mime/multipart"
 	"os"
 
-	clientassets "github.com/go-jedi/foodgrammm-backend/internal/domain/client_assets"
+	clientassets "github.com/go-jedi/foodgramm_backend/internal/domain/client_assets"
 )
 
 func (s *serv) Create(ctx context.Context, file *multipart.FileHeader) (clientassets.ClientAssets, error) {

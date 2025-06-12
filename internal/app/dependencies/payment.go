@@ -1,10 +1,10 @@
 package dependencies
 
 import (
-	"github.com/go-jedi/foodgrammm-backend/internal/adapters/http/handlers/payment"
-	paymentwebsocket "github.com/go-jedi/foodgrammm-backend/internal/adapters/websocket/payment"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	paymentService "github.com/go-jedi/foodgrammm-backend/internal/service/payment"
+	"github.com/go-jedi/foodgramm_backend/internal/adapters/http/handlers/payment"
+	paymentwebsocket "github.com/go-jedi/foodgramm_backend/internal/adapters/websocket/payment"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	paymentService "github.com/go-jedi/foodgramm_backend/internal/service/payment"
 )
 
 func (d *Dependencies) PaymentService() service.PaymentService {

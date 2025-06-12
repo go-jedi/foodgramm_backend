@@ -3,8 +3,8 @@ package promocode
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/promocode"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/promocode"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) IsPromoCodeValidForUser(ctx context.Context, dto promocode.IsPromoCodeValidForUserDTO) (bool, error) {

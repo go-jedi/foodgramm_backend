@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/user"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/user"
 )
 
 func (s *serv) List(ctx context.Context, dto user.ListDTO) (user.ListResponse, error) {

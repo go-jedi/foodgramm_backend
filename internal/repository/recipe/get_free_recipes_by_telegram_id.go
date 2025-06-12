@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/recipe"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/recipe"
 )
 
 func (r *repo) GetFreeRecipesByTelegramID(ctx context.Context, telegramID string) (recipe.UserFreeRecipes, error) {

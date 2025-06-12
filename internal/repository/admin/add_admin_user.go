@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/admin"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/admin"
 )
 
 func (r *repo) AddAdminUser(ctx context.Context, telegramID string) (admin.Admin, error) {

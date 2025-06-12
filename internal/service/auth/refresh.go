@@ -3,8 +3,8 @@ package auth
 import (
 	"context"
 
-	"github.com/go-jedi/foodgrammm-backend/internal/domain/auth"
-	"github.com/go-jedi/foodgrammm-backend/pkg/apperrors"
+	"github.com/go-jedi/foodgramm_backend/internal/domain/auth"
+	"github.com/go-jedi/foodgramm_backend/pkg/apperrors"
 )
 
 func (s *serv) Refresh(ctx context.Context, dto auth.RefreshDTO) (auth.RefreshResponse, error) {

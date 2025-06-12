@@ -5,9 +5,9 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
-	"github.com/go-jedi/foodgrammm-backend/internal/service"
-	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
+	"github.com/go-jedi/foodgramm_backend/config"
+	"github.com/go-jedi/foodgramm_backend/internal/service"
+	"github.com/go-jedi/foodgramm_backend/pkg/logger"
 )
 
 type Cron struct {

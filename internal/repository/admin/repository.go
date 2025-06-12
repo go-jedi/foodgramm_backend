@@ -1,9 +1,9 @@
 package admin
 
 import (
-	"github.com/go-jedi/foodgrammm-backend/internal/repository"
-	"github.com/go-jedi/foodgrammm-backend/pkg/logger"
-	"github.com/go-jedi/foodgrammm-backend/pkg/postgres"
+	"github.com/go-jedi/foodgramm_backend/internal/repository"
+	"github.com/go-jedi/foodgramm_backend/pkg/logger"
+	"github.com/go-jedi/foodgramm_backend/pkg/postgres"
 )
 
 type repo struct {

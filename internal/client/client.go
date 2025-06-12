@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/go-jedi/foodgrammm-backend/config"
-	"github.com/go-jedi/foodgrammm-backend/internal/client/openai"
-	"github.com/go-jedi/foodgrammm-backend/internal/client/payment"
-	recipescraper "github.com/go-jedi/foodgrammm-backend/internal/client/recipe_scraper"
+	"github.com/go-jedi/foodgramm_backend/config"
+	"github.com/go-jedi/foodgramm_backend/internal/client/openai"
+	"github.com/go-jedi/foodgramm_backend/internal/client/payment"
+	recipescraper "github.com/go-jedi/foodgramm_backend/internal/client/recipe_scraper"
 )
 
 const defaultTimeoutReq = 15 // second
